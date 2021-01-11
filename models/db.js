@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@zenactive-cluster.ot555.mongodb.net/zenactive?retryWrites=true&w=majority`;
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}`;
+// TODO: fix above with the correct URL to the database
 const options = {
 	useUnifiedTopology: true,
 	useNewUrlParser: true
@@ -55,7 +56,8 @@ const database = {
 		}
 	},
 	
-	updateOne: async function(model, filter, update) { //model, filter (similar to "find"), update (what to update)
+	updateOne: async function(model, filter, update) {
+		// model, filter (similar to "find"), update (what to update)
 		try {
 			var result = await model.updateOne(filter, update);
 			console.log('Document modified: ' + result.nModified);
