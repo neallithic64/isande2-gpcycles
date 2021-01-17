@@ -8,6 +8,6 @@ var testSchema = new mongoose.Schema({
 //testSchema.index({
 //	refID1: 1,
 //	refID2: 1
-//}, { unique: true });
+//}, { unique: true }); helo
 
 module.exports = mongoose.model('Test', testSchema);
