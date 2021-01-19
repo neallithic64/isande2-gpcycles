@@ -2414,8 +2414,8 @@ textarea.form-control {
 .btn {
   display: inline-block;
   font-weight: 400;
-  width:200px;
-  color: #212529;
+  width: auto;
+  color: #85888b;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -2458,7 +2458,9 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #F50506;
   border-color: #F50506;
+  width: 150px;
 }
+
 .btn-primary:hover {
   color: #fff;
   background-color: #ce0808;
@@ -3973,6 +3975,9 @@ input[type=button].btn-block {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #c4c4c4;
 }
 .navbar .container,
 .navbar .container-fluid,
@@ -4300,10 +4305,10 @@ input[type=button].btn-block {
   color: #fff;
 }
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0,0,0);
 }
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
-  color: rgba(255, 255, 255, 0.75);
+  color: #D72323;
 }
 .navbar-dark .navbar-nav .nav-link.disabled {
   color: rgba(255, 255, 255, 0.25);
@@ -4312,23 +4317,23 @@ input[type=button].btn-block {
 .navbar-dark .navbar-nav .active > .nav-link,
 .navbar-dark .navbar-nav .nav-link.show,
 .navbar-dark .navbar-nav .nav-link.active {
-  color: #fff;
+  color: rgba(0,0,0);
 }
 .navbar-dark .navbar-toggler {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0,0,0);
   border-color: rgba(255, 255, 255, 0.1);
 }
 .navbar-dark .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 .navbar-dark .navbar-text {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0,0,0);
 }
 .navbar-dark .navbar-text a {
-  color: #fff;
+  color: rgba(0,0,0);
 }
 .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
-  color: #fff;
+  color: rgba(0,0,0);
 }
 
 .card {
@@ -4337,7 +4342,7 @@ input[type=button].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #F5EDED;
+  background-color: #FFFFFF;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
@@ -6161,7 +6166,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #343a40 !important;
+  background-color: #ffffff !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -7386,6 +7391,13 @@ button.bg-dark:focus {
   right: 0;
   left: 0;
   z-index: 1030;
+  font-family: 'Poppins';
+  font-size: 14px;
+}
+
+.sb-topnav {
+  display:flex;
+  flex-direction: row-reverse;
 }
 
 .fixed-bottom {
@@ -10136,13 +10148,22 @@ body {
   max-width: 20rem;
 }
 
-#logo {
+#logologin {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: -10px;
+  margin-top: 10px;
   width: 260px;
   height: 250px;
+}
+
+#logomain {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  width: 140px;
+  height: 125px;
 }
 
 .loginbg {
@@ -10152,6 +10173,10 @@ body {
 .nav .nav-link .sb-nav-link-icon,
 .sb-sidenav-menu .nav-link .sb-nav-link-icon {
   margin-right: 0.5rem;
+}
+
+.fa-shopping-bag {
+  margin-left: 3px;
 }
 
 .sb-topnav {
@@ -10219,29 +10244,29 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #212529;
-  color: rgba(255, 255, 255, 0.5);
+  background-color: #C4C4C4;
+  color: rgb(0, 0, 0);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgb(0, 0, 0);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(0, 0, 0);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgb(0, 0, 0);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgb(0, 0, 0);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #fff;
+  color: #D72323;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-  color: #fff;
+  color: #D72323;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: #fff;
+  color: #D72323;
 }
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #343a40;
