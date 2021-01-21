@@ -8,12 +8,12 @@ var purchOrdSchema = new mongoose.Schema({
 			ref: "Product"
 		},
 		qty: Number,
-		unitPrice: Number
+		unitPrice: Number,
+		discount: Number
 	}],
-	discount: Number,
 	penalty: Number,
-	remarks: String,
 	conditions: String,
+	remarks: String,
 	status: String,
 	supplier: {
 		type: mongoose.Schema.Types.ObjectId,

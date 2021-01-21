@@ -8,9 +8,9 @@ var saleOrdSchema = new mongoose.Schema({
 			ref: "Product"
 		},
 		qty: Number,
-		unitPrice: Number
+		unitPrice: Number,
+		discount: Number
 	}],
-	discount: Number,
 	penalty: Number,
 	adjustment: Number,
 	remarks: String,
