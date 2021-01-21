@@ -1,30 +1,21 @@
 const mongoose = require('mongoose');
 
 var productSchema = new mongoose.Schema({
-	productID: {
-		type: String,
-		required: true
+	prodName: String,
+	itemCode: String,
+	itemGroup: String,
+	unit: String,
+	supplier: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Supplier"
 	},
-	name: {
-		type: String,
-		required: true
-	},
-	price: {
-		type: Number,
-		required: true
-	},
-	size: {
-		type: String,
-		required: true
-	},
-	color: {
-		type: String,
-		required: true
-	},
-	hexcode: {
-		type: String,
-		required: true
-	}
+	purchasePrice: Number,
+	sellingPrice: Number,
+	quantity: Number,
+	description: String,
+	incomingQty: Number,
+	outgoingQty: Number,
+	reorderPoint: Number
 }, {collection: "Product"});
 
 module.exports = mongoose.model('Product', productSchema);
