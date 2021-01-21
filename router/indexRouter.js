@@ -2,7 +2,7 @@ const express = require('express');
 const router = express();
 const test = require('../controller/indexTest');
 
-// Testing Routes
+// Testing Routes; SANDBOXING PURPOSES ONLY
 router.get('/test', test.getHome);
 
 // Error Page

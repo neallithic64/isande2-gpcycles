@@ -5,10 +5,6 @@ function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
 }
 
-function genDate() {
-	return new Date((new Date()) - Math.round(Math.random()*1000000000));
-}
-
 function incDate(date) {
 	let d = new Date(date);
 	return d.setDate(d.getDate()+1);
@@ -18,7 +14,7 @@ function incDate(date) {
  */
 const indexTest = {
 	getHome: function(req, res) {
-		res.render('testpage', {
+		res.render('###testpage###', {
 			layout: false,
 			title: 'Test Test Test',
 			picker: () => 'filters'
