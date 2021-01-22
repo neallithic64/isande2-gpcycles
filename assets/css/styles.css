@@ -1667,12 +1667,6 @@ pre code {
   margin-bottom: 1rem;
   color: #212529;
 }
-.tablethin th,
-.tablethin td {
-  padding: 0.25rem 0.5rem;;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-}
 .table th,
 .table td {
   padding: 0.75rem;
@@ -2940,12 +2934,6 @@ fieldset:disabled a.btn {
 }
 .btn-block + .btn-block {
   margin-top: 0.5rem;
-}
-
-input[type=submit].btn-block,
-input[type=reset].btn-block,
-input[type=button].btn-block {
-  width: 100%;
 }
 
 .fade {
@@ -10058,6 +10046,7 @@ body {
   left: 50%;
   transform: translate(-50%, 0)
 }
+
 #layoutAuthentication #layoutAuthentication_content {
   min-width: 0;
   flex-grow: 1;
