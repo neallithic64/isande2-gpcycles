@@ -12,6 +12,7 @@ router.get('/login', gpController.getLogin);
 
 // POST Routes
 router.post('/login', gpMiddleware.validateLogin, gpController.postLogin);
+router.post('/logout', gpController.postLogout);
 router.post('/register', gpMiddleware.validateRegister, gpController.postRegister);
 
 // Error Page

@@ -40,6 +40,11 @@ const gpController = {
 		}
 	},
 	
+	postLogout: function(req, res) {
+		req.session.destory();
+		res.redirect('/login');
+	},
+	
 	postRegister: async function(req, res) {
 		let {username, password, usertype, name} = req.body;
 		try {
