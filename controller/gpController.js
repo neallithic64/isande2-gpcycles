@@ -17,9 +17,18 @@ function forceJSON(e) {
  */
 const gpController = {
 	getHome: function(req, res) {
-		res.render('VIEW NAME', {
-			
-		});
+		if (req.session.user) {
+			if (req.session.user.usertype === "Admin" || req.session.user.usertype === "Secretary") {
+				res.render('dashboard', {
+					title: 'Dashboard'
+					// something goes here but unsure on params
+				});
+			} else {
+				// what to render	if sales associate?
+			}
+		} else {
+			// redirect to login page?
+		}
 	},
 	
 	getLogin: function(req, res) {
