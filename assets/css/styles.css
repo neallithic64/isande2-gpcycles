@@ -1667,6 +1667,14 @@ pre code {
   margin-bottom: 1rem;
   color: #212529;
 }
+
+.tablethin th,
+.tablethin td {
+  padding: 0.25rem 0.5rem;;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
 .table th,
 .table td {
   padding: 0.75rem;
