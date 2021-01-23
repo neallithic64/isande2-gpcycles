@@ -23,13 +23,14 @@ const gpController = {
 	},
 	
 	getLogin: function(req, res) {
-		
+		if (req.session.user) res.redirect('/');
+		else res.render('login', {
+			title: 'Login'
+		});
 	},
 	
-	
-	
 	postLogin: async function(req, res) {
-		let {username, password} = req.body;
+		let {username} = req.body;
 		try {
 			let user = await db.findOne(User, {username: username});
 			req.session.user = user;
@@ -41,7 +42,19 @@ const gpController = {
 	
 	postRegister: async function(req, res) {
 		let {username, password, usertype, name} = req.body;
-		// submitting here to db
+		try {
+			let hash = await bcrypt.hash(password, saltRounds);
+			let newUser = {
+				username: username,
+				password: hash,
+				usertype: usertype,
+				name: name
+			};
+			await db.insertOne(User, newUser);
+			res.status(200).send();
+		} catch (e) {
+			res.status(500).send('Server error.');
+		}
 	}
 };
 
