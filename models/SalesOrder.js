@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var saleOrdSchema = new mongoose.Schema({
+const saleOrdSchema = new mongoose.Schema({
 	orderNum: String,
 	items: [{
 		product: {
