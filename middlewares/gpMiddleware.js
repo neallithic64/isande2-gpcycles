@@ -11,7 +11,7 @@ const Product = require('../models/Product');
 const bcrypt = require('bcrypt');
 
 const gpMiddleware = {
-	validateRegister: async function (req, res, next) {
+	validateAddUser: async function (req, res, next) {
 		// We check if the user is already existing in the database
 		try {
 			let {username} = req.body;

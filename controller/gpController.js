@@ -38,6 +38,14 @@ const gpController = {
 		});
 	},
 	
+	getAddUser: function(req, res) {
+		
+	},
+	
+	
+	
+	
+	
 	postLogin: async function(req, res) {
 		let {username} = req.body;
 		try {
@@ -54,7 +62,7 @@ const gpController = {
 		res.redirect('/login');
 	},
 	
-	postRegister: async function(req, res) {
+	postAddUser: async function(req, res) {
 		let {username, password, usertype, name} = req.body;
 		try {
 			let hash = await bcrypt.hash(password, saltRounds);

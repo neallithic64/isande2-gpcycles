@@ -9,11 +9,12 @@ router.get('/test', test.getHome);
 
 // GET Routes
 router.get('/login', gpController.getLogin);
+router.post('/adduser', gpController.getAddUser);
 
 // POST Routes
 router.post('/login', gpMiddleware.validateLogin, gpController.postLogin);
 router.post('/logout', gpController.postLogout);
-router.post('/register', gpMiddleware.validateRegister, gpController.postRegister);
+router.post('/adduser', gpMiddleware.validateAddUser, gpController.postAddUser);
 
 // Error Page
 router.get('*', function(req, res) {
