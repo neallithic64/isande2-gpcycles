@@ -23,12 +23,8 @@ const gpController = {
 					title: 'Dashboard'
 					// something goes here but unsure on params
 				});
-			} else {
-				// what to render	if sales associate?
-			}
-		} else {
-			// redirect to login page?
-		}
+			} else res.redirect('/addSO');
+		} else res.redirect('/login');
 	},
 	
 	getLogin: function(req, res) {
