@@ -16,9 +16,14 @@ const productSchema = new mongoose.Schema({
 	sellingPrice: Number,
 	quantity: Number,
 	description: String,
+	discount: {
+		qty: Number,
+		percentage: Number
+	},
 	incomingQty: Number,
 	outgoingQty: Number,
 	reorderPoint: Number,
+	reorderQty: Number,
 	adjustmentHistory: [{
 		date: Date,
 		before: Number,
