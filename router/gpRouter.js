@@ -16,8 +16,8 @@ router.get('/adduser', gpController.getAddUser);
 router.get('/addPO');
 router.get('/addSO');
 router.get('/addProduct');
-router.get('/addCustomer');
-router.get('/addSupplier');
+router.get('/addCustomer', gpController.getAddCustomer);
+router.get('/addSupplier', gpController.getAddSupplier);
 
 
 
@@ -29,8 +29,8 @@ router.post('/addPO');
 router.post('/addSO');
 router.post('/addItemGroup', gpController.postAddItemGroup);
 router.post('/addProduct');
-router.post('/addCustomer');
-router.post('/addSupplier');
+router.post('/addCustomer', gpController.postAddCustomer);
+router.post('/addSupplier', gpController.postAddSupplier);
 
 
 

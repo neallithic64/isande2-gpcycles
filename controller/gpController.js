@@ -36,7 +36,25 @@ const gpController = {
 	},
 	
 	getAddUser: function(req, res) {
-		
+		if (!req.session.user) res.redirect('/login');
+		else res.render('addaccount', {
+			title: 'Add Account'
+		});
+	},
+	
+	
+	getAddCustomer: function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else res.render('addcustomer', {
+			title: 'Add Customer'
+		});
+	},
+	
+	getAddSupplier: function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else res.render('addsupplier', {
+			title: 'Add Supplier'
+		});
 	},
 	
 	
@@ -80,6 +98,28 @@ const gpController = {
 		let {itemgrp} = req.body;
 		try {
 			await db.insertOne(ItemGroup, {itemGroup: itemgrp});
+			return res.status(200).send();
+		} catch (e) {
+			return res.status(500).send();
+		}
+	},
+	
+	
+	postAddCustomer: async function(req, res) {
+		let {name, email, contactNum, street, city, province} = req.body;
+		try {
+			await db.insertOne(Customer, {});
+			return res.status(200).send();
+		} catch (e) {
+			return res.status(500).send();
+		}
+	},
+	
+	postAddSupplier: async function(req, res) {
+		let {supplierType, name, email, contactPerson, contactNum, address} = req.body;
+		let dateAdded = new Date();
+		try {
+			await db.insertOne(Supplier, {});
 			return res.status(200).send();
 		} catch (e) {
 			return res.status(500).send();
