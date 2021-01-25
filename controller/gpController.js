@@ -5,6 +5,7 @@ const Customer = require('../models/Customer');
 const SalesOrder = require('../models/SalesOrder');
 const PurchaseOrder = require('../models/PurchaseOrder');
 const Product = require('../models/Product');
+const ItemGroup = require('../models/ItemGroup');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -72,6 +73,16 @@ const gpController = {
 			res.status(200).send();
 		} catch (e) {
 			res.status(500).send('Server error.');
+		}
+	},
+	
+	postAddItemGroup: async function(req, res) {
+		let {itemgrp} = req.body;
+		try {
+			await db.insertOne(ItemGroup, {itemGroup: itemgrp});
+			return res.status(200).send();
+		} catch (e) {
+			return res.status(500).send();
 		}
 	}
 };
