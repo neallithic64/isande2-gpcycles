@@ -10,7 +10,7 @@ router.get('/test', test.getHome);
 
 
 // GET Routes
-router.get('/');
+router.get('/', gpController.getHome);
 router.get('/login', gpController.getLogin);
 router.get('/adduser', gpController.getAddUser);
 router.get('/addPO');
