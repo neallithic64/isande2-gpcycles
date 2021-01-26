@@ -21,8 +21,10 @@ const gpController = {
 		if (req.session.user) {
 			if (req.session.user.usertype === "Admin" || req.session.user.usertype === "Secretary") {
 				res.render('dashboard', {
-					title: 'Dashboard'
-					// something goes here but unsure on params
+					topNav: true,
+					sideNav: true,
+					title: 'Dashboard',
+					name: req.session.user.name
 				});
 			} else res.redirect('/addSO');
 		} else res.redirect('/login');
