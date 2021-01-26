@@ -1,73 +1,73 @@
 <div class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <div style="margin-bottom: 20px;">
-                            <h1 class="mt-4">New Customer</h1>
-                        </div>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<div id="layoutSidenav_content">
+				<main>
+					<div class="container-fluid">
+						<div style="margin-bottom: 20px;">
+							<h1 class="mt-4">New Customer</h1>
+						</div>
 
-                        <form>
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustFirstName">First Name</label> <span style="color: red"> * </span>
-                                        <input class="form-control py-4" id="inputCustFirstName" type="text" placeholder="Enter first name" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustLastName">Last Name</label> <span style="color: red"> * </span>
-                                        <input class="form-control py-4" id="inputCustLastName" type="text" placeholder="Enter last name" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustMobileNo">Mobile Number</label> <span style="color: red"> * </span>
-                                        <input class="form-control py-4" id="inputCustMobileNo" type="text" placeholder="09xxxxxxxxx" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustEmail">Email</label>
-                                <input class="form-control py-4" id="inputCustEmail" type="email" placeholder="abc@abc.com"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="small mb-1" for="inputCustAddress">Address</label> <span style="color: red"> * </span>
-                            </div>
-                            <div class="form-row" style="margin-top: -8px">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustStreet">Street</label> <span class="small mb-1"> (min. of 8 characters) </span> <span style="color: red"> * </span>
-                                        <input class="form-control py-4" id="inputCustStreet" type="text" placeholder="Enter house no., street, barangay" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustCity">City</label> <span style="color: red"> * </span>
-                                        <input class="form-control py-4" id="inputCustCity" type="text" placeholder="Enter city" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputCustProvince">Province</label> <span style="color: red"> * </span>
-                                        <input class="form-control py-4" id="inputCustProvince" type="text" placeholder="Enter province" required/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="margin-top: -20px;">
-                                <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                    <button style="margin-right: 10px;" class="btn btn-primary">Add</button>
-                                    <button class="btn btn-outline-secondary" href="customers.html">Cancel</button>
-                                </div>
-                            </div>
-                        </form> 
-                    </div>
-                </main>
-            </div>
-        </div>
-    </div>
+						<form>
+							<div class="form-row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="firstname">First Name</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="firstname" type="text" placeholder="Enter first name" required/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="lastname">Last Name</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="lastname" type="text" placeholder="Enter last name" required/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="contactNum">Mobile Number</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="contactNum" type="text" placeholder="09xxxxxxxxx" required/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="email">Email</label>
+								<input class="form-control py-4" name="email" type="email" placeholder="abc@abc.com"/>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="small mb-1" for="inputCustAddress">Address</label> <span style="color: red"> * </span>
+							</div>
+							<div class="form-row" style="margin-top: -8px">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="street">Street</label> <span class="small mb-1"> (min. of 8 characters) </span> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="street" type="text" placeholder="Enter house no., street, barangay" required/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="city">City</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="city" type="text" placeholder="Enter city" required/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="province">Province</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="province" type="text" placeholder="Enter province" required/>
+									</div>
+								</div>
+							</div>
+							<div style="margin-top: -20px;">
+								<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
+									<button type="button" style="margin-right: 10px;" class="btn btn-primary">Add</button>
+									<button class="btn btn-outline-secondary" href="/customers">Cancel</button>
+								</div>
+							</div>
+						</form> 
+					</div>
+				</main>
+			</div>
+		</div>
+	</div>
 </div>
