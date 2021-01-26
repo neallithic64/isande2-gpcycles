@@ -49,9 +49,8 @@ const gpController = {
 	getAddUser: function(req, res) {
 		if (!req.session.user && req.session.user !== "Admin") res.redirect('/login');
 		else res.render('addaccount', {
-			// SET BOTH TO FALSE DURING DEMO IF FLUID CONTAINER ISSUE NOT YET SOLVED
-			topNav: false,
-			sideNav: false,
+			topNav: true,
+			sideNav: true,
 			title: 'Add Account'
 		});
 	},
@@ -60,6 +59,8 @@ const gpController = {
 	getAddCustomer: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('addcustomer', {
+			topNav: true,
+			sideNav: true,
 			title: 'Add Customer'
 		});
 	},
@@ -67,6 +68,8 @@ const gpController = {
 	getAddSupplier: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('addsupplier', {
+			topNav: true,
+			sideNav: true,
 			title: 'Add Supplier'
 		});
 	},
@@ -74,6 +77,8 @@ const gpController = {
 	getAddProduct: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('addproduct', {
+			topNav: true,
+			sideNav: true,
 			title: 'Add Product'
 		});
 	},
@@ -88,7 +93,6 @@ const gpController = {
 			let user = await db.findOne(User, {username: username});
 			req.session.user = user;
 			res.redirect('/');
-			// res.status(200).send();
 		} catch (e) {
 			res.status(500).send('Server error.');
 		}
@@ -129,8 +133,16 @@ const gpController = {
 	
 	postAddCustomer: async function(req, res) {
 		let {name, email, contactNum, street, city, province} = req.body;
+		let customer = {
+			name: name,
+			email: email,
+			contactNum: contactNum,
+			street: street,
+			city: city,
+			province: province
+		};
 		try {
-			await db.insertOne(Customer, {});
+			await db.insertOne(Customer, customer);
 			return res.status(200).send();
 		} catch (e) {
 			return res.status(500).send();
@@ -139,9 +151,17 @@ const gpController = {
 	
 	postAddSupplier: async function(req, res) {
 		let {supplierType, name, email, contactPerson, contactNum, address} = req.body;
-		let dateAdded = new Date();
+		let supplier = {
+			supplierType: supplierType,
+			name: name,
+			dateAdded: new Date(),
+			email: email,
+			contactPerson: contactPerson,
+			contactNum: contactNum,
+			address: address
+		};
 		try {
-			await db.insertOne(Supplier, {});
+			await db.insertOne(Supplier, supplier);
 			return res.status(200).send();
 		} catch (e) {
 			return res.status(500).send();
