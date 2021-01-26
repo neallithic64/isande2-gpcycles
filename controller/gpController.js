@@ -38,8 +38,11 @@ const gpController = {
 	},
 	
 	getAddUser: function(req, res) {
-		if (!req.session.user) res.redirect('/login');
+		if (!req.session.user && req.session.user !== "Admin") res.redirect('/login');
 		else res.render('addaccount', {
+			// SET BOTH TO FALSE DURING DEMO IF FLUID CONTAINER ISSUE NOT YET SOLVED
+			topNav: true,
+			sideNav: true,
 			title: 'Add Account'
 		});
 	},
