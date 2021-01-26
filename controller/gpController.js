@@ -76,7 +76,7 @@ const gpController = {
 	},
 	
 	postLogout: function(req, res) {
-		req.session.destory();
+		req.session.destroy();
 		res.redirect('/login');
 	},
 	
