@@ -30,11 +30,12 @@ const gpMiddleware = {
 			let userMatch = await db.findOne(User, {username: username});
 			if (!userMatch) res.status(400).send();
 			else {
-				let compare = await bcrypt.compare(userMatch.password, password);
+				let compare = await bcrypt.compare(password, userMatch.password);
 				if (compare) return next();
 				else res.status(400).send();
 			}
 		} catch (e) {
+			console.log(e);
 			res.status(500).send(e);
 		}
 	},

@@ -66,7 +66,8 @@ const gpController = {
 		try {
 			let user = await db.findOne(User, {username: username});
 			req.session.user = user;
-			res.status(200).send();
+			res.redirect('/');
+			// res.status(200).send();
 		} catch (e) {
 			res.status(500).send('Server error.');
 		}
