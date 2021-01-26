@@ -42,7 +42,8 @@ const gpController = {
 		else res.render('inventoryTable', {
 			topNav: true,
 			sideNav: true,
-			title: 'Inventory'
+			title: 'Inventory',
+			name: req.session.user.name
 		});
 	},
 	
@@ -51,7 +52,8 @@ const gpController = {
 		else res.render('addaccount', {
 			topNav: true,
 			sideNav: true,
-			title: 'Add Account'
+			title: 'Add Account',
+			name: req.session.user.name
 		});
 	},
 	
@@ -61,7 +63,8 @@ const gpController = {
 		else res.render('addcustomer', {
 			topNav: true,
 			sideNav: true,
-			title: 'Add Customer'
+			title: 'Add Customer',
+			name: req.session.user.name
 		});
 	},
 	
@@ -70,17 +73,28 @@ const gpController = {
 		else res.render('addsupplier', {
 			topNav: true,
 			sideNav: true,
-			title: 'Add Supplier'
+			title: 'Add Supplier',
+			name: req.session.user.name
 		});
 	},
 	
-	getAddProduct: function(req, res) {
+	getAddProduct: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
-		else res.render('addproduct', {
-			topNav: true,
-			sideNav: true,
-			title: 'Add Product'
-		});
+		else {
+			try {
+				let itemgroups = await db.findMany(ItemGroup, {});
+				res.render('addproduct', {
+					topNav: true,
+					sideNav: true,
+					title: 'Add Product',
+					name: req.session.user.name,
+					itemgroups: forceJSON(itemgroups)
+				});
+			} catch (e) {
+				res.send('error!');
+			}
+
+		}
 	},
 	
 	

@@ -1,5 +1,6 @@
 const db = require('../models/db');
 const Test = require('../models/Test');
+const ItemGroup = require('../models/ItemGroup');
 
 function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
@@ -39,6 +40,16 @@ const indexTest = {
 		for (let i = 0; i < 20; i++) docs.push({mainVal: genDate(), otherVal: Math.round(Math.random()*1000)});
 		await db.insertMany(Test, docs);
 		res.redirect('/');
+	},
+	
+	addItemGroups: async function(req, res) {
+		try {
+			let array = [];
+			await db.insertMany(ItemGroup, array);
+			res.send('yay inserted stuff');
+		} catch (e) {
+			res.send('oof');
+		}
 	}
 };
 
