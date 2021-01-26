@@ -3,7 +3,10 @@ const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@gpcycle
 
 const options = {
 	useUnifiedTopology: true,
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	socketTimeoutMS: 45000,
+	keepAlive: true/*,
+	reconnectTries: 10*/
 };
 mongoose.set('useCreateIndex', true);
 
