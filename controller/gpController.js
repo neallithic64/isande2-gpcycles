@@ -41,8 +41,8 @@ const gpController = {
 		if (!req.session.user && req.session.user !== "Admin") res.redirect('/login');
 		else res.render('addaccount', {
 			// SET BOTH TO FALSE DURING DEMO IF FLUID CONTAINER ISSUE NOT YET SOLVED
-			topNav: true,
-			sideNav: true,
+			topNav: false,
+			sideNav: false,
 			title: 'Add Account'
 		});
 	},
@@ -84,14 +84,14 @@ const gpController = {
 	},
 	
 	postAddUser: async function(req, res) {
-		let {username, password, usertype, name} = req.body;
+		let {username, password, usertype, firstname, lastname} = req.body;
 		try {
 			let hash = await bcrypt.hash(password, saltRounds);
 			let newUser = {
 				username: username,
 				password: hash,
 				usertype: usertype,
-				name: name
+				name: firstname + ' ' + lastname
 			};
 			await db.insertOne(User, newUser);
 			res.status(200).send();
