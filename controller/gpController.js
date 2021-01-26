@@ -37,6 +37,15 @@ const gpController = {
 		});
 	},
 	
+	getInventory: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else res.render('inventoryTable', {
+			topNav: true,
+			sideNav: true,
+			title: 'Inventory'
+		});
+	},
+	
 	getAddUser: function(req, res) {
 		if (!req.session.user && req.session.user !== "Admin") res.redirect('/login');
 		else res.render('addaccount', {
@@ -59,6 +68,13 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('addsupplier', {
 			title: 'Add Supplier'
+		});
+	},
+	
+	getAddProduct: function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else res.render('addproduct', {
+			title: 'Add Product'
 		});
 	},
 	

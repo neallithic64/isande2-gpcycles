@@ -13,9 +13,10 @@ router.get('/test', test.getHome);
 router.get('/', gpController.getHome);
 router.get('/login', gpController.getLogin);
 router.get('/adduser', gpController.getAddUser);
+router.get('/inventory', gpController.getInventory);
 router.get('/addPO');
 router.get('/addSO');
-router.get('/addProduct');
+router.get('/addProduct', gpController.getAddProduct);
 router.get('/addCustomer', gpController.getAddCustomer);
 router.get('/addSupplier', gpController.getAddSupplier);
 
