@@ -1,8 +1,6 @@
-{{#if topNav}} {{> topNav}}
-{{/if}}
+{{#if topNav}} {{> topNav}} {{/if}}
 
-{{#if sideNav}} {{> sideNav}}
-{{/if}}
+{{#if sideNav}} {{> sideNav}} {{/if}}
 
 <div class="sb-nav-fixed">
 	<div id="layoutSidenav">
@@ -17,21 +15,21 @@
 						<div class="form-row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="small mb-1" for="inputProductName">Product Name</label> <span style="color: red"> * </span>
-									<input class="form-control py-4" id="inputProductName" type="text" placeholder="Enter product name" required/>
+									<label class="small mb-1" for="prodName">Product Name</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" name="prodName" type="text" placeholder="Enter product name" required/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="small mb-1" for="inputMeasure">Unit of Measurement</label> <span style="color: red"> * </span>
-									<input class="form-control py-4" id="inputMeasure" type="text" placeholder="Enter unit of measurement" required/>
+									<label class="small mb-1" for="unit">Unit of Measurement</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" name="unit" type="text" placeholder="Enter unit of measurement" required/>
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="small mb-1" for="inputGroup">Product Group</label> <span style="color: red"> * </span>
-									<select class="form-control" id="inputGroup" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
+									<label class="small mb-1" for="itemGroup">Product Group</label> <span style="color: red"> * </span>
+									<select class="form-control" name="itemGroup" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
 										<option value="" disabled selected> Select group </option>
 										{{#each itemgroups}}
 											<option value="{{{_id}}}"> {{itemGroup}} </option>
@@ -41,32 +39,33 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="small mb-1" for="inputSupplier">Supplier</label> <span style="color: red"> * </span>
-									<select class="form-control" id="inputSupplier" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
+									<label class="small mb-1" for="supplier">Supplier</label> <span style="color: red"> * </span>
+									<select class="form-control" name="supplier" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
 										<option value="" disabled selected> Select supplier </option>
-										<option value="one"> One </option>
-										<option value="two"> Two </option>
+										{{#each suppliers}}
+											<option value="{{{_id}}}"> {{#SUPPLIER_NAME}} </option>
+										{{/each}}
 									</select>
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="small mb-1" for="inputPurchasePrice">Purchase Price</label> <span style="color: red"> * </span>
-									<input class="form-control py-4" id="inputPurchasePrice" type="text" placeholder="Enter purchase price" required/>
+									<label class="small mb-1" for="purchasePrice">Purchase Price</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" name="purchasePrice" type="text" placeholder="Enter purchase price" required/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="small mb-1" for="inputSellingPrice">Selling Price</label> <span style="color: red"> * </span>
-									<input class="form-control py-4" id="inputSellingPrice" type="text" placeholder="Enter selling price" required/>
+									<label class="small mb-1" for="sellingPrice">Selling Price</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" name="sellingPrice" type="text" placeholder="Enter selling price" required/>
 								</div>
 							</div>
 
 							<div class="col-md-6" style="min-width: 100%;">
 								<div class="form-group">
-									<label class="small mb-1" for="inputDescription">Description</label> <span style="color: red"> * </span>
-									<input class="form-control py-4" id="inputDescription" type="text" placeholder="Enter description" required/>
+									<label class="small mb-1" for="description">Description</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" name="description" type="text" placeholder="Enter description" required/>
 								</div>
 							</div>
 						</div>    
@@ -78,20 +77,20 @@
 							<div class="form-row" style="margin-top: -20px;">
 								<div class="col-md-6" style="max-width: 33%;">
 									<div class="form-group">
-										<label class="small mb-1" for="inputStartingQuantity">Starting Quantity</label> <span style="color: red"> * </span>
-										<input class="form-control py-4" id="inputStartingQuantity" type="number" placeholder="Enter starting quantity" required/>
+										<label class="small mb-1" for="quantity">Starting Quantity</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" name="quantity" type="number" placeholder="Enter starting quantity" required/>
 									</div>
 								</div>
 								<div class="col-md-6" style="max-width: 33%;">
 									<div class="form-group">
-										<label class="small mb-1" for="inputReorderPoint">Reorder Point</label> 
-										<input class="form-control py-4" id="inputReorderPoint" type="number" placeholder="Enter reorder point" />
+										<label class="small mb-1" for="reorderPoint">Reorder Point</label> 
+										<input class="form-control py-4" name="reorderPoint" type="number" placeholder="Enter reorder point" />
 									</div>
 								</div>
 								<div class="col-md-6" style="max-width: 33%;">
 									<div class="form-group">
-										<label class="small mb-1" for="inputReorderQty">Reorder Quantity</label>
-										<input class="form-control py-4" id="inputReorderQty" type="number" placeholder="Enter reorder quantity" />
+										<label class="small mb-1" for="reorderQty">Reorder Quantity</label>
+										<input class="form-control py-4" name="reorderQty" type="number" placeholder="Enter reorder quantity" />
 									</div>
 								</div>
 							</div>
@@ -104,14 +103,14 @@
 							<div class="form-row" style="margin-top: -20px">
 								<div class="col-md-6" style="max-width: 50%;">
 									<div class="form-group">
-										<label class="small mb-1" for="inputMinDiscQty">Minimum Quantity</label> 
-										<input class="form-control py-4" id="inputMinDiscQty" type="number" placeholder="Enter minimum quantity for discount" />
+										<label class="small mb-1" for="minDiscQty">Minimum Quantity</label> 
+										<input class="form-control py-4" name="minDiscQty" type="number" placeholder="Enter minimum quantity for discount" />
 									</div>
 								</div>
 								<div class="col-md-6" style="max-width: 50%;">
 									<div class="form-group">
-										<label class="small mb-1" for="inputDiscount">Percentage Discount</label>
-										<input class="form-control py-4" id="inputDiscount" type="number" placeholder="Enter percentage (ex: 20 for 20% discount)" />
+										<label class="small mb-1" for="percentage">Percentage Discount</label>
+										<input class="form-control py-4" name="percentage" type="number" placeholder="Enter percentage (ex: 20 for 20% discount)" />
 									</div>
 								</div>
 							</div>

@@ -24,7 +24,8 @@ const gpController = {
 					topNav: true,
 					sideNav: true,
 					title: 'Dashboard',
-					name: req.session.user.name
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin"
 				});
 			} else res.redirect('/addSO');
 		} else res.redirect('/login');
@@ -43,17 +44,24 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Inventory',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
 	getAddUser: function(req, res) {
-		if (!req.session.user && req.session.user !== "Admin") res.redirect('/login');
+		if (!req.session.user) res.redirect('/login');
+		else if (req.session.user !== "Admin") res.render('error', {
+			title: 'Unauthorised Access',
+			code: 403,
+			message: 'Admins only'
+		});
 		else res.render('addaccount', {
 			topNav: true,
 			sideNav: true,
 			title: 'Add Account',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -64,7 +72,8 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Add Customer',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -74,7 +83,8 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Add Supplier',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -83,12 +93,15 @@ const gpController = {
 		else {
 			try {
 				let itemgroups = await db.findMany(ItemGroup, {});
+				let suppliers = await db.findMany(Supplier, {});
 				res.render('addproduct', {
 					topNav: true,
 					sideNav: true,
 					title: 'Add Product',
 					name: req.session.user.name,
-					itemgroups: forceJSON(itemgroups)
+					isAdmin: req.session.user.usertype === "Admin",
+					itemgroups: forceJSON(itemgroups).sort(),
+					suppliers: forceJSON(suppliers)
 				});
 			} catch (e) {
 				res.send('error!');
@@ -176,6 +189,36 @@ const gpController = {
 		};
 		try {
 			await db.insertOne(Supplier, supplier);
+			return res.status(200).send();
+		} catch (e) {
+			return res.status(500).send();
+		}
+	},
+	
+	postAddProduct: async function(req, res) {
+		let { prodName, unit, itemGroup, supplier, purchasePrice, sellingPrice, description, quantity, reorderPoint, reorderQty, minDiscQty, percentage } = req.body;
+		let product = {
+			prodName: prodName,
+			itemCode: String,
+			itemGroup: db.toObjId(itemGroup),
+			unit: unit,
+			supplier: db.toObjId(supplier),
+			purchasePrice: purchasePrice,
+			sellingPrice: sellingPrice,
+			quantity: quantity,
+			description: description,
+			discount: {
+				qty: minDiscQty,
+				percentage: percentage
+			},
+			incomingQty: 0,
+			outgoingQty: 0,
+			reorderPoint: reorderPoint,
+			reorderQty: reorderQty,
+			adjustmentHistory: []
+		};
+		try {
+			await db.insertOne(Product, product);
 			return res.status(200).send();
 		} catch (e) {
 			return res.status(500).send();

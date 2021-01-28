@@ -1,215 +1,215 @@
 <!-- dashboard-->
 <div class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-                    <div  style="margin-bottom: 20px;">
-                            <h1 class="mt-4">Dashboard</h1>
-                    </div>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div style="margin-bottom: 20px;">
+						<h1 class="mt-4">Dashboard</h1>
+					</div>
 
-                    <!-- cards -->
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
-                                    <span class="salestoday" id="dbPhysicalSales"> 10 </span>
-                                    <span style="font-weight: 700;">PHYSICAL SALES</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card mb-4" style="align-items: center;">
-                                <div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
-                                    <span class="salestoday" id="dbOnlineSales"> 10 </span>
-                                    <span style="font-weight: 700;">ONLINE SALES</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card mb-4" style="align-items: center;">
-                                <div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
-                                    <span class="salestoday" id="dbRevenue"> 10.21K </span>
-                                    <span style="font-weight: 700;">REVENUE</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card mb-4" style="align-items: center;">
-                                <div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
-                                    <span class="salestoday" id="dbProfit"> 8.17K </span>
-                                    <span style="font-weight: 700;">PROFIT</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+					<!-- cards -->
+					<div class="row">
+						<div class="col-xl-3 col-md-6">
+							<div class="card mb-4">
+								<div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
+									<span class="salestoday" id="dbPhysicalSales"> 10 </span>
+									<span style="font-weight: 700;">PHYSICAL SALES</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6">
+							<div class="card mb-4" style="align-items: center;">
+								<div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
+									<span class="salestoday" id="dbOnlineSales"> 10 </span>
+									<span style="font-weight: 700;">ONLINE SALES</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6">
+							<div class="card mb-4" style="align-items: center;">
+								<div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
+									<span class="salestoday" id="dbRevenue"> 10.21K </span>
+									<span style="font-weight: 700;">REVENUE</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6">
+							<div class="card mb-4" style="align-items: center;">
+								<div class="card-body" style="display:flex; flex-direction: column; align-items: center;">
+									<span class="salestoday" id="dbProfit"> 8.17K </span>
+									<span style="font-weight: 700;">PROFIT</span>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                    <div class="row">
-                        <!-- sales chart -->
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area mr-1"></i>
-                                    <span style="font-weight: 700;"> Daily Sales </span>
-                                </div>
-                                <div class="card-body"><canvas id="dbDailySales" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
 
-                        <!-- revenue & purchases -->
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar mr-1"></i>
-                                    <span style="font-weight: 700;">Revenue and Purchases</span> 
-                                </div>
-                                <div class="card-body"><canvas id="dbRevAndPurch" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
+					<div class="row">
+						<!-- sales chart -->
+						<div class="col-xl-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-area mr-1"></i>
+									<span style="font-weight: 700;"> Daily Sales </span>
+								</div>
+								<div class="card-body"><canvas id="dbDailySales" width="100%" height="40"></canvas></div>
+							</div>
+						</div>
 
-                    <div class="row">
-                        <!-- fast and slow items -->
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-table mr-1"></i>
-                                    <span style="font-weight: 700;">Fast and Slow Items</span>
+						<!-- revenue & purchases -->
+						<div class="col-xl-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-bar mr-1"></i>
+									<span style="font-weight: 700;">Revenue and Purchases</span> 
+								</div>
+								<div class="card-body"><canvas id="dbRevAndPurch" width="100%" height="40"></canvas></div>
+							</div>
+						</div>
+					</div>
 
-                                    <!-- select month -->
-                                    <label>  for the Month of: 
-                                        <select id="fsMonth">
-                                            <option value="1">Jan</option>
-                                            <option value="2">Feb</option>
-                                            <option value="3">Mar</option>
-                                            <option value="4">Apr</option>
-                                            <option value="5">May</option>
-                                            <option value="6">Jun</option>
-                                            <option value="7">Jul</option>
-                                            <option value="8">Aug</option>
-                                            <option value="9">Sep</option>
-                                            <option value="10">Oct</option>
-                                            <option value="11">Nov</option>
-                                            <option value="12">Dec</option>
-                                        </select>
-                                    </label>
+					<div class="row">
+						<!-- fast and slow items -->
+						<div class="col-xl-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-table mr-1"></i>
+									<span style="font-weight: 700;">Fast and Slow Items</span>
 
-                                    <!-- select year -->
-                                    <label>Year: 
-                                        <select id="fsYear">
-                                            <option value="2020">2021</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2019">2019</option>
-                                            <option value="2018">2018</option>
-                                        </select>
-                                    </label> 
-                                </div>
+									<!-- select month -->
+									<label> for the Month of: 
+										<select id="fsMonth">
+											<option value="1">Jan</option>
+											<option value="2">Feb</option>
+											<option value="3">Mar</option>
+											<option value="4">Apr</option>
+											<option value="5">May</option>
+											<option value="6">Jun</option>
+											<option value="7">Jul</option>
+											<option value="8">Aug</option>
+											<option value="9">Sep</option>
+											<option value="10">Oct</option>
+											<option value="11">Nov</option>
+											<option value="12">Dec</option>
+										</select>
+									</label>
 
-                                <!-- table -->
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dbFastSlow" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Item</th>
-                                                    <th>COGS</th>
-                                                    <th>Beg. Inv.</th>
-                                                    <th>End. Inv.</th>
-                                                    <th>Inv. Turnover</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Item</th>
-                                                    <th>COGS</th>
-                                                    <th>Beg. Inv.</th>
-                                                    <th>End. Inv.</th>
-                                                    <th>Inv. Turnover</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <tr>
-                                                    <td>190mm Tube </td>
-                                                    <td>10198</td>
-                                                    <td>10432</td>
-                                                    <td>234</td>
-                                                    <td>1.91</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10mm Tube</td>
-                                                    <td>0</td>
-                                                    <td>25123</td>
-                                                    <td>25123</td>
-                                                    <td>0.00</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                    <a href="#">Go to Inventory <i class="fas fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
+									<!-- select year -->
+									<label>Year: 
+										<select id="fsYear">
+											<option value="2020">2021</option>
+											<option value="2020">2020</option>
+											<option value="2019">2019</option>
+											<option value="2018">2018</option>
+										</select>
+									</label> 
+								</div>
 
-                        <!-- low stock items -->
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-table mr-1"></i>
-                                    <span style="font-weight: 700; color: #D72323">Low Stock Items</span>
-                                </div>
+								<!-- table -->
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dbFastSlow" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>Item</th>
+													<th>COGS</th>
+													<th>Beg. Inv.</th>
+													<th>End. Inv.</th>
+													<th>Inv. Turnover</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Item</th>
+													<th>COGS</th>
+													<th>Beg. Inv.</th>
+													<th>End. Inv.</th>
+													<th>Inv. Turnover</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>190mm Tube </td>
+													<td>10198</td>
+													<td>10432</td>
+													<td>234</td>
+													<td>1.91</td>
+												</tr>
+												<tr>
+													<td>10mm Tube</td>
+													<td>0</td>
+													<td>25123</td>
+													<td>25123</td>
+													<td>0.00</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="card-footer" style="display: flex; flex-direction: row; justify-content: flex-end;">
+									<a href="#">Go to Inventory <i class="fas fa-angle-right"></i></a>
+								</div>
+							</div>
+						</div>
 
-                                <!-- table -->
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dbLowStock" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Item</th>
-                                                    <th>On Hand</th>
-                                                    <th>Incoming</th>
-                                                    <th>Outgoing</th>
-                                                    <th>Reorder Point</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Item</th>
-                                                    <th>On Hand</th>
-                                                    <th>Incoming</th>
-                                                    <th>Outgoing</th>
-                                                    <th>Reorder Point</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <tr>
-                                                    <td>190mm Tube </td>
-                                                    <td>20</td>
-                                                    <td>0</td>
-                                                    <td>10</td>
-                                                    <td>9</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Arm Protection</td>
-                                                    <td>14</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>11</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                    <a href="#">Go to Inventory <i class="fas fa-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
+						<!-- low stock items -->
+						<div class="col-xl-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-table mr-1"></i>
+									<span style="font-weight: 700; color: #D72323">Low Stock Items</span>
+								</div>
+
+								<!-- table -->
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dbLowStock" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>Item</th>
+													<th>On Hand</th>
+													<th>Incoming</th>
+													<th>Outgoing</th>
+													<th>Reorder Point</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Item</th>
+													<th>On Hand</th>
+													<th>Incoming</th>
+													<th>Outgoing</th>
+													<th>Reorder Point</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>190mm Tube </td>
+													<td>20</td>
+													<td>0</td>
+													<td>10</td>
+													<td>9</td>
+												</tr>
+												<tr>
+													<td>Arm Protection</td>
+													<td>14</td>
+													<td>0</td>
+													<td>0</td>
+													<td>11</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="card-footer" style="display: flex; flex-direction: row; justify-content: flex-end;">
+									<a href="#">Go to Inventory <i class="fas fa-angle-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
 </div>
