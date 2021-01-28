@@ -1,22 +1,17 @@
 <div class="sb-nav-fixed">
-	<!-- top nav -->
-	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<!-- user dropdown -->
-		<ul class="navbar-nav ml-auto ml-md-0">
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					{{!idea: use #if for usertype???}}
-					<!-- enabled for admin only, disabled for secretary & sales -->
-					{{#if isAdmin}}
-						<a class="dropdown-item" href="/addUser">Add Account</a>
-						<div class="dropdown-divider"></div>
-					{{/if}}
-					<a class="dropdown-item" href="#" onclick="logout();">Logout</a>
-				</div>
-			</li>
-		</ul>
-		<!-- name of logged in user -->
-		<span id="loggedIn"> {{name}} </span>
-	</nav>
+    <!-- top nav -->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- user dropdown -->
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        {{#if showUsers}} {{> addacct-topnav}} {{/if}}
+                        <a class="dropdown-item" href="#" onclick="logout();">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- name of logged in user -->
+            <span id="loggedIn"> {{name}} </span>
+        </nav>
 </div>
