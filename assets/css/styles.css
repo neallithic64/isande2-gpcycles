@@ -2559,6 +2559,7 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #17a2b8;
   border-color: #17a2b8;
+  width: 100px;
 }
 .btn-info:hover {
   color: #fff;
