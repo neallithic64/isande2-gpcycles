@@ -193,6 +193,42 @@ const gpController = {
 		} catch (e) {
 			return res.status(500).send();
 		}
+	},
+	
+	postAddProduct: async function(req, res) {
+		let { prodName, unit, itemGroup, supplier, purchasePrice, sellingPrice, description, quantity, reorderPoint, reorderQty, minDiscQty, percentage } = req.body;
+		let product = {
+			prodName: prodName,
+			itemCode: String,
+			itemGroup: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "ItemGroup"
+			},
+			unit: unit,
+			supplier: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Supplier"
+			},
+			purchasePrice: purchasePrice,
+			sellingPrice: sellingPrice,
+			quantity: quantity,
+			description: description,
+			discount: {
+				qty: minDiscQty,
+				percentage: percentage
+			},
+			incomingQty: 0,
+			outgoingQty: 0,
+			reorderPoint: reorderPoint,
+			reorderQty: reorderQty,
+			adjustmentHistory: []
+		};
+		try {
+			await db.insertOne(Product, product);
+			return res.status(200).send();
+		} catch (e) {
+			return res.status(500).send();
+		}
 	}
 };
 
