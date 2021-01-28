@@ -1,5 +1,5 @@
+<!-- side nav-->
 <div class="sb-nav-fixed">
-    <!-- side nav-->
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -45,6 +45,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="customers.html">Customers</a>
                                 <a class="nav-link" href="suppliers.html">Suppliers</a>
+                                {{#if showUsers}} {{> allusers-sidenav}} {{/if}}                            
                             </nav>
                         </div>
                     </div>
