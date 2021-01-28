@@ -224,9 +224,8 @@ const gpController = {
 	},
 	
 	postAddSupplier: async function(req, res) {
-		let {supplierType, name, email, contactPerson, contactNum, address} = req.body;
+		let {name, email, contactPerson, contactNum, address} = req.body;
 		let supplier = {
-			supplierType: supplierType,
 			name: name,
 			dateAdded: new Date(),
 			email: email,
