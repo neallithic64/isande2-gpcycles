@@ -45,7 +45,7 @@ const gpController = {
 			res.render('allcustomers', {
 				topNav: true,
 				sideNav: true,
-				title: 'aaaaaaaa',
+				title: 'All Customers',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
 				customers: forceJSON(customers)
@@ -60,7 +60,7 @@ const gpController = {
 			res.render('allsuppliers', {
 				topNav: true,
 				sideNav: true,
-				title: 'aaaaaaaa',
+				title: 'All Suppliers',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
 				suppliers: forceJSON(suppliers)
@@ -75,7 +75,7 @@ const gpController = {
 			res.render('allusers', {
 				topNav: true,
 				sideNav: true,
-				title: 'aaaaaaaa',
+				title: 'All Users',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
 				users: forceJSON(users)
