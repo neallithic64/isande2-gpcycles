@@ -1,0 +1,263 @@
+{{#if topNav}} {{> topNav}}
+{{/if}}
+
+{{#if sideNav}} {{> sideNav}}
+{{/if}}
+
+<div class="sb-nav-fixed">
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div style="margin-bottom: 20px;">
+						<h1 class="mt-4">New Product</h1>
+					</div>
+
+					<form style="margin-bottom: 50px;">
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputProductName">Product Name</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" id="inputProductName" type="text" placeholder="Enter product name" required/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputMeasure">Unit of Measurement</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" id="inputMeasure" type="text" placeholder="Enter unit of measurement" required/>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputGroup">Product Group</label> <span style="color: red"> * </span>
+									<select class="form-control" id="inputGroup" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
+										<option value="" disabled selected> Select group </option>
+										{{#each itemgroups}}
+											<option value="{{{_id}}}"> {{itemGroup}} </option>
+										{{/each}}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSupplier">Supplier</label> <span style="color: red"> * </span>
+									<select class="form-control" id="inputSupplier" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
+										<option value="" disabled selected> Select supplier </option>
+										<option value="one"> One </option>
+										<option value="two"> Two </option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPurchasePrice">Purchase Price</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" id="inputPurchasePrice" type="text" placeholder="Enter purchase price" required/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSellingPrice">Selling Price</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" id="inputSellingPrice" type="text" placeholder="Enter selling price" required/>
+								</div>
+							</div>
+
+							<div class="col-md-6" style="min-width: 100%;">
+								<div class="form-group">
+									<label class="small mb-1" for="inputDescription">Description</label> <span style="color: red"> * </span>
+									<input class="form-control py-4" id="inputDescription" type="text" placeholder="Enter description" required/>
+								</div>
+							</div>
+						</div>    
+
+						<div>
+							<div class="form-group">
+								<label class="small mb-1" for="inputReorder">Quantity and Reorder Information</label> <span style="color: red"> * </span>
+							</div>
+							<div class="form-row" style="margin-top: -20px;">
+								<div class="col-md-6" style="max-width: 33%;">
+									<div class="form-group">
+										<label class="small mb-1" for="inputStartingQuantity">Starting Quantity</label> <span style="color: red"> * </span>
+										<input class="form-control py-4" id="inputStartingQuantity" type="number" placeholder="Enter starting quantity" required/>
+									</div>
+								</div>
+								<div class="col-md-6" style="max-width: 33%;">
+									<div class="form-group">
+										<label class="small mb-1" for="inputReorderPoint">Reorder Point</label> 
+										<input class="form-control py-4" id="inputReorderPoint" type="number" placeholder="Enter reorder point" />
+									</div>
+								</div>
+								<div class="col-md-6" style="max-width: 33%;">
+									<div class="form-group">
+										<label class="small mb-1" for="inputReorderQty">Reorder Quantity</label>
+										<input class="form-control py-4" id="inputReorderQty" type="number" placeholder="Enter reorder quantity" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div class="form-group">
+								<label class="small mb-1" for="inputDisc">Discount</label>
+							</div>
+							<div class="form-row" style="margin-top: -20px">
+								<div class="col-md-6" style="max-width: 50%;">
+									<div class="form-group">
+										<label class="small mb-1" for="inputMinDiscQty">Minimum Quantity</label> 
+										<input class="form-control py-4" id="inputMinDiscQty" type="number" placeholder="Enter minimum quantity for discount" />
+									</div>
+								</div>
+								<div class="col-md-6" style="max-width: 50%;">
+									<div class="form-group">
+										<label class="small mb-1" for="inputDiscount">Percentage Discount</label>
+										<input class="form-control py-4" id="inputDiscount" type="number" placeholder="Enter percentage (ex: 20 for 20% discount)" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div style="margin-top: -20px;">
+							<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
+								<button style="margin-right: 10px;" class="btn btn-primary">Add</button>
+								<button class="btn btn-outline-secondary" href="contacts.html">Cancel</button>
+							</div>
+						</div>
+					</form> 
+				</div>
+			</main>
+		</div>
+	</div>
+</div>
+
+<div id="layoutSidenav_content">
+    <main>
+
+        <div class="container-fluid">
+            <div style="margin: 15px 0; display: flex; align-items: center; justify-content: space-between">
+                <div></div>
+                <div style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                    <a href="javascript:history.back()"><button class="btn btn-primary" style="margin-right: 5px; width: 75px; font-size: 12px; padding: 1px;"><b>Cancel</b></button></a>
+                    <a href="viewProduct.html"><button class="btn btn-outline-secondary" style="margin-left: 5px; width: 75px; font-size: 12px; padding: 1px;"><b style="color: black;">Done</b></button></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NO EDIT: Product Name & Code -->
+        <div class="container-fluid">
+            <div style="margin: 10px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
+                <div><h4 style="color: black;">PRODUCT NAME</h4></div>
+                <div><h5 style="color: #43444d;"> PRODUCT CODE</h5></div>
+            </div>
+        </div>
+        
+        <!-- NO EDIT: Product Primery &  -->
+        <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
+            <div style="width: 50%; flex-wrap: wrap; ">
+                <div class="container-fluid" style="margin-bottom: 20px">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Primary Details</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">GROUPNAME</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">SUPPLIEE</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">pcs</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container-fluid" style="width: 50%;flex-wrap: wrap;">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Inventory Summary</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">30</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">10</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDITABLE -->
+        <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
+            <div style="width: 50%; flex-wrap: wrap;">
+                <div class="container-fluid" style="margin-bottom: 20px">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Price and Discounts</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P
+                                <input style="height: 23px; width: 100px;" id="inputPurchasePrice" type="text" value="1,929.98">
+                            </p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P
+                                <input style="height: 23px; width: 100px;" id="inputSellingPrice" type="text" value="10,000">
+                            </p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
+                                <input style="height: 23px; width: 85px;" id="inputMinDiscQty" type="number" value="30">
+                            </p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
+                                <input style="height: 23px; width: 70px;" id="inputDiscountPercent" type="number" value="30">%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid" style="width: 50%;flex-wrap: wrap; margin-bottom: 10px">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Reorder Information</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 1px;font-size: 16px;">Reorder Point</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
+                                <input style="height: 23px; width: 85px;" id="inputReorderPoint" type="number" value="30">
+                            </p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
+                                <input style="height: 23px; width: 85px;" id="inputReorderQty" type="number" value="30">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </main>
+</div>
