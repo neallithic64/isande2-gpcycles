@@ -1,56 +1,56 @@
 <!-- side nav-->
 <div class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div>
-                    <a href="index.html"> <img href="index.html" id="logomain" src="assets/img/Logo.png" > </a>
-                </div>
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <a class="nav-link" href="/">
-                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                            Dashboard
-                        </a>
-                        <a class="nav-link" href="salesorders.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                            Sales Orders
-                        </a>
-                        <a class="nav-link" href="purchorders.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
-                            Purchase Orders
-                        </a>
-                        <a class="nav-link" href="/inventory">
-                            <div class="sb-nav-link-icon"><i class="fas fa-cube"></i></div>
-                            Inventory
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Reports
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="salesreport.html">Sales</a>
-                                <a class="nav-link" href="purchreport.html">Purchase</a>
-                                <a class="nav-link" href="inventoryreport.html">Inventory</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
-                                Contacts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">            
-                                <a class="nav-link" href="/customers">Customers</a>
-                                <a class="nav-link" href="/suppliers">Suppliers</a>
-                                {{#if showUsers}} {{> allusers-sidenav}} {{/if}}
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div>
+					<a href="/"> <img href="index.html" id="logomain" src="assets/img/Logo.png" > </a>
+				</div>
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<a class="nav-link" href="/">
+							<div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+							Dashboard
+						</a>
+						<a class="nav-link" href="salesorders.html">
+							<div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
+							Sales Orders
+						</a>
+						<a class="nav-link" href="purchorders.html">
+							<div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
+							Purchase Orders
+						</a>
+						<a class="nav-link" href="/inventory">
+							<div class="sb-nav-link-icon"><i class="fas fa-cube"></i></div>
+							Inventory
+						</a>
+						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+							Reports
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" href="salesreport.html">Sales</a>
+								<a class="nav-link" href="purchreport.html">Purchase</a>
+								<a class="nav-link" href="inventoryreport.html">Inventory</a>
+							</nav>
+						</div>
+						<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
+							<div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
+							Contacts
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">            
+								<a class="nav-link" href="/customers">Customers</a>
+								<a class="nav-link" href="/suppliers">Suppliers</a>
+								{{#if showUsers}} {{> allusers-sidenav}} {{/if}}
+							</nav>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
 </div>
