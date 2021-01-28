@@ -1,9 +1,19 @@
+{{#if topNav}} {{> topNav}} {{/if}}
+
+{{#if sideNav}} {{> sideNav}} {{/if}}
+
 <div class="sb-nav-fixed">
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid" style="padding: 0%;">
 					<h1 class="mt-4" style="padding:0px 20px">Inventory</h1>
+
+					<ol class="breadcrumb" style="margin:-10px 20px; margin-bottom: 20px; padding: 0px; background-color: transparent;">
+                            <li class="breadcrumb-item"><a href="index.html">View Group</a></li>
+                            <li class="breadcrumb-item active">View Items</li>
+                    </ol>
+
 					<div class="card mb-4">
 						<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
 							<div style="width: 50%; vertical-align: middle; ">
