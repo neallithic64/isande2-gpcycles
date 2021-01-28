@@ -1,0 +1,281 @@
+{{#if topNav}} {{> topNav}} {{/if}}
+
+{{#if sideNav}} {{> sideNav}} {{/if}}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid">
+            <div style="margin: 15px 0; display: flex; align-items: center; justify-content: space-between">
+                <div></div>
+                <div style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                    <a href="javascript:history.back()"><button class="btn btn-outline-secondary" style="margin-right: 5px; width: 75px; font-size: 12px; padding: 1px;"><b style="color: black;">Cancel</b></button></a>
+                    <a href="viewProduct.html"><button class="btn btn-primary" style="margin-left: 5px; width: 75px; font-size: 12px; padding: 1px;"><b>Done</b></button></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NO EDIT: Product Name & Code -->
+        <div class="container-fluid">
+            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
+                <div><h4 style="color: black;">PRODUCT NAME</h4></div>
+                <div><h5 style="color: #43444d;"> PRODUCT CODE</h5></div>
+            </div>
+        </div>
+        
+        <!-- NO EDIT: Product Primery &  -->
+        <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 40px">
+            <div style="width: 50%; flex-wrap: wrap; ">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Primary Details</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">GROUPNAME</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">SUPPLIEE</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">pcs</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container-fluid" style="width: 50%;flex-wrap: wrap;">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Inventory Summary</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">30</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">10 (February 12, 2021)</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">510 (February 12, 2021)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDITABLE -->
+        <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 40px">
+            <div style="width: 50%; flex-wrap: wrap;">
+                <div class="container-fluid" style="margin-bottom: 5px">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Price and Discounts</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 738.90</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 1,000.00</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">50</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
+                            <p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">30%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid" style="width: 50%;flex-wrap: wrap; margin-bottom: 10px">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <h6 style="color: red;margin-bottom: 3px;">Reorder Information</h6>
+                    </div>
+                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
+                            <p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">10</p>
+                        </div>
+                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                            <p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
+                            <p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--ADJUST-->
+        <form>
+            <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 40px">
+                <div style="width: 50%; flex-wrap: wrap;">
+                    <div class="container-fluid" style="margin-bottom: 5px">
+                        <div class="form-group">
+                            <h6 style="color: red;margin-bottom: 3px;">Product Quantity Adjustment</h6>
+                        </div>
+                        <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                            <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                                <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Type:</p> 
+                                <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">Adjustment</p>
+                            </div>
+                            <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                                <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Date:</p> 
+                                <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">January 32, 2021</p>
+                            </div>
+                            <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                                <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Before:</p> 
+                                <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">23</p>
+                            </div>
+                            <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                                <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Current Count:</p> 
+                                <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
+                                    <input style="height: 22px; width: 150px;" id="inputCurrentCount" type="number" value="" placeholder="Input count">
+                                </p>
+                            </div>
+                            <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                                <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Remarks:</p> 
+                                <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
+                                    <input style="height: 22px; width: 150px;" id="inputRemarks" type="text" value="" placeholder="Input remarks">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div style="width: 100%; flex-wrap: wrap; display: inline-flex;">
+                    <div class="container-fluid" style="margin-bottom: 5px">
+                        <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+                            <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+                                <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Remarks:</p> 
+                                <textarea style="resize: both; width: 60%;" id="inputRemarks" placeholder="Input remarks"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </form>
+
+        <!-- HISTORY -->
+        <div class="container-fluid">
+            <div class="card-body" style="padding: 1.5rem; margin-bottom: 50px;">
+                <div class="form-group" style="display: flex; justify-content: space-between;margin-bottom: .5rem;">
+                    <h6 style="color: red;margin-bottom: 3px;">Product Quantity History</h6>
+                    <div style="display: flex;align-items: flex-end; justify-content:flex-end; align-items: center;">
+                        <form name="adjustment" style="display:flex;align-items: center;">
+                            <div style="margin: 0 10px;">
+                                <input type="radio" id="selectAdjust" name="adjustment" onclick="adjust()">
+                                <label for="selectAdjust">Input Adjustment</label>
+                            </div>
+                            <div style="margin: 0 10px;">
+                                <input type="radio" id="selectCount" name="adjustment" onclick="adjust()">
+                                <label for="selectCount">Input Current Count</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <script>
+                    function adjust() {
+                        console.log("in");
+                        if(document.getElementById('selectAdjust').checked){
+                            document.getElementById('adjustCurrent').innerHTML="<div></div>";
+                            document.getElementById('adjustAdjust').innerHTML="<select style='height: 20px;'><option>+</option><option>-</option></select> <input style='height: 20px; width: 110px;' type='number' placeholder='adjustment'/>"
+                        }
+                        if(document.getElementById('selectCount').checked) {
+                            document.getElementById('adjustAdjust').innerHTML="<div></div>";
+                            document.getElementById('adjustCurrent').innerHTML="<input style='height: 20px; width: 100px;' type='number' placeholder='current count'/>"
+                        }
+                    }
+                </script>
+
+                <div class="table-responsive" style="font-size: .75rem;">
+                    <table class="tablethin table-bordered" width="100%" cellspacing="0" style="font-size: .9rem;">
+                        <thead style="background-color: rgba(0, 0, 0, 0.03);">
+                            <tr>
+                                <th style="width: 10%;">Type</th>
+                                <th style="width: 10%;">Date</th>
+                                <th style="width: 15%;">Reference</th>
+                                <th style="width: 15%;">Before</th>
+                                <th style="width: 15%;">Adjustment</th>
+                                <th style="width: 15%;">After</th>
+                                <th style="width: 20%;">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TYPE</td>
+                                <td>YYYY-MM-DD</td>
+                                <td><a href="">REFERENCE</a></td> <!-- CAN REMOVE LINK IF EVER -->
+                                <td>BEFORE</td>
+                                <td>ADJUSTMENT</td>
+                                <td><b>AFTER</b></td>
+                                <td>REMARKS</td>
+                            </tr>
+                            <tr id="addAdjust">
+                                <td>Adjustment</td>
+                                <td>2021-01-29</td>
+                                <td>-</td>
+                                <td>30</td>
+                                <td id="adjustAdjust">
+                                    <!--
+                                    <select style='height: 20px;'>
+                                        <option>+</option>
+                                        <option>-</option>
+                                    </select>
+                                    <input style='height: 20px; width: 110px;' type='number' placeholder='adjustment'/>
+                                    -->
+                                </td>
+                                <td id="adjustCurrent">
+                                    <!--<input style='height: 20px; width: 100px;' type='number' placeholder='current count'/>-->
+                                </td>
+                                <td><input style="height: 20px; width: 150px" type="text" placeholder="input remarks"/></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Adjustment</td>
+                                <td>2021-01-12</td>
+                                <td> - </td>
+                                <td>40</td>
+                                <td>-10</td>
+                                <td><b>30</b></td>
+                                <td>lost</td>
+                            </tr>
+                            <tr>
+                                <td>Sale</td>
+                                <td>2020-12-31</td>
+                                <td><a href="viewProduct.html">SO-19221</a></td>
+                                <td>23</td>
+                                <td>+17</td>
+                                <td><b>40</b></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Purchase</td>
+                                <td>2020-12-21</td>
+                                <td><a href="viewProduct.html">PO-19221</a></td>
+                                <td>25</td>
+                                <td>-2</td>
+                                <td><b>23</b></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
