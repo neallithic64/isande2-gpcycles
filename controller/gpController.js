@@ -50,7 +50,12 @@ const gpController = {
 	},
 	
 	getAddUser: function(req, res) {
-		if (!req.session.user && req.session.user !== "Admin") res.redirect('/login');
+		if (!req.session.user) res.redirect('/login');
+		else if (req.session.user !== "Admin") res.render('error', {
+			title: 'Unauthorised Access',
+			code: 403,
+			message: 'Admins only'
+		});
 		else res.render('addaccount', {
 			topNav: true,
 			sideNav: true,
@@ -94,7 +99,7 @@ const gpController = {
 					title: 'Add Product',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
-					itemgroups: forceJSON(itemgroups)
+					itemgroups: forceJSON(itemgroups).sort()
 				});
 			} catch (e) {
 				res.send('error!');
