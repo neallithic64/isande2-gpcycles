@@ -39,23 +39,33 @@ const gpController = {
 	},
 	
 	getAllCustomers: async function(req, res) {
-		res.render('allcustomers', {
-			topNav: true,
-			sideNav: true,
-			title: 'aaaaaaaa',
-			name: req.session.user.name,
-			isAdmin: req.session.user.usertype === "Admin"
-		});
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let customers = await db.findMany(Customer, {});
+			res.render('allcustomers', {
+				topNav: true,
+				sideNav: true,
+				title: 'aaaaaaaa',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				customers: forceJSON(customers)
+			});
+		}
 	},
 	
 	getAllSuppliers: async function(req, res) {
-		res.render('allsuppliers', {
-			topNav: true,
-			sideNav: true,
-			title: 'aaaaaaaa',
-			name: req.session.user.name,
-			isAdmin: req.session.user.usertype === "Admin"
-		});
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let suppliers = await db.findMany(Supplier, {});
+			res.render('allsuppliers', {
+				topNav: true,
+				sideNav: true,
+				title: 'aaaaaaaa',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				suppliers: forceJSON(suppliers)
+			});
+		}
 	},
 	
 	getAllUsers: async function(req, res) {

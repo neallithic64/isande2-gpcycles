@@ -1,90 +1,56 @@
 <div class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                        <div style="margin-bottom: 15px;">
-                            <h1 class="mt-4">All Users</h1>
-                        </div>
-                        <div class="form-group mt-4 mb-0" >
-                            <a href="addaccount.html"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i>
-                            Users
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="viewUsersTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 100px;">Type</th>
-                                            <th style="width: 150px;">Name</th>
-                                            <th style="width: 170px;">Username</th>
-                                            <th style="width: 80px;">Last Login</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th style="width: 100px;">Type</th>
-                                            <th style="width: 150px;">Name</th>
-                                            <th style="width: 100px;">Username</th>
-                                            <th style="width: 100px;">Last Login</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Admin</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Secretary</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sales</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sales</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sales</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sales</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sales</td>
-                                            <td>Kim Yugyeom</td>
-                                            <td>kyg</td>
-                                            <td>2021/01/29</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div style="display: flex; flex-direction: row; justify-content: space-between;">
+						<div style="margin-bottom: 15px;">
+							<h1 class="mt-4">All Users</h1>
+						</div>
+						<div class="form-group mt-4 mb-0" >
+							<a href="/adduser"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
+						</div>
+					</div>
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-table mr-1"></i>
+							Users
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="viewUsersTable" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 100px;">Type</th>
+											<th style="width: 150px;">Name</th>
+											<th style="width: 170px;">Username</th>
+											<th style="width: 80px;">Last Login</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th style="width: 100px;">Type</th>
+											<th style="width: 150px;">Name</th>
+											<th style="width: 100px;">Username</th>
+											<th style="width: 100px;">Last Login</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{{#each users}}
+											<tr>
+												<td>{{usertype}}</td>
+												<td>{{name}}</td>
+												<td>{{username}}</td>
+												<td>{{lastLogged}}</td>
+											</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
 </div>
