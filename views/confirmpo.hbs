@@ -1,11 +1,10 @@
 <div class="sb-nav-fixed">
     <div id="layoutSidenav">
-        <!-- main -->
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
                     <div  style="margin-bottom: 20px;">
-                        <h1 class="mt-4">New Purchase Order</h1>
+                        <h1 class="mt-4">Confirm Purchase Order</h1>
                     </div>
 
                     <form>
@@ -13,50 +12,45 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPONum">Purchase Order #</label> <span style="color: red"> * </span>
-                                    <span class="form-control" id="inputPONum" style="color: black;"> PO-000001 </span>
+                                    <label class="small mb-1" for="inputPONum">Purchase Order #</label>
+                                    <input class="form-control" id="inputPONum" style="color: black;" value="PO-000001" readonly/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPODate">Purchase Order Date</label> <span style="color: red"> * </span>
-                                    <input class="form-control" id="inputPODate" type="date" placeholder="Enter date" required/>
+                                    <label class="small mb-1" for="inputPODate">Purchase Order Date</label>
+                                    <input class="form-control" id="inputPODate" value="Date here" readonly/>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPOName">Supplier Name</label> <span style="color: red"> * </span>
-                                    <select class="form-control" id="inputPOName">
-                                        <option value="0"> Enter supplier name </option>
-                                        <option value="1"> Shannon Ho </option>
-                                        <option value="2"> Matthew Lim </option>
-                                        <option value="2"> Julia Estella </option>
-                                    </select>
+                                    <label class="small mb-1" for="inputPOName">Supplier Name</label>
+                                    <input class="form-control" id="inputPOName" value="Supplier here" readonly/>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPODelDate">Expected Delivery Date</label> <span style="color: red"> * </span>
-                                    <input class="form-control" id="inputPODelDate" type="date" placeholder="Enter date" required/>
+                                    <label class="small mb-1" for="inputPODelDate">Expected Delivery Date</label>
+                                    <input class="form-control" id="inputPODelDate" value="Date here" readonly/>
                                 </div>
                             </div>
                         </div>
 
                         <!-- items table -->
                         <div class="card mb-4">
-                            <div class="card-header">
+                            <div class="card-header" style="background: #e9ecef">
                                 <i class="fas fa-table mr-1"></i>
-                                <span style="font-weight: 700;">Items</span> <span style="color: red"> * </span>
+                                <span style="font-weight: 700;">Items</span>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="tablethin table-bordered" id="POItems" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Item <span style="color: red"> * </span> </th>
-                                                <th style="text-align: end;">Quantity <span style="color: red"> * </span> </th>
+                                                <th>Item</th>
+                                                <th style="text-align: end;">Quantity</th>
                                                 <th style="text-align: end;">Unit Price</span> </th>
                                                 <th style="text-align: end;">Discount</th>
                                                 <th style="text-align: end;">Net Price</span> </th>
@@ -64,8 +58,8 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Item <span style="color: red"> * </span> </th>
-                                                <th style="text-align: end;">Quantity <span style="color: red"> * </span> </th>
+                                                <th>Item</th>
+                                                <th style="text-align: end;">Quantity</th>
                                                 <th style="text-align: end;">Unit Price</th>
                                                 <th style="text-align: end;">Discount</th>
                                                 <th style="text-align: end;">Net Price</th>
@@ -75,17 +69,12 @@
                                             <tr>
                                                 <td style="padding-bottom: 0px">
                                                     <div class="form-group">
-                                                        <select class="form-control" style="border-width: 0px; padding: 0px; font-size: 15px;" id="inputSOItem">
-                                                            <option value="0"> Enter item name </option>
-                                                            <option value="1"> Tube </option>
-                                                            <option value="2"> Unit </option>
-                                                            <option value="2"> Wheels </option>
-                                                        </select>
+                                                        <input class="form-control" id="inputPOItem" value="Item name here" style="background: #ffffff; border-width: 0px; font-size: 15px;" readonly/>
                                                     </div>
                                                 </td>
                                                 <td style="width: 150px; color: black;">
                                                     <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputPOQty" type="number" min="1" max="1000" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;" placeholder="Enter quantity" /> 
+                                                        <input class="form-control" id="inputPOQty" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;background: #ffffff;" value="Qty here" readonly/> 
                                                     </div>
                                                 </td>
                                                 <td style="width: 150px; color: black;">
@@ -95,7 +84,7 @@
                                                 </td>
                                                 <td style="width: 150px; color: black;">
                                                     <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputPODiscount" type="number" min="0" max="100" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" placeholder="Enter discount"/> 
+                                                        <input class="form-control" id="inputPODiscount" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="% here" readonly/> 
                                                     </div>
                                                 </td>
                                                 <td style="width: 150px; color: black;">
@@ -106,11 +95,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div>
-                                        <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                            <button style="margin-right: 10px; color: #F50506; background-color: transparent; border-width: 0px;">+ Add another item </button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,36 +120,31 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPOTerms">Terms</label> <span style="color: red"> * </span>
-                                    <select class="form-control" id="inputPOTerms" required>
-                                        <option value="0"> Physical </option>
-                                        <option value="1"> Bank </option>
-                                        <option value="2"> COD </option>
-                                    </select>
+                                    <label class="small mb-1" for="inputPOTerms">Terms</label>
+                                    <input class="form-control" id="inputPOTerms" value="Terms here" readonly/>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPOPayDue">Payment Due Date</label> <span style="color: red"> * </span>
-                                    <input class="form-control" id="inputPOPayDue" type="date" placeholder="Enter date" required/>
+                                    <label class="small mb-1" for="inputPOPayDue">Payment Due Date</label>
+                                    <input class="form-control" id="inputPOPayDue" value="Date here" readonly/>
                                 </div>
                             </div>   
                         </div>
 
-                        
-
                         <div class="form-group">
                             <label class="small mb-1" for="inputPORemarks">Remarks</label>
-                            <input class="form-control" id="inputPORemarks" type="text" placeholder="Enter remarks">
+                            <input class="form-control" id="inputPORemarks" type="text" value="Remarks here" readonly/>
                         </div>
                         <div class="form-group">
                             <label class="small mb-1" for="inputPOCons">Conditions</label>
-                            <input class="form-control" id="inputPOCons" type="text" placeholder="Enter conditions">
+                            <input class="form-control" id="inputPOCons" type="text" value="Conditions here" readonly/>
                         </div>
                         <div style="margin-top: 20px; margin-bottom: 20px;">
                             <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                <a href="confirmpo.html"><button style="margin-right: 10px;" class="btn btn-primary">Next</button></a>
+                                <button style="margin-right: 10px;" class="btn btn-info">Draft</button>
+                                {{#if}} <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> {{/if}}
                                 <button class="btn btn-outline-secondary" href="newpo.html">Cancel</button>
                             </div>
                         </div>
