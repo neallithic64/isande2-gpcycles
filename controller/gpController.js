@@ -93,13 +93,15 @@ const gpController = {
 		else {
 			try {
 				let itemgroups = await db.findMany(ItemGroup, {});
+				let suppliers = await db.findMany(Supplier, {});
 				res.render('addproduct', {
 					topNav: true,
 					sideNav: true,
 					title: 'Add Product',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
-					itemgroups: forceJSON(itemgroups).sort()
+					itemgroups: forceJSON(itemgroups).sort(),
+					suppliers: forceJSON(suppliers)
 				});
 			} catch (e) {
 				res.send('error!');
