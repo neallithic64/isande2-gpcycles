@@ -38,6 +38,41 @@ const gpController = {
 		});
 	},
 	
+	getAllCustomers: async function(req, res) {
+		res.render('allcustomers', {
+			topNav: true,
+			sideNav: true,
+			title: 'aaaaaaaa',
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
+		});
+	},
+	
+	getAllSuppliers: async function(req, res) {
+		res.render('allsuppliers', {
+			topNav: true,
+			sideNav: true,
+			title: 'aaaaaaaa',
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
+		});
+	},
+	
+	getAllUsers: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let users = await db.findMany(User, {}, 'username usertype name lastLogged');
+			res.render('allusers', {
+				topNav: true,
+				sideNav: true,
+				title: 'aaaaaaaa',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				users: forceJSON(users)
+			});
+		}
+	},
+	
 	getInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('inventoryTable', {
@@ -118,6 +153,7 @@ const gpController = {
 		let {username} = req.body;
 		try {
 			let user = await db.findOne(User, {username: username});
+			await db.updateOne(User, {username: username}, {lastLogged: new Date()});
 			req.session.user = user;
 			res.redirect('/');
 		} catch (e) {
@@ -138,7 +174,8 @@ const gpController = {
 				username: username,
 				password: hash,
 				usertype: usertype,
-				name: firstname + ' ' + lastname
+				name: firstname + ' ' + lastname,
+				lastLogged: new Date()
 			};
 			await db.insertOne(User, newUser);
 			res.status(200).send();
@@ -196,7 +233,9 @@ const gpController = {
 	},
 	
 	postAddProduct: async function(req, res) {
-		let { prodName, unit, itemGroup, supplier, purchasePrice, sellingPrice, description, quantity, reorderPoint, reorderQty, minDiscQty, percentage } = req.body;
+		let { prodName, unit, itemGroup, supplier, purchasePrice, sellingPrice,
+				description, quantity, reorderPoint, reorderQty, minDiscQty,
+				percentage } = req.body;
 		let product = {
 			prodName: prodName,
 			itemCode: String,

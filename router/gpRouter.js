@@ -13,6 +13,9 @@ router.get('/ADD_ITEMGROUPS', test.addItemGroups);
 // GET Routes
 router.get('/', gpController.getHome);
 router.get('/login', gpController.getLogin);
+router.get('/customers', gpController.getAllCustomers);
+router.get('/suppliers', gpController.getAllSuppliers);
+router.get('/users', gpController.getAllUsers);
 router.get('/addUser', gpController.getAddUser);
 router.get('/inventory', gpController.getInventory);
 router.get('/addPO');
