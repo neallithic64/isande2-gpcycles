@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var supplierSchema = new mongoose.Schema({
+const supplierSchema = new mongoose.Schema({
 	supplierType: String,
 	name: String,
 	dateAdded: Date,

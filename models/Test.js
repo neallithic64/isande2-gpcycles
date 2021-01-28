@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var testSchema = new mongoose.Schema({
+const testSchema = new mongoose.Schema({
 	mainVal: Date,
 	otherVal: Number
 }, {collection: "Test"});

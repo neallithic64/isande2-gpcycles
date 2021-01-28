@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var saleOrdSchema = new mongoose.Schema({
+const saleOrdSchema = new mongoose.Schema({
 	orderNum: String,
 	items: [{
 		product: {
@@ -9,7 +9,7 @@ var saleOrdSchema = new mongoose.Schema({
 		},
 		qty: Number,
 		unitPrice: Number,
-		discount: Number
+		netPrice: Number
 	}],
 	penalty: Number,
 	adjustment: Number,

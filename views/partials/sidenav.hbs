@@ -8,7 +8,7 @@
                 </div>
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="/">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             Dashboard
                         </a>
@@ -20,7 +20,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
                             Purchase Orders
                         </a>
-                        <a class="nav-link" href="inventory.html">
+                        <a class="nav-link" href="/inventory">
                             <div class="sb-nav-link-icon"><i class="fas fa-cube"></i></div>
                             Inventory
                         </a>
@@ -42,10 +42,10 @@
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="customers.html">Customers</a>
-                                <a class="nav-link" href="suppliers.html">Suppliers</a>
-                                {{#if showUsers}} {{> allusers-sidenav}} {{/if}}                            
+                            <nav class="sb-sidenav-menu-nested nav">            
+                                <a class="nav-link" href="/customers">Customers</a>
+                                <a class="nav-link" href="/suppliers">Suppliers</a>
+                                {{#if showUsers}} {{> allusers-sidenav}} {{/if}}
                             </nav>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ const Product = require('../models/Product');
 const bcrypt = require('bcrypt');
 
 const gpMiddleware = {
-	validateRegister: async function (req, res, next) {
+	validateAddUser: async function (req, res, next) {
 		// We check if the user is already existing in the database
 		try {
 			let {username} = req.body;
@@ -30,11 +30,12 @@ const gpMiddleware = {
 			let userMatch = await db.findOne(User, {username: username});
 			if (!userMatch) res.status(400).send();
 			else {
-				let compare = await bcrypt.compare(userMatch.password, password);
+				let compare = await bcrypt.compare(password, userMatch.password);
 				if (compare) return next();
 				else res.status(400).send();
 			}
 		} catch (e) {
+			console.log(e);
 			res.status(500).send(e);
 		}
 	},
