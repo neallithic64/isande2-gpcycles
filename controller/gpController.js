@@ -200,15 +200,9 @@ const gpController = {
 		let product = {
 			prodName: prodName,
 			itemCode: String,
-			itemGroup: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "ItemGroup"
-			},
+			itemGroup: db.toObjId(itemGroup),
 			unit: unit,
-			supplier: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "Supplier"
-			},
+			supplier: db.toObjId(supplier),
 			purchasePrice: purchasePrice,
 			sellingPrice: sellingPrice,
 			quantity: quantity,

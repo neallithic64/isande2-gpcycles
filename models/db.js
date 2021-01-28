@@ -11,6 +11,10 @@ const options = {
 mongoose.set('useCreateIndex', true);
 
 const database = {
+	toObjId: function(id) {
+		return mongoose.Types.ObjectId(id);
+	},
+	
 	connect: async function() {
 		try {
 			await mongoose.connect(url, options);
