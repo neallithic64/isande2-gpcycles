@@ -75,7 +75,7 @@ function logout() {
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', '/logout');
 	xhr.onreadystatechange = (() => {
-		if (xhr.readyState === 4 && xhr.status);
+		if (xhr.readyState === 4 && xhr.status) window.location.href = "/login";
 	});
 	xhr.send();
 }

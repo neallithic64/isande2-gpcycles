@@ -38,12 +38,11 @@ router.post('/addSupplier', gpController.postAddSupplier);
 
 // Error Page
 router.get('*', function(req, res) {
-//	res.render('error', {
-//		title: 'Page not found',
-//		code: 404,
-//		message: 'Page not found'
-//	});
-	res.send('error');
+	res.render('error', {
+		title: 'Page not found',
+		code: 404,
+		message: 'Page not found'
+	});
 });
 
 module.exports = router;

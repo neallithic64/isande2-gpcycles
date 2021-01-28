@@ -24,7 +24,8 @@ const gpController = {
 					topNav: true,
 					sideNav: true,
 					title: 'Dashboard',
-					name: req.session.user.name
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin"
 				});
 			} else res.redirect('/addSO');
 		} else res.redirect('/login');
@@ -43,7 +44,8 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Inventory',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -53,7 +55,8 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Add Account',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -64,7 +67,8 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Add Customer',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -74,7 +78,8 @@ const gpController = {
 			topNav: true,
 			sideNav: true,
 			title: 'Add Supplier',
-			name: req.session.user.name
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
 		});
 	},
 	
@@ -88,6 +93,7 @@ const gpController = {
 					sideNav: true,
 					title: 'Add Product',
 					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin",
 					itemgroups: forceJSON(itemgroups)
 				});
 			} catch (e) {
