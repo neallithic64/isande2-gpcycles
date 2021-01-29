@@ -53,7 +53,7 @@ const indexTest = {
 let array =
 []
 ;
-			await db.insertMany(Customer, array);
+			await db.insertMany(Supplier, array);
 			res.send('yay inserted stuff');
 		} catch (e) {
 			res.send('oof');
