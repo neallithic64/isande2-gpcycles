@@ -2954,7 +2954,7 @@ fieldset:disabled a.btn {
   border-radius: 1rem;
 }
 
-.status-toPay {
+.status-toPay, .status-toDeliver {
   background-color: #FFD8AB;
   color: black;
   width: 100px;
@@ -2963,7 +2963,7 @@ fieldset:disabled a.btn {
   border-radius: 1rem;
 }
 
-.status-toReceive {
+.status-toReceive, .status-forPickup {
   background-color: #EEFFAB;
   color: black;
   width: 100px;
@@ -2972,8 +2972,8 @@ fieldset:disabled a.btn {
   border-radius: 1rem;
 }
 
-.status-received {
-  background-color: #ABE1FF;
+.status-received, .status-fulfilled {
+  background-color: #B7FFAB;
   color: black;
   width: 100px;
   font-size: 12px;
@@ -2981,8 +2981,8 @@ fieldset:disabled a.btn {
   border-radius: 1rem;
 }
 
-.status-forRefund {
-  background-color: #B7FFAB;
+.status-forRefund, .status-pending {
+  background-color: #FFEDAB;
   color: black;
   width: 100px;
   font-size: 12px;
@@ -2992,15 +2992,6 @@ fieldset:disabled a.btn {
 
 .status-cancelled {
   background-color: #FFB0AB;
-  color: black;
-  width: 100px;
-  font-size: 12px;
-  text-align: center;
-  border-radius: 1rem;
-}
-
-.status-pending {
-  background-color: #FFEDAB;
   color: black;
   width: 100px;
   font-size: 12px;

@@ -1,0 +1,269 @@
+<div class="sb-nav-fixed">
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div style="display: flex; flex-direction: row; justify-content:space-between;">
+                        <div style="margin-bottom: 15px;">
+                            <h1 id="viewSONum" class="mt-4">SO-000001</h1>
+                        </div>
+                        <div style="margin-top:30px; display: flex; flex-direction: row;">
+                            <a class="nav-link" style="color: #d32327" id="paySOButton" href="payso.html"> <button class="btn">Pay</button> </a>
+                            <a class="nav-link" style="color: #d32327" id="pickupSOButton" href="pickupso.html"> <button class="btn">Pickup</button> </a>
+                            <ul class="navbar-nav ml-auto ml-md-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" style="color: #d32327" id="deliverPOButton" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <button class="btn"> Deliver </button> </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="deliverso.html">Delivered All</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="deliverso.html">Delivered Partial </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a class="nav-link" style="color: #d32327" id="cancelPOButton" href="cancelso.html"> <button class="btn">Cancel</button> </a>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header" style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <div style="margin-top: -10px;">
+                                <img href="index.html" id="logomain" src="assets/img/Logo.png" >
+                            </div>
+                            <div style="display: flex; flex-direction: column; margin-top: 25px;">
+                                <span style="font-weight: 700; font-size:22px;"> GP Cycling Accessories Parts & Services </span>
+                                <span> Lot 21 blk10 Levitown Marawoy Lipa City </span>
+                                <span> Tel # (043) 774-2491 </span>
+                            </div>
+                            <div style="text-align:end; align-items:flex-end; display: flex; flex-direction: column; margin-top: 5px;">
+                                <span style="font-weight: 700; font-size:40px;"> Sales Order </span>
+                                <span id="viewSONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> SO-000001 </span>
+                                <span id="viewSOStatus" class="status-fulfilled"> Fulfilled </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row;">
+                                        <span style="width:100px; font-size:16px; font-weight: 700;">Customer</span>
+                                        <span style="font-size:16px;" id="viewSOName"> Lipa Bikes </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                        <span style="width:250px; font-size:16px; font-weight: 700;">Sales Order Date </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSODate"> Date here </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row;">
+                                        <span style="width:100px; font-size:16px; font-weight: 700;">Address</span>
+                                        <span style="font-size:16px;" id="viewSOAddress"> 2401 Red Dragon Bldg. Lipa, Batangas </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                        <span style="width:250px; font-size:16px; font-weight: 700;">Terms </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTerms"> Bank </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row;">
+                                        <span style="width:100px; font-size:16px; font-weight: 700;">Contact</span>
+                                        <span style="font-size:16px;" id="viewSOContact"> Gail Tan </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                        <span style="width:250px; font-size:16px; font-weight: 700;">Payment Due </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPayDue"> Date here </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row;">
+                                        <span style="width:100px; font-size:16px; font-weight: 700;">Email</span>
+                                        <span style="font-size:16px;" id="viewSOEmail"> lipa.bikes@gmail.com </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                        <span style="width:250px; font-size:16px; font-weight: 700;">Mode </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOMode"> Delivery </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:flex; justify-content: flex-end;">
+                                <span style="width:250px; font-size:16px; font-weight: 700;">Expected Delivery </span>
+                                <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> Date here </span>
+                            </div>
+                            
+                            <div class="table-responsive" style="margin-top:30px;">
+                                <table class="table table-bordered" id="viewSOItems" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr style="text-align: center;">
+                                            <th style="width: 55px;">Item #</th>
+                                            <th style="width: 40px; text-align: end;">Quantity</th>
+                                            <th style="width: 100px;">Unit</th>
+                                            <th style="width: 300px;">Description</th>
+                                            <th style="width: 100px; text-align: end;">Discount (%) </th>
+                                            <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr style="text-align: center;">
+                                            <th style="width: 55px;">Item #</th>
+                                            <th style="width: 40px; text-align: end;">Quantity</th>
+                                            <th style="width: 50px;">Unit</th>
+                                            <th style="width: 300px;">Description</th>
+                                            <th style="width: 100px; text-align: end;">Discount (%) </th>
+                                            <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItemNum"> 1 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSOQty"> 100 </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOUnit"> pieces </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSODisc"> 10 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSONetPrice"> 32,500.00 </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItemNum"> 2 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSOQty"> 100 </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOUnit"> pieces </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSODisc"> 10 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSONetPrice"> 32,500.00 </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItemNum"> 3 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSOQty"> 100 </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOUnit"> pieces </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSODisc"> 10 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSONetPrice"> 32,500.00 </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItemNum"> 4 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSOQty"> 100 </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOUnit"> pieces </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSODisc"> 10 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSONetPrice"> 32,500.00 </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItemNum"> 5 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSOQty"> 100 </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOUnit"> pieces </span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span id="viewSOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSODisc"> 10 </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewSONetPrice"> 32,500.00 </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="form-row" style="margin-top: 20px;">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row;">
+                                        <span style="width:100px; font-size:16px; font-weight: 700;">Remarks</span>
+                                        <span style="font-size:16px;" id="viewSORemarks"> Lipa Bikes </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                        <span style="width:250px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> 0.00 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row;">
+                                        <span style="width:100px; font-size:16px; font-weight: 700;">Conditions</span>
+                                        <span style="font-size:16px;" id="viewSOCond"> 300.00 penalty for late payment </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                        <span style="width:250px; font-size:16px; font-weight: 700;">Total Discount </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> 0.00 </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:flex; justify-content: flex-end;">
+                                <span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
+                                <span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> 0.00 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
