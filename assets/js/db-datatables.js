@@ -1,11 +1,8 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-  $('#dbFastSlow').DataTable();
+	$('#dbFastSlow').DataTable();
 });
 
 $(document).ready(function() {
-  $('#dbLowStock').DataTable();
+	$('#dbLowStock').DataTable();
 });
-
-
-
