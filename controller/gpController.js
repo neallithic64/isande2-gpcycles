@@ -206,9 +206,9 @@ const gpController = {
 	
 	
 	postAddCustomer: async function(req, res) {
-		let {name, email, contactNum, street, city, province} = req.body;
+		let {firstname, lastname, email, contactNum, street, city, province} = req.body;
 		let customer = {
-			name: name,
+			name: firstname + " " + lastname,
 			email: email,
 			contactNum: contactNum,
 			street: street,

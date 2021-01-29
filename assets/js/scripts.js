@@ -69,6 +69,44 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	$('button#submitAddCustomer').click(function() {
+		let addCustomerForm = $('form#addCustomer').serializeArray();
+		trimArr(addCustomerForm);
+		var checks = Array(4).fill(true);
+		
+		checks[0] = addCustomerForm.some(e => validator.isEmpty(e.value)) ? false : true;
+		if (!checks[0]) alert('Please fill in all fields.');
+		else {
+			if (!/^09[0-9]{2}( |-)?[0-9]{3}( |-)?[0-9]{4}$/.test(addCustomerForm[2].value)) {
+				$('p#phoneError').text('Please enter a mobile number (11 digits).');
+				checks[1] = false;
+			}
+			if (!validator.isEmail(addCustomerForm[3].value)) {
+				$('p#emailError').text('Invalid email inputted.');
+				checks[2] = false;
+			}
+			if (!validator.isLength(addCustomerForm[4].value, {min: 8})) {
+				$('p#passwordError').text('Street name must be at least 8 characters long.');
+				checks[3] = false;
+			}
+		}
+		
+		if (checks.every(Boolean)) {
+			$.ajax({
+				method: 'POST',
+				url: '/addCustomer',
+				data: addCustomerForm,
+				success: function() {
+					window.location.href = '/';
+				},
+				error: function(str) {
+					alert(str.responseText);
+				}
+			});
+		}
+	});
+	
 });
     
 function logout() {
