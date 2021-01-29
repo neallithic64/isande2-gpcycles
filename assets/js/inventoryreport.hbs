@@ -1,0 +1,99 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid" style="padding: 0%;">
+            <h1 class="mt-4" style="padding:0px 20px">Inventory Report</h1>
+
+            <div class="card mb-4">
+                <div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
+                    <div style="width: 50%; vertical-align: middle; ">
+                        <i class="fas fa-table mr-1"></i>
+                        
+                        <!-- select month -->
+                        <label> For the Month of:
+                            <select id="fsMonth">
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                        </label>
+
+                        <!-- select year -->
+                        <label>Year: 
+                            <select id="fsYear">
+                                <option value="2020">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                            </select>
+                        </label> 
+                    </div>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead style="background-color: rgba(0, 0, 0, 0.03);">
+                                <tr>
+                                    <th style="width: 10%;">Code</th>
+                                    <th style="width: 20%;">Product Name</th>
+                                    <th style="width: 10%;">Beginning Inventory</th>
+                                    <th style="width: 10%;">Purchases</th>
+                                    <th style="width: 10%;">Sales</th>
+                                    <th style="width: 10%;">Adjustment</th>
+                                    <th style="width: 10%;">Ending Inventory</th>
+                                    <th style="width: 10%;">COGS</th>
+                                    <th style="width: 10%;">Inventory Turnover</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>100-1234</td>
+                                    <td>Proutct AA</td>
+                                    <td>10</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>20</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>100-1234</td>
+                                    <td>Proutct AA</td>
+                                    <td>10</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>20</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>100-1234</td>
+                                    <td>Proutct AA</td>
+                                    <td>10</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>20</td>
+                                    <td>20</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
