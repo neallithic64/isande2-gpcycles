@@ -124,6 +124,21 @@ const gpController = {
 		});
 	},
 	
+	getProductPage: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let product = await db.findOne(Product, {itemcode: req.query.code});
+			// additional joining from SO and PO collections
+			res.render('viewproduct', {
+				topNav: true,
+				sideNav: true,
+				title: 'Inventory',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin"
+			});
+		}
+	},
+	
 	getAddUser: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else if (req.session.user !== "Admin") res.render('error', {
