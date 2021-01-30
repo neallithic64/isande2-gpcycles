@@ -14,6 +14,15 @@ function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
 }
 
+async function genItemCode(itGroup) {
+	// format: XX-YYYYYY
+	// XX: item group code (use index, pad 2 digits)
+	let itemGrpCode = await db.findOne(ItemGroup, {_id: itGroup}).index;
+	// YY: sequential number
+	let prodCount = await db.findMany(Product, {'itemGroup._id': itGroup}).length;
+	return itemGrpCode.toString().padStart(2, '0') + '-' + prodCount.toString().padStart(6, '0');
+}
+
 /* Index Functions
  */
 const gpController = {
@@ -134,7 +143,8 @@ const gpController = {
 				sideNav: true,
 				title: 'Inventory',
 				name: req.session.user.name,
-				isAdmin: req.session.user.usertype === "Admin"
+				isAdmin: req.session.user.usertype === "Admin",
+				product: forceJSON(product)
 			});
 		}
 	},

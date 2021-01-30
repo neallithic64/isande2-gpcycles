@@ -48,12 +48,27 @@ const indexTest = {
 		res.redirect('/');
 	},
 	
+	editItemGroups: async function(req, res) {
+		let grps = await db.findMany(ItemGroup, {});
+		forceJSON(grps);
+//		grps.sort((a, b) => {
+//			if (a.itemGroup < b.itemGroup) return -1;
+//			if (a.itemGroup > b.itemGroup) return 1;
+//			return 0;
+//		});
+//		let arr = [];
+//		grps.forEach((e, i) => arr.push({itemGroup: e.itemGroup, index: i}));
+//		await db.deleteMany(ItemGroup, {});
+//		await db.insertMany(ItemGroup, arr);
+		res.send('done');
+	},
+	
 	populateCollection: async function(req, res) {
 		try {
 let array =
 []
 ;
-			await db.insertMany(Customer, array);
+			await db.insertMany(/* COLLECTION, */ array);
 			res.send('yay inserted stuff');
 		} catch (e) {
 			res.send('oof');

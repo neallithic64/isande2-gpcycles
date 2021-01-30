@@ -13,8 +13,8 @@
 		<!-- NO EDIT: Product Name & Code -->
 		<div class="container-fluid">
 			<div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
-				<div><h4 style="color: black;">PRODUCT NAME</h4></div>
-				<div><h5 style="color: #43444d;"> PRODUCT CODE</h5></div>
+				<div><h4 style="color: black;">{{product.prodName}}</h4></div>
+				<div><h5 style="color: #43444d;">{{product.itemCode}}</h5></div>
 			</div>
 		</div>
 
@@ -28,15 +28,15 @@
 					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">GROUPNAME</p>
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.itemGroup.itemGroup}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">SUPPLIEE</p>
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.supplier.name}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">pcs</p>
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.unit}}</p>
 						</div>
 					</div>
 				</div>
@@ -51,15 +51,15 @@
 					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">30</p>
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.quantity}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">10 (February 12, 2021)</p>
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.incomingQty}} (February 12, 2021)</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">510 (February 12, 2021)</p>
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.outgoingQty}} (February 12, 2021)</p>
 						</div>
 					</div>
 				</div>
