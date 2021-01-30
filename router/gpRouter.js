@@ -6,7 +6,7 @@ const gpMiddleware = require('../middlewares/gpMiddleware');
 
 // Testing Routes; SANDBOXING PURPOSES ONLY
 router.get('/test', test.getHome);
-router.get('/ADD_ITEMGROUPS', test.addItemGroups);
+router.get('/ADD_STUFF', test.populateCollection);
 
 
 
@@ -16,8 +16,10 @@ router.get('/login', gpController.getLogin);
 router.get('/customers', gpController.getAllCustomers);
 router.get('/suppliers', gpController.getAllSuppliers);
 router.get('/users', gpController.getAllUsers);
-router.get('/addUser', gpController.getAddUser);
+router.get('/salesorders', gpController.getAllSalesOrders);
+router.get('/purchorders', gpController.getAllPurchOrders);
 router.get('/inventory', gpController.getInventory);
+router.get('/addUser', gpController.getAddUser);
 router.get('/addPO');
 router.get('/addSO');
 router.get('/addProduct', gpController.getAddProduct);

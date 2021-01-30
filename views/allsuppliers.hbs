@@ -40,30 +40,14 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>Kim Yugyeom</td>
-											<td>kyg@gmai.com</td>
-											<td>PO-000721</td>
-											<td>2008/11/28</td>
-											<td>162,700</td>
-										</tr>
-										<tr>
-											<td>Garrett Winters</td>
-											<td>Kim Yugyeom</td>
-											<td>kyg@gmai.com</td>
-											<td>PO-000721</td>
-											<td>2008/11/28</td>
-											<td>162,700</td>
-										</tr>
 										{{#each suppliers}}
 											<tr>
 												<td>{{name}}</td>
 												<td>{{contactPerson}}</td>
 												<td>{{email}}</td>
-												<td>{{ACTIVE_PO_COUNT}}</td>
-												<td>{{LAST_TRANSACTION_DATE}}</td>
-												<td>{{TOTAL_PURCHASES}}</td>
+												<td>{{!ACTIVE_PO_COUNT}}</td>
+												<td>{{!LAST_TRANSACTION_DATE}}</td>
+												<td>{{!TOTAL_PURCHASES}}</td>
 											</tr>
 										{{/each}}
 									</tbody>

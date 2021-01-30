@@ -95,6 +95,150 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	$('button#submitAddCustomer').click(function() {
+		let addCustomerForm = $('form#addCustomer').serializeArray();
+		trimArr(addCustomerForm);
+		var checks = Array(4).fill(true);
+		
+		checks[0] = addCustomerForm.some(e => validator.isEmpty(e.value)) ? false : true;
+		if (!checks[0]) alert('Please fill in all fields.');
+		else {
+			if (!/^09[0-9]{2}( |-)?[0-9]{3}( |-)?[0-9]{4}$/.test(addCustomerForm[2].value)) {
+				$('p#phoneError').text('Please enter a mobile number (11 digits).');
+				checks[1] = false;
+			}
+			if (!validator.isEmail(addCustomerForm[3].value)) {
+				$('p#emailError').text('Invalid email inputted.');
+				checks[2] = false;
+			}
+			if (!validator.isLength(addCustomerForm[4].value, {min: 8})) {
+				$('p#passwordError').text('Street name must be at least 8 characters long.');
+				checks[3] = false;
+			}
+		}
+		
+		if (checks.every(Boolean)) {
+			$.ajax({
+				method: 'POST',
+				url: '/addCustomer',
+				data: addCustomerForm,
+				success: function() {
+					window.location.href = '/';
+				},
+				error: function(str) {
+					alert(str.responseText);
+				}
+			});
+		}
+	});
+	
+
+	$('button#submitAddSupplier').click(function() {
+		let addSupplierForm = $('form#addSupplier').serializeArray();
+		trimArr(addSupplierForm);
+		var checks = Array(4).fill(true);
+		
+		checks[0] = addSupplierForm.some(e => validator.isEmpty(e.value)) ? false : true;
+		if (!checks[0]) alert('Please fill in all fields.');
+		
+		if (!validator.isEmail(addSupplierForm[1].value)) {
+			checks[1] = false;
+			alert('Please input a valid email.');
+		}
+
+		if (!validator.isLength(addSupplierForm[2].value, {min: 30})) {
+			checks[2] = false;
+			alert('Address must be at least 30 characters long.');
+		}
+
+		if (!/^09[0-9]{2}( |-)?[0-9]{3}( |-)?[0-9]{4}$/.test(addSupplierForm[4].value)) {
+			checks[3] = false;
+			alert('Please neter a mobile number (11 digits).');
+		}
+		
+		if (checks.every(Boolean)) {
+			$.ajax({
+				method: 'POST',
+				url: '/addSupplier',
+				data: addSupplierForm,
+				success: function() {
+					window.location.href = '/';
+				},
+				error: function(str) {
+					alert(str.responseText);
+				}
+			});
+		}
+	});
+
+	$('button#submitAddProduct').click(function() {
+		let addProductForm = $('form#addProduct').serializeArray();
+		trimArr(addProductForm);
+		var checks = Array(10).fill(true);
+		
+		checks[0] = addProductForm.some(e => validator.isEmpty(e.value)) ? false : true;
+		if (!checks[0]) alert('Please fill in all fields.');
+		
+		if (addProductForm[2].value == null) {
+			checks[1] = false;
+			alert('Please input a valid group.');
+		}
+
+		if (addProductForm[3].value == null) {
+			checks[2] = false;
+			alert('Please input a valid supplier.');
+		}
+
+		if (Number.parseFloat(addProductForm[4].value.replace(',', '')) < 0) {
+			checks[3] = false;
+			alert('Price should be a valid amount.');
+		}
+		
+		if (Number.parseFloat(addProductForm[5].value.replace(',', '')) < 0) {
+			checks[4] = false;
+			alert('Price should be a valid amount.');
+		}
+
+		if (!(Number.isInteger(addProductForm[7].value) && addProductForm[7].value >= 0)) {
+			checks[5] = false;
+			alert('Starting quantity should be a whole positive number.');
+		}
+
+		if (!(Number.isInteger(addProductForm[8].value) && addProductForm[8].value >= 0)) {
+			checks[6] = false;
+			alert('Reorder point should be a whole positive number.');
+		}
+
+		if (!(Number.isInteger(addProductForm[9].value) && addProductForm[9].value >= 0)) {
+			checks[7] = false;
+			alert('Reorder quantity should be a whole positive number.');
+		}
+
+		if (!(Number.isInteger(addProductForm[10].value) && addProductForm[10].value >= 0)) {
+			checks[8] = false;
+			alert('Minimum discount quantity should be a whole positive number.');
+		}
+
+		if (!(Number.isFloat(addProductForm[11]) && addProductForm[11].value >= 0 && addProductForm[11].value <= 100 )) {
+			checks[9] = false;
+			alert('Percentage discount should be from 0 to 100.');
+		}
+		
+		if (checks.every(Boolean)) {
+			$.ajax({
+				method: 'POST',
+				url: '/addProduct',
+				data: addProductForm,
+				success: function() {
+					window.location.href = '/';
+				},
+				error: function(str) {
+					alert(str.responseText);
+				}
+			});
+		}
+	});
 });
     
 function logout() {

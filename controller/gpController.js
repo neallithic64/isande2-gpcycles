@@ -83,6 +83,36 @@ const gpController = {
 		}
 	},
 	
+	getAllSalesOrders: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let sos = await db.findMany(SalesOrder, {});
+			res.render('all SALES', {
+				topNav: true,
+				sideNav: true,
+				title: 'All Sales Orders',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				sos: forceJSON(sos)
+			});
+		}
+	},
+	
+	getAllPurchOrders: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let pos = await db.findMany(PurchaseOrder, {});
+			res.render('all PURCHS', {
+				topNav: true,
+				sideNav: true,
+				title: 'All Purch Orders',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				pos: forceJSON(pos)
+			});
+		}
+	},
+	
 	getInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('inventoryTable', {
@@ -92,6 +122,21 @@ const gpController = {
 			name: req.session.user.name,
 			isAdmin: req.session.user.usertype === "Admin"
 		});
+	},
+	
+	getProductPage: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let product = await db.findOne(Product, {itemcode: req.query.code});
+			// additional joining from SO and PO collections
+			res.render('viewproduct', {
+				topNav: true,
+				sideNav: true,
+				title: 'Inventory',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin"
+			});
+		}
 	},
 	
 	getAddUser: function(req, res) {
@@ -206,9 +251,9 @@ const gpController = {
 	
 	
 	postAddCustomer: async function(req, res) {
-		let {name, email, contactNum, street, city, province} = req.body;
+		let {firstname, lastname, email, contactNum, street, city, province} = req.body;
 		let customer = {
-			name: name,
+			name: firstname + " " + lastname,
 			email: email,
 			contactNum: contactNum,
 			street: street,

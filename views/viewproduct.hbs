@@ -1,184 +1,178 @@
-{{#if topNav}} {{> topNav}} {{/if}}
-
-{{#if sideNav}} {{> sideNav}} {{/if}}
-
 <div id="layoutSidenav_content">
-    <main>
+	<main>
+		<div class="container-fluid">
+			<div style="margin: 15px 0; display: flex; align-items: center; justify-content: space-between">
+				<div><a href="javascript:history.back()"><p style="color: red; margin: 0px;"> &#60; Back</p></a></div>
+				<div style="display: flex; align-items: flex-end; justify-content: flex-end;">
+					<a href=""><button class="btn btn-outline-secondary" style="margin-right: 5px; width: 75px; font-size: 12px; padding: 1px;"><b style="color: black;">Adjust</b></button></a>
+					<a href="editProduct.html"><button class="btn btn-primary" style="margin-left: 5px; width: 75px; font-size: 12px; padding: 1px;"><b>Edit</b></button></a>
+				</div>
+			</div>
+		</div>
 
-        <div class="container-fluid">
-            <div style="margin: 15px 0; display: flex; align-items: center; justify-content: space-between">
-                <div><a href="javascript:history.back()"><p style="color: red; margin: 0px;"> &#60; Back</p></a></div>
-                <div style="display: flex; align-items: flex-end; justify-content: flex-end;">
-                    <a href=""><button class="btn btn-outline-secondary" style="margin-right: 5px; width: 75px; font-size: 12px; padding: 1px;"><b style="color: black;">Adjust</b></button></a>
-                    <a href="editProduct.html"><button class="btn btn-primary" style="margin-left: 5px; width: 75px; font-size: 12px; padding: 1px;"><b>Edit</b></button></a>
-                </div>
-            </div>
-        </div>
+		<!-- NO EDIT: Product Name & Code -->
+		<div class="container-fluid">
+			<div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
+				<div><h4 style="color: black;">PRODUCT NAME</h4></div>
+				<div><h5 style="color: #43444d;"> PRODUCT CODE</h5></div>
+			</div>
+		</div>
 
-        <!-- NO EDIT: Product Name & Code -->
-        <div class="container-fluid">
-            <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
-                <div><h4 style="color: black;">PRODUCT NAME</h4></div>
-                <div><h5 style="color: #43444d;"> PRODUCT CODE</h5></div>
-            </div>
-        </div>
-        
-        <!-- NO EDIT: Product Primery &  -->
-        <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
-            <div style="width: 50%; flex-wrap: wrap; ">
-                <div class="container-fluid" style="margin-bottom: 20px">
-                    <div class="form-group">
-                        <h6 style="color: red;margin-bottom: 3px;">Primary Details</h6>
-                    </div>
-                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">GROUPNAME</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">SUPPLIEE</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">pcs</p>
-                        </div>
-                    </div>
-                </div>
+		<!-- NO EDIT: Product Primery &  -->
+		<div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
+			<div style="width: 50%; flex-wrap: wrap; ">
+				<div class="container-fluid" style="margin-bottom: 20px">
+					<div class="form-group">
+						<h6 style="color: red;margin-bottom: 3px;">Primary Details</h6>
+					</div>
+					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">GROUPNAME</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">SUPPLIEE</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">pcs</p>
+						</div>
+					</div>
+				</div>
 
-            </div>
+			</div>
 
-            <div class="container-fluid" style="width: 50%;flex-wrap: wrap;">
-                <div class="container-fluid">
-                    <div class="form-group">
-                        <h6 style="color: red;margin-bottom: 3px;">Inventory Summary</h6>
-                    </div>
-                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">30</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">10 (February 12, 2021)</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">510 (February 12, 2021)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<div class="container-fluid" style="width: 50%;flex-wrap: wrap;">
+				<div class="container-fluid">
+					<div class="form-group">
+						<h6 style="color: red;margin-bottom: 3px;">Inventory Summary</h6>
+					</div>
+					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">30</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">10 (February 12, 2021)</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
+							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">510 (February 12, 2021)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- EDITABLE -->
-        <div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 5px">
-            <div style="width: 50%; flex-wrap: wrap;">
-                <div class="container-fluid" style="margin-bottom: 5px">
-                    <div class="form-group">
-                        <h6 style="color: red;margin-bottom: 3px;">Price and Discounts</h6>
-                    </div>
-                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
-                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 738.90</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
-                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 1,000.00</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
-                            <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">50</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
-                            <p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">30%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+		<!-- EDITABLE -->
+		<div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 5px">
+			<div style="width: 50%; flex-wrap: wrap;">
+				<div class="container-fluid" style="margin-bottom: 5px">
+					<div class="form-group">
+						<h6 style="color: red;margin-bottom: 3px;">Price and Discounts</h6>
+					</div>
+					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
+							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 738.90</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
+							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 1,000.00</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
+							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">50</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
+							<p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">30%</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="container-fluid" style="width: 50%;flex-wrap: wrap; margin-bottom: 10px">
-                <div class="container-fluid">
-                    <div class="form-group">
-                        <h6 style="color: red;margin-bottom: 3px;">Reorder Information</h6>
-                    </div>
-                    <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
-                            <p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">10</p>
-                        </div>
-                        <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-                            <p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
-                            <p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">30</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<div class="container-fluid" style="width: 50%;flex-wrap: wrap; margin-bottom: 10px">
+				<div class="container-fluid">
+					<div class="form-group">
+						<h6 style="color: red;margin-bottom: 3px;">Reorder Information</h6>
+					</div>
+					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
+							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">10</p>
+						</div>
+						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+							<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
+							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">30</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <!-- HISTORY -->
-        <div class="container-fluid">
-            <div class="card-body" style="padding: 1.5rem;">
-                <div class="form-group">
-                    <h6 style="color: red;margin-bottom: 3px;">Product Quantity History</h6>
-                </div>
-                <div class="table-responsive" style="font-size: .75rem;">
-                    <table class="tablethin table-bordered" width="100%" cellspacing="0" style="font-size: .9rem;">
-                        <thead style="background-color: rgba(0, 0, 0, 0.03);">
-                            <tr>
-                                <th>Type</th>
-                                <th>Date</th>
-                                <th>Reference</th>
-                                <th>Before</th>
-                                <th>Adjustment</th>
-                                <th>After</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>TYPE</td>
-                                <td>YYYY-MM-DD</td>
-                                <td><a href="">REFERENCE</a></td>
-                                <td>BEFORE</td>
-                                <td>ADJUSTMENT</td>
-                                <td><b>AFTER</b></td>
-                                <td>REMARKS</td>
-                            </tr>
-                            <tr>
-                                <td>Adjustment</td>
-                                <td>2021-01-12</td>
-                                <td><a href="">-</a></td>
-                                <td>40</td>
-                                <td>-10</td>
-                                <td><b>30</b></td>
-                                <td>lost</td>
-                            </tr>
-                            <tr>
-                                <td>Sale</td>
-                                <td>2020-12-31</td>
-                                <td><a href="viewProduct.html">SO-19221</a></td>
-                                <td>23</td>
-                                <td>+17</td>
-                                <td><b>40</b></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Purchase</td>
-                                <td>2020-12-21</td>
-                                <td><a href="viewProduct.html">PO-19221</a></td>
-                                <td>25</td>
-                                <td>-2</td>
-                                <td><b>23</b></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </main>
+		<!-- HISTORY -->
+		<div class="container-fluid">
+			<div class="card-body" style="padding: 1.5rem;">
+				<div class="form-group">
+					<h6 style="color: red;margin-bottom: 3px;">Product Quantity History</h6>
+				</div>
+				<div class="table-responsive" style="font-size: .75rem;">
+					<table class="tablethin table-bordered" width="100%" cellspacing="0" style="font-size: .9rem;">
+						<thead style="background-color: rgba(0, 0, 0, 0.03);">
+							<tr>
+								<th>Type</th>
+								<th>Date</th>
+								<th>Reference</th>
+								<th>Before</th>
+								<th>Adjustment</th>
+								<th>After</th>
+								<th>Remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>TYPE</td>
+								<td>YYYY-MM-DD</td>
+								<td><a href="">REFERENCE</a></td>
+								<td>BEFORE</td>
+								<td>ADJUSTMENT</td>
+								<td><b>AFTER</b></td>
+								<td>REMARKS</td>
+							</tr>
+							<tr>
+								<td>Adjustment</td>
+								<td>2021-01-12</td>
+								<td><a href="">-</a></td>
+								<td>40</td>
+								<td>-10</td>
+								<td><b>30</b></td>
+								<td>lost</td>
+							</tr>
+							<tr>
+								<td>Sale</td>
+								<td>2020-12-31</td>
+								<td><a href="viewProduct.html">SO-19221</a></td>
+								<td>23</td>
+								<td>+17</td>
+								<td><b>40</b></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Purchase</td>
+								<td>2020-12-21</td>
+								<td><a href="viewProduct.html">PO-19221</a></td>
+								<td>25</td>
+								<td>-2</td>
+								<td><b>23</b></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
 </div>

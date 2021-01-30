@@ -1,5 +1,11 @@
 const db = require('../models/db');
 const Test = require('../models/Test');
+const User = require('../models/User');
+const Supplier = require('../models/Supplier');
+const Customer = require('../models/Customer');
+const SalesOrder = require('../models/SalesOrder');
+const PurchaseOrder = require('../models/PurchaseOrder');
+const Product = require('../models/Product');
 const ItemGroup = require('../models/ItemGroup');
 
 function forceJSON(e) {
@@ -42,10 +48,12 @@ const indexTest = {
 		res.redirect('/');
 	},
 	
-	addItemGroups: async function(req, res) {
+	populateCollection: async function(req, res) {
 		try {
-			let array = [];
-			await db.insertMany(ItemGroup, array);
+let array =
+[]
+;
+			await db.insertMany(Customer, array);
 			res.send('yay inserted stuff');
 		} catch (e) {
 			res.send('oof');
