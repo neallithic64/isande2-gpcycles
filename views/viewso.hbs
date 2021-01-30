@@ -5,7 +5,7 @@
                 <div class="container-fluid">
                     <div style="display: flex; flex-direction: row; justify-content:space-between;">
                         <div style="margin-bottom: 15px;">
-                            <h1 id="viewSONum" class="mt-4">SO-000001</h1>
+                            <h1 id="viewSONum" class="mt-4">{{this.s}}</h1>
                         </div>
                         <div style="margin-top:30px; display: flex; flex-direction: row;">
                             <a class="nav-link" style="color: #d32327" id="paySOButton" href="payso.html"> <button class="btn">Pay</button> </a>
@@ -35,8 +35,8 @@
                             </div>
                             <div style="text-align:end; align-items:flex-end; display: flex; flex-direction: column; margin-top: 5px;">
                                 <span style="font-weight: 700; font-size:40px;"> Sales Order </span>
-                                <span id="viewSONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> SO-000001 </span>
-                                <span id="viewSOStatus" class="status-fulfilled"> Fulfilled </span>
+                                <span id="viewSONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> {{salesorder.orderNum}} </span>
+                                <span id="viewSOStatus" class="status-fulfilled"> {{salesorder.status}} </span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -44,13 +44,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Customer</span>
-                                        <span style="font-size:16px;" id="viewSOName"> Lipa Bikes </span>
+                                        <span style="font-size:16px;" id="viewSOName"> {{salesorder.customer.name}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Sales Order Date </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSODate"> Date here </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSODate">{{salesorder.dateOrdered}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -58,13 +58,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Address</span>
-                                        <span style="font-size:16px;" id="viewSOAddress"> 2401 Red Dragon Bldg. Lipa, Batangas </span>
+                                        <span style="font-size:16px;" id="viewSOAddress"> {{salesorder.customer.street}}, {{salesorder.customer.city}}, {{salesorder.customer.province}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Terms </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTerms"> Bank </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTerms"> {{salesorder.paymentTerms}} </span>
                                     </div>
                                 </div>
                             </div>
@@ -72,13 +72,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Contact</span>
-                                        <span style="font-size:16px;" id="viewSOContact"> Gail Tan </span>
+                                        <span style="font-size:16px;" id="viewSOContact"> {{salesorder.customer.name}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Payment Due </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPayDue"> Date here </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPayDue"> {{salesorder.paymentDue}} </span>
                                     </div>
                                 </div>
                             </div>
@@ -86,19 +86,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Email</span>
-                                        <span style="font-size:16px;" id="viewSOEmail"> lipa.bikes@gmail.com </span>
+                                        <span style="font-size:16px;" id="viewSOEmail"> {{salesorder.customer.email}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Mode </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOMode"> Delivery </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOMode"> {{salesorder.deliveryMode}} </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group" style="display:flex; justify-content: flex-end;">
                                 <span style="width:250px; font-size:16px; font-weight: 700;">Expected Delivery </span>
-                                <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> Date here </span>
+                                <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> {{salesorder.expectedDelivery}} </span>
                             </div>
                             
                             <div class="table-responsive" style="margin-top:30px;">
@@ -124,106 +124,28 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        {{#each salesorder.items}}
                                         <tr>
                                             <td style="text-align: center;">
                                                 <span id="viewSOItemNum"> 1 </span>
                                             </td>
                                             <td style="text-align: end;">
-                                                <span id="viewSOQty"> 100 </span>
+                                                <span id="viewSOQty"> {{this.qty}} </span>
                                             </td>
                                             <td style="text-align: center;">
-                                                <span id="viewSOUnit"> pieces </span>
+                                                <span id="viewSOUnit"> {{this.product.unit}} </span>
                                             </td>
                                             <td style="text-align: center;">
-                                                <span id="viewSOItem"> Cat Eye Silver </span>
+                                                <span id="viewSOItem"> {{this.product.description}} </span>
                                             </td>
                                             <td style="text-align: end;">
-                                                <span id="viewSODisc"> 10 </span>
+                                                <span id="viewSODisc">{{getDiscountSO this}}%</span>
                                             </td>
                                             <td style="text-align: end;">
-                                                <span id="viewSONetPrice"> 32,500.00 </span>
+                                                <span id="viewSONetPrice"> {{multiplyDisc this.product.sellingPrice this.qty (getDiscountSO this)}} </span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItemNum"> 2 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItemNum"> 3 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItemNum"> 4 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItemNum"> 5 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewSOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewSONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
@@ -232,13 +154,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Remarks</span>
-                                        <span style="font-size:16px;" id="viewSORemarks"> Lipa Bikes </span>
+                                        <span style="font-size:16px;" id="viewSORemarks"> {{salesorder.remarks}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> 0.00 </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> P {{subtotalSO salesorder}} </span>
                                     </div>
                                 </div>
                             </div>
@@ -252,13 +174,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Total Discount </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> 0.00 </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountSO salesorder}} </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group" style="display:flex; justify-content: flex-end;">
                                 <span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
-                                <span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> 0.00 </span>
+                                <span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalSO salesorder}} </span>
                             </div>
                         </div>
                     </div>
