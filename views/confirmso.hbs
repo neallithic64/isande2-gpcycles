@@ -165,8 +165,9 @@
                         </div>
                         <div style="margin-top: 20px; margin-bottom: 20px;">
                             <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button>
-                                <button class="btn btn-outline-secondary" href="newso.html">Cancel</button>
+                                <button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
+                                {{#if isSecretary}} <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> {{/if}}
+                                <button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button>
                             </div>
                         </div>
                     </form>
