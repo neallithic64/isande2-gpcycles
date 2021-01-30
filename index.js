@@ -36,22 +36,35 @@ app.engine('hbs', exphbs.create({
 		netPriceDisc: function(price,qty,discount) {
 			return price * qty * (100 - discount);
 		},
-		subtotalSO: function(salesorder) {
-			var subSO = 0;
-			salesorder.item.forEach(function(){
-				subSO += (salesorder.items.product.sellingPrice * salesorder.items.qty);
-			})
-			return subSO;
+		subtotalOrder: function(order, ord) {
+			var subtotal = 0;
+			if (ord == 'S') {
+				order.items.forEach(function(){
+					subtotal += (order.items.product.sellingPrice * order.items.qty);
+			})}
+			if (ord == 'P') {
+				order.items.forEach(function(){
+					subtotal += (order.items.product.purchasePrice * order.items.qty);
+			})}
+			return subtotal;
 		},
-		discountSO: function(salesorder) {
-			var discSO = 0;
-			salesorder.item.forEach(function(){
-				discSO += (salesorder.items.product.sellingPrice * salesorder.items.qty * discuntSO(salesorder.items));
-			})
-			return discSO;
+		getDiscountSO: function(item) {
+			return item.qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
 		},
-		netotalSO: function(salesorder) {
-			return subtotalSO(salesorder) - discountSO(salesorder);
+		discountOrder: function(order, ord) {
+			var discount = 0;
+			if (ord == 'S') {
+				order.items.forEach(function(){
+					discount += (order.items.product.sellingPrice * order.items.qty * discuntSO(order.items));
+			})}
+			if (ord == 'P') {
+				order.items.forEach(function(){
+					discount += (order.items.product.purchasePrice * order.items.qty * order.items.discount);
+			})}
+			return discount;
+		},
+		netotalOrder: function(order, ord) {
+			return subtotalOrder(order,ord) - discountOrder(order,ord);
 		},
 		getArrIndex: function(arr, index) {
 			return arr[index];
@@ -61,9 +74,6 @@ app.engine('hbs', exphbs.create({
 		},
 		getPURL: function(id) {
 			return '/product/' + id;
-		},
-		getDiscountSO: function(item) {
-			return item.qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
 		},
 		getPriceTotal: function(cart) {
 			return cart.reduce((total, item) => total + item.price * item.qty, 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');

@@ -120,7 +120,7 @@
 								<table class="table table-bordered" id="viewSOItems" width="100%" cellspacing="0">
 									<thead>
 										<tr style="text-align: center;">
-											<th style="width: 55px;">Item Code</th>
+											<th style="width: 55px;">Item #</th>
 											<th style="width: 40px; text-align: end;">Quantity</th>
 											<th style="width: 100px;">Unit</th>
 											<th style="width: 300px;">Product</th>
@@ -131,7 +131,7 @@
 									</thead>
 									<tfoot>
 										<tr style="text-align: center;">
-											<th style="width: 55px;">Item Code</th>
+											<th style="width: 55px;">Item #</th>
 											<th style="width: 40px; text-align: end;">Quantity</th>
 											<th style="width: 50px;">Unit</th>
 											<th style="width: 300px;">Product</th>
@@ -180,7 +180,7 @@
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
 										<span style="width:250px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> P {{subtotalSO salesorder}} </span>
+										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> {{subtotalOrder salesorder 'S'}} </span>
 									</div>
 								</div>
 							</div>
@@ -188,23 +188,23 @@
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row;">
 										<span style="width:100px; font-size:16px; font-weight: 700;">Conditions</span>
-										<span style="font-size:16px;" id="viewSOCond"> 300.00 penalty for late payment </span>
+										<span style="font-size:16px;" id="viewSOCond"> {{salesorder.conditions}} </span>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
 										<span style="width:250px; font-size:16px; font-weight: 700;">Total Discount </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountSO salesorder}} </span>
+										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountOrder salesorder 'S'}} </span>
 									</div>
 								</div>
 							</div>
 							{{#if isOverdue}} <div class="form-group" style="display:flex; justify-content: flex-end;">
 									<span style="width:250px; font-size:16px; font-weight: 700;">Penalty </span>
-									<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPenalty"> 0.00 </span>
+									<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPenalty"> {{salesorder.penalty}} </span>
 									</div> {{/if}} <!-- if with penalty only -->
 							<div class="form-group" style="display:flex; justify-content: flex-end;">
 								<span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
-								<span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalSO salesorder}} </span>
+								<span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalOrder salesorder 'S'}} </span>
 							</div>
 						</div>
 					</div>

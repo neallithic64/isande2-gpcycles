@@ -5,7 +5,7 @@
                 <div class="container-fluid">
                     <div style="display: flex; flex-direction: row; justify-content:space-between;">
                         <div style="margin-bottom: 15px;">
-                            <h1 id="viewPONum" class="mt-4">PO-000001</h1>
+                            <h1 id="viewPONum" class="mt-4">{{purchaseorder.orderNum}}</h1>
                         </div>
                         <div style="margin-top:30px; display: flex; flex-direction: row;">
                             <a class="nav-link" style="color: #d32327" href="/paysopo"> <button id="payPOButton" class="btn">Pay</button> </a>
@@ -48,8 +48,8 @@
                             </div>
                             <div style="text-align:end; align-items:flex-end; display: flex; flex-direction: column; margin-top: 5px;">
                                 <span style="font-weight: 700; font-size:40px;"> Purchase Order </span>
-                                <span id="viewPONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> PO-000001 </span>
-                                <span id="viewPOStatus" class="status-draft"> Draft </span>
+                                <span id="viewPONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> {{purchaseorder.orderNum}} </span>
+                                <span id="viewPOStatus" class="status-draft"> {{purchaseorder.status}} </span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -57,13 +57,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Supplier</span>
-                                        <span style="font-size:16px;" id="viewPOName"> Lipa Bikes </span>
+                                        <span style="font-size:16px;" id="viewPOName"> {{purchaseorder.name}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Purchase Order Date </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODate"> Date here </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODate"> {{purchaseorder.dateOrdered}} </span>
                                     </div>
                                 </div>
                             </div>
@@ -71,19 +71,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Terms</span>
-                                        <span style="font-size:16px;" id="viewPOTerms"> Bank </span>
+                                        <span style="font-size:16px;" id="viewPOTerms"> {{purchaseorder.paymentTerms}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Payment Due </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOPayDue"> Date here </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOPayDue"> {{purchaseorder.paymentDue}} </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group" style="display:flex; justify-content: flex-end;">
                                 <span style="width:250px; font-size:16px; font-weight: 700;">Expected Delivery </span>
-                                <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> Date here </span>
+                                <span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> {{purchaseorder.expectedDelivery}} </span>
                             </div>
                             
                             <div class="table-responsive" style="margin-top:30px;">
@@ -93,7 +93,7 @@
                                             <th style="width: 55px;">Item #</th>
                                             <th style="width: 40px; text-align: end;">Quantity</th>
                                             <th style="width: 100px;">Unit</th>
-                                            <th style="width: 300px;">Description</th>
+                                            <th style="width: 300px;">Product</th>
                                             <th style="width: 100px; text-align: end;">Unit Price (&#8369;)</th>
                                             <th style="width: 100px; text-align: end;">Discount (%) </th>
                                             <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
@@ -104,128 +104,38 @@
                                             <th style="width: 55px;">Item #</th>
                                             <th style="width: 40px; text-align: end;">Quantity</th>
                                             <th style="width: 50px;">Unit</th>
-                                            <th style="width: 300px;">Description</th>
+                                            <th style="width: 300px;">Product</th>
                                             <th style="width: 100px; text-align: end;">Unit Price (&#8369;)</th>
                                             <th style="width: 100px; text-align: end;">Discount (%) </th>
                                             <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        {{#each purchaseorder.items}}
                                         <tr>
                                             <td style="text-align: center;">
-                                                <span id="viewPOItemNum"> 1 </span>
+                                                <span id="viewPOItemNum"> {{this.product.itemCode}} </span>
                                             </td>
                                             <td style="text-align: end;">
-                                                <span id="viewPOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItem"> Cat Eye Silver </span>
-                                            </td>
+												<span id="viewPOQty"> {{this.qty}} </span>
+											</td>
+											<td style="text-align: center;">
+												<span id="viewS]POUnit"> {{this.product.unit}} </span>
+											</td>
+											<td style="text-align: center;">
+												<span id="viewPOItem"> {{this.product.prodName}} </span>
+											</td>
+											<td style="text-align: end;">
+												<span id="viewPOUnitPrice"> {{this.product.purchasePrice}} </span>
+											</td>
+											<td style="text-align: end;">
+												<span id="viewPODisc">{{this.discount}}%</span>
+											</td>
                                             <td style="text-align: end;">
-                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPONetPrice"> 32,500.00 </span>
+                                                <span id="viewPONetPrice"> {{netPriceDisc this.product.purchasePrice this.qty this.discount}} </span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItemNum"> 2 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItemNum"> 3 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItemNum"> 4 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItemNum"> 5 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOQty"> 100 </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOUnit"> pieces </span>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <span id="viewPOItem"> Cat Eye Silver </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPODisc"> 10 </span>
-                                            </td>
-                                            <td style="text-align: end;">
-                                                <span id="viewPONetPrice"> 32,500.00 </span>
-                                            </td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
@@ -234,13 +144,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Remarks</span>
-                                        <span style="font-size:16px;" id="viewPORemarks"> Lipa Bikes </span>
+                                        <span style="font-size:16px;" id="viewPORemarks"> {{purchaseorder.remarks}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOSub"> 0.00 </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOSub"> {{subtotalOrder purchaseorder 'P'}} </span>
                                     </div>
                                 </div>
                             </div>
@@ -248,23 +158,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row;">
                                         <span style="width:100px; font-size:16px; font-weight: 700;">Conditions</span>
-                                        <span style="font-size:16px;" id="viewPOCond"> Bank </span>
+                                        <span style="font-size:16px;" id="viewPOCond"> {{purchaseorder.conditions}} </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
                                         <span style="width:250px; font-size:16px; font-weight: 700;">Total Discount </span>
-                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOTotalDisc"> 0.00 </span>
+                                        <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOTotalDisc"> {{discountOrder purchaseorder 'P'}} </span>
                                     </div>
                                 </div>
                             </div>
                             {{#if isOverdue}} <div class="form-group" style="display:flex; justify-content: flex-end;">
                                     <span style="width:250px; font-size:16px; font-weight: 700;">Penalty </span>
-                                    <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOPenalty"> 0.00 </span>
+                                    <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOPenalty"> {{purchaseorder.penalty}} </span>
                                     </div> {{/if}} <!-- if with penalty only -->
                             <div class="form-group" style="display:flex; justify-content: flex-end;">
                                 <span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
-                                <span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewPONetTotal"> 0.00 </span>
+                                <span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewPONetTotal"> P {{netotalOrder purchaseorder 'P'}} </span>
                             </div>
                         </div>
                     </div>

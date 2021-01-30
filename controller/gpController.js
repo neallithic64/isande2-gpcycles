@@ -107,7 +107,6 @@ const gpController = {
 		}
 	},
 	
-	// NOT SURE if tama yung functions omo - S
 	getSalesOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
@@ -134,6 +133,21 @@ const gpController = {
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
 				pos: forceJSON(pos)
+			});
+		}
+	},
+
+	getPurchaseOrder: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let purchaseorder = await PurchaseOrder.find({}).populate("items")
+			res.render('viewso', {
+				topNav: true,
+				sideNav: true,
+				title: 'Purchase Order',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				purchaseorder: purchaseorder
 			});
 		}
 	},
