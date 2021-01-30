@@ -107,6 +107,22 @@ const gpController = {
 		}
 	},
 	
+	// NOT SURE if tama yung functions omo - S
+	getSalesOrder: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let salesorder = await SalesOrder.find({}).populate("items")
+			res.render('viewso', {
+				topNav: true,
+				sideNav: true,
+				title: 'Sales Order',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				salesorder: salesorder
+			});
+		}
+	},
+
 	getAllPurchOrders: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
@@ -124,13 +140,49 @@ const gpController = {
 	
 	getInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
-		else res.render('inventoryTable', {
-			topNav: true,
-			sideNav: true,
-			title: 'Inventory',
-			name: req.session.user.name,
-			isAdmin: req.session.user.usertype === "Admin"
-		});
+		else {
+			let products = await Product.find({}).populate("itemGroup");
+			res.render('allproducts', {
+				topNav: true,
+				sideNav: true,
+				title: 'Inventory',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				products: products
+			});
+		}
+	},
+
+	getGroup: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let groups = await db.findMany(Product, {}).populate("itemGroup");
+			// HAVE TO PROCESS PA - s
+			res.render('allgroups', {
+				topNav: true,
+				sideNav: true,
+				title: 'Inventory Groups',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				group: groups
+			});
+		}
+	},
+
+	// CHANGE SOMETHING SA PRODUCT GROUP
+	getGroupInventory: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let groupproducts = await db.findMany(Product, {itemGroup: req.query.something})
+			res.render('allgroupproducts', {
+				topNav: true,
+				sideNav: true,
+				title: 'Group Inventory',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				groupproducts: groupproducts
+			});
+		}
 	},
 	
 	getProductPage: async function(req, res) {

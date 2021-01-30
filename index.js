@@ -33,6 +33,26 @@ app.engine('hbs', exphbs.create({
 	partialsDir: 'views/partials',
 	layoutsDir: 'views/layouts',
 	helpers: {
+		multiplyDisc: function(price,qty,discount) {
+			return price * qty * (100 - discount);
+		},
+		subtotalSO: function(salesorder) {
+			var subSO = 0;
+			salesorder.item.forEach(function(){
+				subSO += (salesorder.items.product.sellingPrice * salesorder.items.qty);
+			})
+			return subSO;
+		},
+		discountSO: function(salesorder) {
+			var discSO = 0;
+			salesorder.item.forEach(function(){
+				discSO += (salesorder.items.product.sellingPrice * salesorder.items.qty * discuntSO(salesorder.items));
+			})
+			return discSO;
+		},
+		netotalSO: function(salesorder) {
+			return subtotalSO(salesorder) - discountSO(salesorder);
+		},
 		getArrIndex: function(arr, index) {
 			return arr[index];
 		},
@@ -42,8 +62,8 @@ app.engine('hbs', exphbs.create({
 		getPURL: function(id) {
 			return '/product/' + id;
 		},
-		getSizeChart: function(categs) {
-			return categs.some(e => e.categName === 'Bottoms');
+		getDiscountSO: function(item) {
+			return item.qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
 		},
 		getPriceTotal: function(cart) {
 			return cart.reduce((total, item) => total + item.price * item.qty, 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
