@@ -251,6 +251,42 @@ const gpController = {
 
 		}
 	},
+
+	getConfirmPO: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			try {
+				res.render('confirmpo', {
+					topNav: true,
+					sideNav: true,
+					title: 'Confirm PO',
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin"
+				});
+			} catch (e) {
+				res.send('error!');
+			}
+
+		}
+	},
+
+	getConfirmSO: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			try {
+				res.render('confirmso', {
+					topNav: true,
+					sideNav: true,
+					title: 'Confirm SO',
+					name: req.session.user.name,
+					isSecretary: req.session.user.usertype === "Secretary"
+				});
+			} catch (e) {
+				res.send('error!');
+			}
+
+		}
+	},
 	
 	
 	
