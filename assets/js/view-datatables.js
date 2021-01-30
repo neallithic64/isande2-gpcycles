@@ -8,3 +8,6 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$('#viewUsersTable').DataTable();
 });
+$(document).ready(function() {
+	$('#viewallSOPO').DataTable();
+});
