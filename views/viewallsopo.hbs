@@ -4,31 +4,29 @@
             <main>
                 <div class="container-fluid">
                     <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                        {{#if isPO}} <h1 class="mt-4">Purchase Orders</h1> {{/if}}
-                        {{#if isSO}} <h1 class="mt-4">Sales Orders</h1> {{/if}}
-                        {{#if isPO}}
-                        <div class="form-group mt-4 mb-0" >
-                            <a href="newpo.html"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
-                        </div>
-                        {{/if}}
                         {{#if isSO}}
-                        <div class="form-group mt-4 mb-0" >
-                            <a href="newso.html"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
-                        </div>
+                            <h1 class="mt-4">Sales Orders</h1>
+                            <div class="form-group mt-4 mb-0" >
+                                <a href="/newso"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
+                            </div>
+                        {{else}}
+                            <h1 class="mt-4">Purchase Orders</h1>
+                            <div class="form-group mt-4 mb-0" >
+                                <a href="/newpo"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
+                            </div>
                         {{/if}}
                     </div>
                     <div class="card mb-4">
-                        {{#if isPO}}
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i>
-                            Purchase Orders
-                        </div>
-                        {{/if}}
                         {{#if isSO}}
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i>
-                            Sales Orders
-                        </div>
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Sales Orders
+                            </div>
+                        {{else}}
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Purchase Orders
+                            </div>
                         {{/if}}
                         <div class="card-body">
                             <div class="table-responsive">

@@ -5,18 +5,16 @@
                 <div class="container-fluid">
                     <form>
                         <div style="margin-bottom: 15px;">
-                            {{#if isPO}} <h1 class="mt-4">Receive Purchase Order</h1> {{/if}}
-                            {{#if isSO}} <h1 class="mt-4">Deliver Sales Order</h1> {{/if}} 
+                            {{#if isPO}} <h1 class="mt-4">Receive Purchase Order</h1>
+                            {{else}} <h1 class="mt-4">Deliver Sales Order</h1> {{/if}} 
                         </div>
 
                         <div style="margin-bottom: 5px;">
                             {{#if isPO}}
-                            <span class="mt-4" style="font-size: 18px;"> Receive from: </span>
-                            <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
-                            <input id="orderType" name="orderType" type="hidden" value="PO"></input>
-                            {{/if}}
-
-                            {{#if isSO}} 
+                                <span class="mt-4" style="font-size: 18px;"> Receive from: </span>
+                                <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                                <input id="orderType" name="orderType" type="hidden" value="PO"></input>
+                            {{else}} 
                                 <span class="mt-4" style="font-size: 18px;"> Deliver to: </span>
                                 <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
                                 <input id="orderType" name="orderType" type="hidden" value="SO"></input>
@@ -190,9 +188,9 @@
                         </div>
 
                         <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end; padding-bottom: 20px;">
-                            {{#if isPO}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Receive</button> {{/if}}
-                            {{#if isSO}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Deliver</button> {{/if}}
-                            <button class="btn btn-outline-secondary">Cancel</button> <!-- go back to view -->
+                            {{#if isPO}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Receive</button>
+                            {{else}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Deliver</button> {{/if}}
+                            <button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button> <!-- go back to view -->
                         </div>
                     </form>
                 </div>

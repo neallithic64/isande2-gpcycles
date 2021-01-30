@@ -20,11 +20,16 @@ router.get('/salesorders', gpController.getAllSalesOrders);
 router.get('/purchorders', gpController.getAllPurchOrders);
 router.get('/inventory', gpController.getInventory);
 router.get('/addUser', gpController.getAddUser);
-router.get('/addPO');
-router.get('/addSO');
+router.get('/newPO', gpController.getNewPO);
+router.get('/newSO', gpController.getNewSO);
 router.get('/addProduct', gpController.getAddProduct);
 router.get('/addCustomer', gpController.getAddCustomer);
 router.get('/addSupplier', gpController.getAddSupplier);
+router.get('/confirmpo', gpController.getConfirmPO);
+router.get('/confirmso', gpController.getConfirmSO);
+router.get('/paysopo', gpController.getPaySOPO);
+router.get('/drsopo', gpController.getDelRecSOPO);
+router.get('/viewallsopo', gpController.getViewAllSOPO);
 
 
 
@@ -32,8 +37,8 @@ router.get('/addSupplier', gpController.getAddSupplier);
 router.post('/login', gpMiddleware.validateLogin, gpController.postLogin);
 router.post('/logout', gpController.postLogout);
 router.post('/addUser', gpMiddleware.validateAddUser, gpController.postAddUser);
-router.post('/addPO');
-router.post('/addSO');
+router.post('/newPO');
+router.post('/newSO');
 router.post('/addItemGroup', gpController.postAddItemGroup);
 router.post('/addProduct');
 router.post('/addCustomer', gpController.postAddCustomer);

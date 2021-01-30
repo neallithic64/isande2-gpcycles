@@ -189,8 +189,9 @@
                         </div>
                         <div style="margin-top: 20px; margin-bottom: 20px;">
                             <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                <a href="confirmso.html"><button style="margin-right: 10px;" class="btn btn-primary">Next</button></a>
-                                <button class="btn btn-outline-secondary" href="newso.html">Cancel</button>
+                                <a href="/confirmso"><button style="margin-right: 10px;" class="btn btn-primary">Next</button></a>
+                                {{#if isSales}} <button class="btn btn-outline-secondary" onclick="window.location.href='/newso'">Cancel</button> 
+                                {{else}} <button class="btn btn-outline-secondary" onclick="window.location.href='/viewallsopo'">Cancel</button> {{/if}}
                             </div>
                         </div>
                     </form>

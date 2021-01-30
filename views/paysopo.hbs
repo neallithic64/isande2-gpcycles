@@ -5,18 +5,16 @@
                 <div class="container-fluid">
                     <form>
                         <div style="margin-bottom: 15px;">
-                            {{#if isPO}} <h1 class="mt-4">Pay Purchase Order</h1> {{/if}}
-                            {{#if isSO}} <h1 class="mt-4">Receive Sales Order Payment</h1> {{/if}} 
+                            {{#if isPO}} <h1 class="mt-4">Pay Purchase Order</h1>
+                            {{else}} <h1 class="mt-4">Receive Sales Order Payment</h1> {{/if}} 
                         </div>
 
                         <div style="margin-bottom: 5px;">
                             {{#if isPO}}
-                            <span class="mt-4" style="font-size: 18px;"> Payable to: </span>
-                            <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
-                            <input id="orderType" name="orderType" type="hidden" value="PO"></input>
-                            {{/if}}
-
-                            {{#if isSO}} 
+                                <span class="mt-4" style="font-size: 18px;"> Payable to: </span>
+                                <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                                <input id="orderType" name="orderType" type="hidden" value="PO"></input>
+                            {{else}} 
                                 <span class="mt-4" style="font-size: 18px;"> Receivable from: </span>
                                 <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
                                 <input id="orderType" name="orderType" type="hidden" value="SO"></input>
@@ -190,7 +188,7 @@
 
                         <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end; padding-bottom: 20px;">
                             <button type="button" style="margin-right: 10px;" class="btn btn-primary">Pay</button>
-                            <button class="btn btn-outline-secondary">Cancel</button> <!-- go back to view -->
+                            <button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button>
                         </div>
                     </form>
                 </div>
