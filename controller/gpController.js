@@ -17,10 +17,10 @@ function forceJSON(e) {
 async function genItemCode(itGroup) {
 	// format: XX-YYYYYY
 	// XX: item group code (use index, pad 2 digits)
-	let itemGrpCode = await db.findOne(ItemGroup, {_id: itGroup}).index;
+	let itemGrp = await db.findOne(ItemGroup, {_id: itGroup});
 	// YY: sequential number
-	let prodCount = await db.findMany(Product, {'itemGroup._id': itGroup}).length;
-	return itemGrpCode.toString().padStart(2, '0') + '-' + prodCount.toString().padStart(6, '0');
+	let prodCount = await db.findMany(Product, {itemGroup: itGroup});
+	return itemGrp.index.toString().padStart(2, '0') + '-' + prodCount.length.toString().padStart(6, '0');
 }
 
 /* Index Functions

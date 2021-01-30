@@ -17,6 +17,15 @@ function incDate(date) {
 	return d.setDate(d.getDate()+1);
 }
 
+async function genItemCode(itGroup) {
+	// format: XX-YYYYYY
+	// XX: item group code (use index, pad 2 digits)
+	let itemGrp = await db.findOne(ItemGroup, {_id: itGroup});
+	// YY: sequential number
+	let prodCount = await db.findMany(Product, {itemGroup: itGroup});
+	return itemGrp.index.toString().padStart(2, '0') + '-' + prodCount.length.toString().padStart(6, '0');
+}
+
 /* Index Functions
  */
 const indexTest = {
@@ -63,15 +72,34 @@ const indexTest = {
 		res.send('done');
 	},
 	
+	checkProducts: async function(req, res) {
+		let prods = await db.findMany(Product, {}), i, supplier;
+		for (i = 0; i < 0; i++) {
+			supplier = await db.aggregate(Supplier, [{'$sample': {size: 1}}]);
+			await db.updateOne(Product, {_id: prods[i]._id}, {
+				supplier: supplier[0]._id
+			});
+		}
+		res.send('done');
+	},
+	
 	populateCollection: async function(req, res) {
 		try {
-let array =
-[]
-;
-			await db.insertMany(/* COLLECTION, */ array);
+			let array = [], objGroup, i;
+			for (i = 0; i < 0; i++) {
+				array[i].discount = {
+					qty: array[i].qty,
+					percentage: array[i].percentage
+				};
+				delete array[i].qty;
+				delete array[i].percentage;
+				objGroup = await db.findOne(ItemGroup, {itemGroup: array[i].itemGroup});
+				array[i].itemGroup = db.toObjId(objGroup._id);
+			};
+			await db.insertMany(Product, array);
 			res.send('yay inserted stuff');
 		} catch (e) {
-			res.send('oof');
+			res.send(e);
 		}
 	}
 };
