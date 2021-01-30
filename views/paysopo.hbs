@@ -1,0 +1,200 @@
+<div class="sb-nav-fixed">
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <form>
+                        <div style="margin-bottom: 15px;">
+                            {{#if isPO}} <h1 class="mt-4">Pay Purchase Order</h1> {{/if}}
+                            {{#if isSO}} <h1 class="mt-4">Receive Sales Order Payment</h1> {{/if}} 
+                        </div>
+
+                        <div style="margin-bottom: 5px;">
+                            {{#if isPO}}
+                            <span class="mt-4" style="font-size: 18px;"> Payable to: </span>
+                            <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                            <input id="orderType" name="orderType" type="hidden" value="PO"></input>
+                            {{/if}}
+
+                            {{#if isSO}} 
+                                <span class="mt-4" style="font-size: 18px;"> Receivable from: </span>
+                                <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                                <input id="orderType" name="orderType" type="hidden" value="SO"></input>
+                            {{/if}}
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="payItems" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th style="width: 55px;">Item #</th>
+                                        <th style="width: 250px;">Description</th>
+                                        <th style="width: 40px; text-align: end;">Quantity</th>
+                                        <th style="width: 40px; text-align: end;">Unit Price (&#8369;)</th>
+                                        <th style="width: 100px; text-align: end;">Discount (%) </th>
+                                        <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr style="text-align: center;">
+                                        <th style="width: 55px;">Item #</th>
+                                        <th style="width: 250px;">Description</th>
+                                        <th style="width: 40px; text-align: end;">Quantity</th>
+                                        <th style="width: 40px; text-align: end;">Unit Price (&#8369;)</th>
+                                        <th style="width: 100px; text-align: end;">Discount (%) </th>
+                                        <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <span id="payItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="payItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <span id="payItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="payItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <span id="payItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="payItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <span id="payItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="payItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <span id="payItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="payItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="payNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        
+                        <div class="form-row" style="margin-top: -10px">
+                            <div class="col-md-6" style="display: flex; flex-direction: column;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="payPOPenalty">Penalty</label>
+                                        <input class="form-control" style="width: 490px;" id="inputPenalty" type="text" placeholder="0.00">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="payPORemarks">Remarks</label>
+                                        <input class="form-control" style="width: 490px;" id="inputPenaltyRemarks" type="text" placeholder="Type here">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin-top: 7px">
+                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
+                                    <label class="small mb-1" for="paySub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
+                                    <input class="form-control" id="paySub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+                                </div>
+                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+                                    <label class="small mb-1" for="payTotalDisc" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
+                                    <input class="form-control" id="payTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+                                </div>
+                                {{#if isOverdue}}
+                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+                                    <label class="small mb-1" for="payPenalty" style="width: 130px; font-size: 15px; padding-top: 5px;">Penalty</label>
+                                    <input class="form-control" id="payPenalty" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+                                </div> 
+                                {{/if}}
+                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+                                    <label class="small mb-1" for="payNetTotal" style="color: #F50506; font-weight: 700; width: 130px; font-size: 18px; padding-top: 5px;">NET TOTAL</label>
+                                    <input class="form-control" id="PayNetTotal" style="font-weight: 700; padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end; padding-bottom: 20px;">
+                            <button type="button" style="margin-right: 10px;" class="btn btn-primary">Pay</button>
+                            <button class="btn btn-outline-secondary">Cancel</button> <!-- go back to view -->
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

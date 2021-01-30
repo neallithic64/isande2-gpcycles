@@ -1,0 +1,202 @@
+<div class="sb-nav-fixed">
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <form>
+                        <div style="margin-bottom: 15px;">
+                            {{#if isPO}} <h1 class="mt-4">Receive Purchase Order</h1> {{/if}}
+                            {{#if isSO}} <h1 class="mt-4">Deliver Sales Order</h1> {{/if}} 
+                        </div>
+
+                        <div style="margin-bottom: 5px;">
+                            {{#if isPO}}
+                            <span class="mt-4" style="font-size: 18px;"> Receive from: </span>
+                            <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                            <input id="orderType" name="orderType" type="hidden" value="PO"></input>
+                            {{/if}}
+
+                            {{#if isSO}} 
+                                <span class="mt-4" style="font-size: 18px;"> Deliver to: </span>
+                                <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                                <input id="orderType" name="orderType" type="hidden" value="SO"></input>
+                            {{/if}}
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="drItems" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        {{#if isPartial}} <th style="width: 55px;"></th> {{/if}}
+                                        <th style="width: 55px;">Item #</th>
+                                        <th style="width: 250px;">Description</th>
+                                        <th style="width: 40px; text-align: end;">Quantity</th>
+                                        <th style="width: 40px; text-align: end;">Unit Price (&#8369;)</th>
+                                        <th style="width: 100px; text-align: end;">Discount (%) </th>
+                                        <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr style="text-align: center;">
+                                        {{#if isPartial}} <th style="width: 55px;"></th> {{/if}}
+                                        <th style="width: 55px;">Item #</th>
+                                        <th style="width: 250px;">Description</th>
+                                        <th style="width: 40px; text-align: end;">Quantity</th>
+                                        <th style="width: 40px; text-align: end;">Unit Price (&#8369;)</th>
+                                        <th style="width: 100px; text-align: end;">Discount (%) </th>
+                                        <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr>
+                                        {{#if isPartial}}
+                                            <td style="text-align: center;">
+                                                <input type="checkbox" name="item" id="${value}" value="${value}">
+                                            </td>
+                                        {{/if}}
+                                        <td style="text-align: center;">
+                                            <span id="drItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="drItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {{#if isPartial}}
+                                            <td style="text-align: center;">
+                                                <input type="checkbox" name="item" id="${value}" value="${value}">
+                                            </td>
+                                        {{/if}}
+                                        <td style="text-align: center;">
+                                            <span id="drItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="drItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {{#if isPartial}}
+                                            <td style="text-align: center;">
+                                                <input type="checkbox" name="item" id="${value}" value="${value}">
+                                            </td>
+                                        {{/if}}
+                                        <td style="text-align: center;">
+                                            <span id="drItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="drItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {{#if isPartial}}
+                                            <td style="text-align: center;">
+                                                <input type="checkbox" name="item" id="${value}" value="${value}">
+                                            </td>
+                                        {{/if}}
+                                        <td style="text-align: center;">
+                                            <span id="drItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="drItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {{#if isPartial}}
+                                            <td style="text-align: center;">
+                                                <input type="checkbox" name="item" id="${value}" value="${value}">
+                                            </td>
+                                        {{/if}}
+                                        <td style="text-align: center;">
+                                            <span id="drItemNum"> 1 </span>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span id="drItem"> Cat Eye Silver </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drQty"> 100 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drUnitPrice"> 1234.00 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drDisc"> 10 </span>
+                                        </td>
+                                        <td style="text-align: end;">
+                                            <span id="drNetPrice"> 32,500.00 </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        
+                        <div class="form-row" style="margin-top: -10px">
+                            <div class="col-md-6" style="display: flex; flex-direction: column;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="drRemarks">Remarks</label>
+                                        <input class="form-control" style="width: 490px;" id="inputPenaltyRemarks" type="text" placeholder="Type here">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end; padding-bottom: 20px;">
+                            {{#if isPO}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Receive</button> {{/if}}
+                            {{#if isSO}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Deliver</button> {{/if}}
+                            <button class="btn btn-outline-secondary">Cancel</button> <!-- go back to view -->
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

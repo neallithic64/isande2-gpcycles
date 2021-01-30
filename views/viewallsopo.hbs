@@ -1,0 +1,105 @@
+<div class="sb-nav-fixed">
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        {{#if isPO}} <h1 class="mt-4">Purchase Orders</h1> {{/if}}
+                        {{#if isSO}} <h1 class="mt-4">Sales Orders</h1> {{/if}}
+                        {{#if isPO}}
+                        <div class="form-group mt-4 mb-0" >
+                            <a href="newpo.html"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
+                        </div>
+                        {{/if}}
+                        {{#if isSO}}
+                        <div class="form-group mt-4 mb-0" >
+                            <a href="newso.html"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
+                        </div>
+                        {{/if}}
+                    </div>
+                    <div class="card mb-4">
+                        {{#if isPO}}
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            Purchase Orders
+                        </div>
+                        {{/if}}
+                        {{#if isSO}}
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            Sales Orders
+                        </div>
+                        {{/if}}
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="viewAllSOPO" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>PO #</th>
+                                            <th>Supplier</th>
+                                            <th>Status</th>
+                                            <th>Remarks</th>
+                                            <th>Terms</th>
+                                            {{#if isSO}} <th>Mode</th> {{/if}}
+                                            <th>Deliver By</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>PO #</th>
+                                            <th>Supplier</th>
+                                            <th>Status</th>
+                                            <th>Remarks</th>
+                                            <th>Terms</th>
+                                            {{#if isSO}} <th>Mode</th> {{/if}}
+                                            <th>Deliver By</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody style="font-size: 12px;" >
+                                        <tr>
+                                            <td>2008/01/23</td>
+                                            <td><a href="#">PO-000001</a></td>
+                                            <td>Lipa Bikes</td>
+                                            <td><div id="status" class="status-received"> Received</div></td>
+                                            <td>Received by Gino </td>
+                                            <td>Bank</td>
+                                            {{#if isSO}} <td>Delivery</td> {{/if}}
+                                            <td>2008/01/23</th>
+                                            <td>120,000</th>
+                                        </tr>
+                                        <tr>
+                                            <td>2008/01/23</td>
+                                            <td><a href="#">PO-000001</a></td>
+                                            <td>Bikes</td>
+                                            <td><div id="status" class="status-toReceive"> To Receive</div></td>
+                                            <td>Received by Gino </td>
+                                            <td>Bank</td>
+                                            {{#if isSO}} <td>Pickup</td> {{/if}}
+                                            <td>2008/01/23</th>
+                                            <td>120,000</th>
+                                        </tr>
+                                        <tr>
+                                            <td>2008/01/23</td>
+                                            <td><a href="#">PO-000001</a></td>
+                                            <td>Lipa Bikes</td>
+                                            <td><div id="status" class="status-pending"> Pending</div></td>
+                                            <td>Received by Gino </td>
+                                            <td>Bank</td>
+                                            {{#if isSO}} <td>Physical</td> {{/if}}
+                                            <td>2008/01/23</th>
+                                            <td>120,000</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

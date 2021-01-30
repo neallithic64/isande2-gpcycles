@@ -10,3 +10,11 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#viewUsersTable').DataTable();
   });
+
+$(document).ready(function() {
+  $('#viewAllPO').DataTable();
+});
+
+$(document).ready(function() {
+  $('#viewAllSOPO').DataTable();
+});

@@ -8,18 +8,32 @@
                             <h1 id="viewPONum" class="mt-4">PO-000001</h1>
                         </div>
                         <div style="margin-top:30px; display: flex; flex-direction: row;">
-                            <a class="nav-link" style="color: #d32327" id="payPOButton" href="paypo.html"> <button class="btn">Pay</button> </a>
+                            <a class="nav-link" style="color: #d32327" href="paysopo.html"> <button id="payPOButton" class="btn">Pay</button> </a>
                             <ul class="navbar-nav ml-auto ml-md-0">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" style="color: #d32327" id="receivePOButton" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <button class="btn"> Receive </button> </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="receivepo.html">Receive All</a>
+                                        <a class="dropdown-item" href="drsopo.html">Receive All</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="receivepo.html">Partial Receive</a>
+                                        <a class="dropdown-item" href="drsopo.html">Partial Receive</a>
                                     </div>
                                 </li>
                             </ul>
-                            <a class="nav-link" style="color: #d32327" id="cancelPOButton" href="cancelpo.html"> <button class="btn">Cancel</button> </a>
+                            <a class="nav-link" style="color: #d32327"> <button id="cancelSOPOButton" class="btn">Cancel</button> </a>
+                        </div>
+                    </div>
+                    <div id="cancelModal" class="modal">
+                        <div class="modal-content" style="width: 800px;">
+                            <span class="close"> &times; </span>
+                            <span style="font-size: 30px; font-weight: 600; margin-bottom: 10px;"> Cancel Reason </span>
+                            <form>
+                                <div class="form-group">
+                                    <input style="width: 760px;" class="form-control" id="inputCancelRemarks" type="text" placeholder="Type here">
+                                </div>
+                                <div style="display: flex; justify-content: flex-end;">
+                                <button type="button" style="margin-right: 10px;" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="card mb-4">
@@ -80,6 +94,7 @@
                                             <th style="width: 40px; text-align: end;">Quantity</th>
                                             <th style="width: 100px;">Unit</th>
                                             <th style="width: 300px;">Description</th>
+                                            <th style="width: 100px; text-align: end;">Unit Price (&#8369;)</th>
                                             <th style="width: 100px; text-align: end;">Discount (%) </th>
                                             <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
                                         </tr>
@@ -90,6 +105,7 @@
                                             <th style="width: 40px; text-align: end;">Quantity</th>
                                             <th style="width: 50px;">Unit</th>
                                             <th style="width: 300px;">Description</th>
+                                            <th style="width: 100px; text-align: end;">Unit Price (&#8369;)</th>
                                             <th style="width: 100px; text-align: end;">Discount (%) </th>
                                             <th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
                                         </tr>
@@ -107,6 +123,9 @@
                                             </td>
                                             <td style="text-align: center;">
                                                 <span id="viewPOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
                                             </td>
                                             <td style="text-align: end;">
                                                 <span id="viewPODisc"> 10 </span>
@@ -129,6 +148,9 @@
                                                 <span id="viewPOItem"> Cat Eye Silver </span>
                                             </td>
                                             <td style="text-align: end;">
+                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
+                                            </td>
+                                            <td style="text-align: end;">
                                                 <span id="viewPODisc"> 10 </span>
                                             </td>
                                             <td style="text-align: end;">
@@ -147,6 +169,9 @@
                                             </td>
                                             <td style="text-align: center;">
                                                 <span id="viewPOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
                                             </td>
                                             <td style="text-align: end;">
                                                 <span id="viewPODisc"> 10 </span>
@@ -169,6 +194,9 @@
                                                 <span id="viewPOItem"> Cat Eye Silver </span>
                                             </td>
                                             <td style="text-align: end;">
+                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
+                                            </td>
+                                            <td style="text-align: end;">
                                                 <span id="viewPODisc"> 10 </span>
                                             </td>
                                             <td style="text-align: end;">
@@ -187,6 +215,9 @@
                                             </td>
                                             <td style="text-align: center;">
                                                 <span id="viewPOItem"> Cat Eye Silver </span>
+                                            </td>
+                                            <td style="text-align: end;">
+                                                <span id="viewPOUnitPrice"> 1,234.00 </span>
                                             </td>
                                             <td style="text-align: end;">
                                                 <span id="viewPODisc"> 10 </span>
@@ -227,6 +258,10 @@
                                     </div>
                                 </div>
                             </div>
+                            {{#if isOverdue}} <div class="form-group" style="display:flex; justify-content: flex-end;">
+                                    <span style="width:250px; font-size:16px; font-weight: 700;">Penalty </span>
+                                    <span style="width: 80px; font-size:16px; text-align: end;" id="viewPOPenalty"> 0.00 </span>
+                                    </div> {{/if}} <!-- if with penalty only -->
                             <div class="form-group" style="display:flex; justify-content: flex-end;">
                                 <span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
                                 <span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewPONetTotal"> 0.00 </span>
