@@ -6,7 +6,7 @@
 				<div class="container-fluid">
 					<div style="display: flex; flex-direction: row; justify-content:space-between;">
 						<div style="margin-bottom: 15px;">
-							<h1 id="viewSONum" class="mt-4">{{this.s}}</h1>
+							<h1 id="viewSONum" class="mt-4">{{salesorder.orderNum}}</h1>
 						</div>
 						<div style="margin-top:30px; display: flex; flex-direction: row;">
 							<a class="nav-link" style="color: #d32327" href="/paysopo"> <button id="paySOButton" class="btn">Pay</button> </a>
@@ -120,10 +120,10 @@
 								<table class="table table-bordered" id="viewSOItems" width="100%" cellspacing="0">
 									<thead>
 										<tr style="text-align: center;">
-											<th style="width: 55px;">Item #</th>
+											<th style="width: 55px;">Item Code</th>
 											<th style="width: 40px; text-align: end;">Quantity</th>
 											<th style="width: 100px;">Unit</th>
-											<th style="width: 300px;">Description</th>
+											<th style="width: 300px;">Product</th>
 											<th style="width: 100px; text-align: end;">Unit Price (&#8369;)</th>
 											<th style="width: 100px; text-align: end;">Discount (%) </th>
 											<th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
@@ -131,10 +131,10 @@
 									</thead>
 									<tfoot>
 										<tr style="text-align: center;">
-											<th style="width: 55px;">Item #</th>
+											<th style="width: 55px;">Item Code</th>
 											<th style="width: 40px; text-align: end;">Quantity</th>
 											<th style="width: 50px;">Unit</th>
-											<th style="width: 300px;">Description</th>
+											<th style="width: 300px;">Product</th>
 											<th style="width: 100px; text-align: end;">Unit Price (&#8369;)</th>
 											<th style="width: 100px; text-align: end;">Discount (%) </th>
 											<th style="width: 100px; text-align: end;">Net Price (&#8369;)</th>
@@ -144,7 +144,7 @@
 										{{#each salesorder.items}}
 										<tr>
 											<td style="text-align: center;">
-												<span id="viewSOItemNum"> 1 </span>
+												<span id="viewSOItemNum"> {{this.product.itemCode}} </span>
 											</td>
 											<td style="text-align: end;">
 												<span id="viewSOQty"> {{this.qty}} </span>
@@ -153,39 +153,16 @@
 												<span id="viewSOUnit"> {{this.product.unit}} </span>
 											</td>
 											<td style="text-align: center;">
-												<span id="viewSOItem"> {{this.product.description}} </span>
+												<span id="viewSOItem"> {{this.product.prodName}} </span>
 											</td>
 											<td style="text-align: end;">
-												<span id="viewSOUnitPrice"> 1,234.00 </span>
+												<span id="viewSOUnitPrice"> {{this.product.sellingPrice}} </span>
 											</td>
 											<td style="text-align: end;">
 												<span id="viewSODisc">{{getDiscountSO this}}%</span>
 											</td>
 											<td style="text-align: end;">
-												<span id="viewSONetPrice"> {{multiplyDisc this.product.sellingPrice this.qty (getDiscountSO this)}} </span>
-											</td>
-										</tr>
-										<tr>
-											<td style="text-align: center;">
-												<span id="viewSOItemNum"> 2 </span>
-											</td>
-											<td style="text-align: end;">
-												<span id="viewSOQty"> 100 </span>
-											</td>
-											<td style="text-align: center;">
-												<span id="viewSOUnit"> pieces </span>
-											</td>
-											<td style="text-align: center;">
-												<span id="viewSOItem"> Cat Eye Silver </span>
-											</td>
-											<td style="text-align: end;">
-												<span id="viewSOUnitPrice"> 1,234.00 </span>
-											</td>
-											<td style="text-align: end;">
-												<span id="viewSODisc"> 10 </span>
-											</td>
-											<td style="text-align: end;">
-												<span id="viewSONetPrice"> 32,500.00 </span>
+												<span id="viewSONetPrice"> {{netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this)}} </span>
 											</td>
 										</tr>
 										{{/each}}

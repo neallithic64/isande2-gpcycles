@@ -33,7 +33,7 @@ app.engine('hbs', exphbs.create({
 	partialsDir: 'views/partials',
 	layoutsDir: 'views/layouts',
 	helpers: {
-		multiplyDisc: function(price,qty,discount) {
+		netPriceDisc: function(price,qty,discount) {
 			return price * qty * (100 - discount);
 		},
 		subtotalSO: function(salesorder) {
