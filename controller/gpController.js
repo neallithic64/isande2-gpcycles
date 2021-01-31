@@ -225,18 +225,20 @@ const gpController = {
 		}
 	},
 
-	// CHANGE SOMETHING SA PRODUCT GROUP
 	getGroupInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let groupproducts = await db.findMany(Product, {itemGroup: req.query.something});
+			let groupproducts = await Product.find({}).populate("itemGroup"),
+				pass = groupproducts.filter(e => e.itemGroup.index === Number.parseInt(req.params.index)),
+				groupName = await db.findOne(ItemGroup, {index: req.params.index});
 			res.render('allgroupproducts', {
 				topNav: true,
 				sideNav: true,
 				title: 'Group Inventory',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				groupproducts: groupproducts
+				groupName: groupName.itemGroup,
+				products: pass
 			});
 		}
 	},
@@ -244,10 +246,10 @@ const gpController = {
 	getAddUser: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else if (req.session.user !== "Admin") res.render('error', {
-			title: 'Unauthorised Access',
-			code: 403,
-			message: 'Admins only'
-		});
+				title: 'Unauthorised Access',
+				code: 403,
+				message: 'Admins only'
+			});
 		else res.render('addaccount', {
 			topNav: true,
 			sideNav: true,

@@ -1,67 +1,71 @@
-<div id="layoutSidenav_content">
-    <main>
-        <div class="container-fluid" style="padding: 0.75rem">
-            <h1 class="mt-4" style="padding:0px 20px">Inventory</h1>
-            
-            <ol class="breadcrumb" style="margin:-10px 20px; margin-bottom: 20px; padding: 0px; background-color: transparent;">
-                <li class="breadcrumb-item active">View Group</li>
-                <li class="breadcrumb-item"><a href="/allproducts">View Items</a></li>
-            </ol>
-            
-            <div class="card mb-4">
-                <div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
-                    <div style="width: 50%; vertical-align: middle; ">
-                        <div><a href="javascript:history.back()"><p style="margin: 0px;"> &#60; {{productGroup from link}}</p></a></div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead style="background-color: rgba(0, 0, 0, 0.03);">
-                                <tr>
-                                    <th style="width: 15%;">Group</th>
-                                    <th style="width: 30%;">Product</th>
-                                    <th style="width: 5%;">Unit</th>
-                                    <th style="width: 5%;">Reorder</th>
-                                    <th style="width: 5%;">Onhand</th>
-                                    <th style="width: 5%;">Incoming</th>
-                                    <th style="width: 5%;">Outgoing</th>
-                                    <th style="width: 15%; text-align: right;">Purchase P</th>
-                                    <th style="width: 15%; text-align: right;">Selling P</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th style="width: 15%;">Group</th>
-                                    <th style="width: 30%;">Product</th>
-                                    <th style="width: 5%;">Unit</th>
-                                    <th style="width: 5%;">Reorder</th>
-                                    <th style="width: 5%;">Onhand</th>
-                                    <th style="width: 5%;">Incoming</th>
-                                    <th style="width: 5%;">Outgoing</th>
-                                    <th style="width: 15%; text-align: right;">Purchase P</th>
-                                    <th style="width: 15%; text-align: right;">Selling P</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                {{#each products}}
-                                <tr>
-                                    <td>{{this.group.group}}</td>
-                                    <td><a href="/viewproduct">{{this.prodName}}</a></td>
-                                    <td>{{this.unit}}</td>
-                                    <td>{{this.reorderPoint}}</td>
-                                    <td>{{this.reorderQty}}</td>
-                                    <td>{{this.incomingQty}}</td>
-                                    <td>{{this.outgoingQty}}</td>
-                                    <td style="text-align: right;">{{this.purchasePrice}}</td>
-                                    <td style="text-align: right;">{{this.sellingPrice}}</td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+<div class="sb-nav-fixed">
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid" style="padding: 0.75rem">
+					<h1 class="mt-4" style="padding:0px 20px">Inventory ({{groupName}})</h1>
+
+					<ol class="breadcrumb" style="margin:-10px 20px; margin-bottom: 20px; padding: 0px; background-color: transparent;">
+						<li class="breadcrumb-item active">View Group</li>
+						<li class="breadcrumb-item"><a href="/allproducts">View Items</a></li>
+					</ol>
+
+					<div class="card mb-4">
+						<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
+							<div style="width: 50%; vertical-align: middle; ">
+								<div><a href="javascript:history.back()"><p style="margin: 0px;"> &#60; Back</p></a></div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<thead style="background-color: rgba(0, 0, 0, 0.03);">
+										<tr>
+											<th style="width: 15%;">Group</th>
+											<th style="width: 30%;">Product</th>
+											<th style="width: 5%;">Unit</th>
+											<th style="width: 5%;">Reorder</th>
+											<th style="width: 5%;">Onhand</th>
+											<th style="width: 5%;">Incoming</th>
+											<th style="width: 5%;">Outgoing</th>
+											<th style="width: 15%; text-align: right;">Purchase P</th>
+											<th style="width: 15%; text-align: right;">Selling P</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th style="width: 15%;">Group</th>
+											<th style="width: 30%;">Product</th>
+											<th style="width: 5%;">Unit</th>
+											<th style="width: 5%;">Reorder</th>
+											<th style="width: 5%;">Onhand</th>
+											<th style="width: 5%;">Incoming</th>
+											<th style="width: 5%;">Outgoing</th>
+											<th style="width: 15%; text-align: right;">Purchase P</th>
+											<th style="width: 15%; text-align: right;">Selling P</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{{#each products}}
+										<tr>
+											<td>{{this.itemGroup.itemGroup}}</td>
+											<td><a href="/viewproduct">{{this.prodName}}</a></td>
+											<td>{{this.unit}}</td>
+											<td>{{this.reorderPoint}}</td>
+											<td>{{this.reorderQty}}</td>
+											<td>{{this.incomingQty}}</td>
+											<td>{{this.outgoingQty}}</td>
+											<td style="text-align: right;">{{this.purchasePrice}}</td>
+											<td style="text-align: right;">{{this.sellingPrice}}</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
 </div>

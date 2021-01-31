@@ -20,7 +20,7 @@ router.get('/suppliers', gpController.getAllSuppliers);
 router.get('/users', gpController.getAllUsers);
 router.get('/allproducts', gpController.getInventory);
 router.get('/allgroups', gpController.getGroups);
-router.get('/allgroupproducts', gpController.getGroupInventory);
+router.get('/allgroupproducts/:index', gpController.getGroupInventory);
 
 router.get('/addUser', gpController.getAddUser);
 router.get('/addProduct', gpController.getAddProduct);
