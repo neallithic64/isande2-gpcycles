@@ -245,7 +245,8 @@ const gpController = {
 	
 	getAddUser: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
-		else if (req.session.user !== "Admin") res.render('error', {
+		else if (req.session.user.usertype !== "Admin")
+			res.render('error', {
 				title: 'Unauthorised Access',
 				code: 403,
 				message: 'Admins only'
