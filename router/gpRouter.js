@@ -22,7 +22,7 @@ router.get('/addProduct', gpController.getAddProduct);
 router.get('/addCustomer', gpController.getAddCustomer);
 router.get('/addSupplier', gpController.getAddSupplier);
 
-router.get('/viewproduct', gpController.getProductPage);
+router.get('/viewproduct/:code', gpController.getProductPage);
 router.get('/allproducts', gpController.getInventory);
 router.get('/allgroup', gpController.getGroup);
 router.get('/allgroupproducts', gpController.getGroupInventory);

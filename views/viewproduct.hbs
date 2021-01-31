@@ -1,167 +1,172 @@
-<div id="layoutSidenav_content">
-	<main>
-		<div class="container-fluid">
-			<div style="margin: 15px 0; display: flex; align-items: center; justify-content: space-between">
-				<div><a href="javascript:history.back()"><p style="color: red; margin: 0px;"> &#60; Back</p></a></div>
-				<div style="display: flex; align-items: flex-end; justify-content: flex-end;">
-					<a href="/adjustproduct"><button class="btn btn-outline-secondary" style="margin-right: 5px; width: 75px; font-size: 12px; padding: 1px;"><b style="color: black;">Adjust</b></button></a>
-					<a href="/editproduct"><button class="btn btn-primary" style="margin-left: 5px; width: 75px; font-size: 12px; padding: 1px;"><b>Edit</b></button></a>
-				</div>
-			</div>
-		</div>
-
-		<!-- NO EDIT: Product Name & Code -->
-		<div class="container-fluid">
-			<div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
-				<div><h4 style="color: black;">{{product.prodName}}</h4></div>
-				<div><h5 style="color: #43444d;">{{product.itemCode}}</h5></div>
-			</div>
-		</div>
-
-		<!-- NO EDIT: Product Primery &  -->
-		<div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
-			<div style="width: 50%; flex-wrap: wrap; ">
-				<div class="container-fluid" style="margin-bottom: 20px">
-					<div class="form-group">
-						<h6 style="color: red;margin-bottom: 3px;">Primary Details</h6>
-					</div>
-					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.itemGroup.itemGroup}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.supplier.name}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.unit}}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="container-fluid" style="width: 50%;flex-wrap: wrap;">
+<div class="sb-nav-fixed">
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
 				<div class="container-fluid">
-					<div class="form-group">
-						<h6 style="color: red;margin-bottom: 3px;">Inventory Summary</h6>
-					</div>
-					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.quantity}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.incomingQty}} (February 12, 2021)</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
-							<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.outgoingQty}} (February 12, 2021)</p>
+					<div style="margin: 15px 0; display: flex; align-items: center; justify-content: space-between">
+						<div><a href="javascript:history.back()"><p style="color: red; margin: 0px;"> &#60; Back</p></a></div>
+						<div style="display: flex; align-items: flex-end; justify-content: flex-end;">
+							<a href="/adjustproduct"><button class="btn btn-outline-secondary" style="margin-right: 5px; width: 75px; font-size: 12px; padding: 1px;"><b style="color: black;">Adjust</b></button></a>
+							<a href="/editproduct"><button class="btn btn-primary" style="margin-left: 5px; width: 75px; font-size: 12px; padding: 1px;"><b>Edit</b></button></a>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="form-group" style="display: flex;flex-wrap: wrap; width:100%; margin: -25px 29px 0px">
-				<p style="width: 28%; margin-bottom: 0%;font-size: 16px;">Description:</p> 
-				<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.description}}</p>
-			</div>
-		</div>
-
-		<!-- EDITABLE -->
-		<div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 5px">
-			<div style="width: 50%; flex-wrap: wrap;">
-				<div class="container-fluid" style="margin-bottom: 5px">
-					<div class="form-group">
-						<h6 style="color: red;margin-bottom: 3px;">Price and Discounts</h6>
-					</div>
-					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P {{product.purchasePrice}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P {{product.sellingPrice}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">{{product.discount.qty}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">{{product.discount.percentage}}%</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="container-fluid" style="width: 50%;flex-wrap: wrap; margin-bottom: 10px">
+				<!-- NO EDIT: Product Name & Code -->
 				<div class="container-fluid">
-					<div class="form-group">
-						<h6 style="color: red;margin-bottom: 3px;">Reorder Information</h6>
-					</div>
-					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
-							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">{{product.reorderPoint}}</p>
-						</div>
-						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-							<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
-							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">{{product.reorderQty}}</p>
-						</div>
+					<div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
+						<div><h4 style="color: black;">{{product.prodName}}</h4></div>
+						<div><h5 style="color: #43444d;">{{product.itemCode}}</h5></div>
 					</div>
 				</div>
-			</div>
-		</div>
 
-		<!-- HISTORY -->
-		<div class="container-fluid">
-			<div class="card-body" style="padding: 1.5rem;">
-				<div class="form-group">
-					<h6 style="color: red;margin-bottom: 3px;">Product Quantity History</h6>
+				<!-- NO EDIT: Product Primery &  -->
+				<div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 20px">
+					<div style="width: 50%; flex-wrap: wrap; ">
+						<div class="container-fluid" style="margin-bottom: 20px">
+							<div class="form-group">
+								<h6 style="color: red;margin-bottom: 3px;">Primary Details</h6>
+							</div>
+							<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.itemGroup.itemGroup}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.supplier.name}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.unit}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="container-fluid" style="width: 50%;flex-wrap: wrap;">
+						<div class="container-fluid">
+							<div class="form-group">
+								<h6 style="color: red;margin-bottom: 3px;">Inventory Summary</h6>
+							</div>
+							<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Onhold: </p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.quantity}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.incomingQty}} (February 12, 2021)</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.outgoingQty}} (February 12, 2021)</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" style="display: flex;flex-wrap: wrap; width:100%; margin: -25px 29px 0px">
+						<p style="width: 28%; margin-bottom: 0%;font-size: 16px;">Description:</p> 
+						<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.description}}</p>
+					</div>
 				</div>
-				<div class="table-responsive" style="font-size: .75rem;">
-					<table class="tablethin table-bordered" width="100%" cellspacing="0" style="font-size: .9rem;">
-						<thead style="background-color: rgba(0, 0, 0, 0.03);">
-							<tr>
-								<th>Type</th>
-								<th>Date</th>
-								<th>Reference</th>
-								<th>Before</th>
-								<th>Adjustment</th>
-								<th>After</th>
-								<th>Remarks</th>
-							</tr>
-						</thead>
-						<tfoot>
-							<tr>
-								<th>Type</th>
-								<th>Date</th>
-								<th>Reference</th>
-								<th>Before</th>
-								<th>Adjustment</th>
-								<th>After</th>
-								<th>Remarks</th>
-							</tr>
-						</tfoot>
-						<tbody>
-							{{#each product.adjustmentHistory}}
-							<tr>
-								<td>{{adjustmentType this.remarks}}</td>
-								<td>{{this.date}}</td>
-								<td><a href="">REFERENCE</a></td>
-								<td>{{this.before}}</td>
-								<td>{{this.quantity}}</td>
-								<td><b>{{this.after}}</b></td>
-								<td>{{this.remarks}}</td>
-							</tr>
-						</tbody>
-					</table>
+
+				<!-- EDITABLE -->
+				<div class="container-fluid" style="display: flex; flex-wrap: wrap; margin-bottom: 5px">
+					<div style="width: 50%; flex-wrap: wrap;">
+						<div class="container-fluid" style="margin-bottom: 5px">
+							<div class="form-group">
+								<h6 style="color: red;margin-bottom: 3px;">Price and Discounts</h6>
+							</div>
+							<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
+									<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P {{product.purchasePrice}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
+									<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P {{product.sellingPrice}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
+									<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">{{product.discount.qty}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
+									<p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">{{product.discount.percentage}}%</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="container-fluid" style="width: 50%;flex-wrap: wrap; margin-bottom: 10px">
+						<div class="container-fluid">
+							<div class="form-group">
+								<h6 style="color: red;margin-bottom: 3px;">Reorder Information</h6>
+							</div>
+							<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
+									<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">{{product.reorderPoint}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
+									<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">{{product.reorderQty}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
+
+				<!-- HISTORY -->
+				<div class="container-fluid">
+					<div class="card-body" style="padding: 1.5rem;">
+						<div class="form-group">
+							<h6 style="color: red;margin-bottom: 3px;">Product Quantity History</h6>
+						</div>
+						<div class="table-responsive" style="font-size: .75rem;">
+							<table class="tablethin table-bordered" width="100%" cellspacing="0" style="font-size: .9rem;">
+								<thead style="background-color: rgba(0, 0, 0, 0.03);">
+									<tr>
+										<th>Type</th>
+										<th>Date</th>
+										<th>Reference</th>
+										<th>Before</th>
+										<th>Adjustment</th>
+										<th>After</th>
+										<th>Remarks</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Type</th>
+										<th>Date</th>
+										<th>Reference</th>
+										<th>Before</th>
+										<th>Adjustment</th>
+										<th>After</th>
+										<th>Remarks</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									{{#each product.adjustmentHistory}}
+									<tr>
+										<td>{{adjustmentType this.remarks}}</td>
+										<td>{{this.date}}</td>
+										<td><a href="">REFERENCE</a></td>
+										<td>{{this.before}}</td>
+										<td>{{this.quantity}}</td>
+										<td><b>{{this.after}}</b></td>
+										<td>{{this.remarks}}</td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</main>
 		</div>
-	</main>
+	</div>
 </div>
