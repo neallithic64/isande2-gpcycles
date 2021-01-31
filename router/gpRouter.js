@@ -4,6 +4,8 @@ const test = require('../controller/indexTest');
 const gpController = require('../controller/gpController');
 const gpMiddleware = require('../middlewares/gpMiddleware');
 
+
+
 // Testing Routes; SANDBOXING PURPOSES ONLY
 router.get('/test', test.getHome);
 router.get('/ADD_STUFF', test.checkProducts);
@@ -16,16 +18,18 @@ router.get('/login', gpController.getLogin);
 router.get('/customers', gpController.getAllCustomers);
 router.get('/suppliers', gpController.getAllSuppliers);
 router.get('/users', gpController.getAllUsers);
+router.get('/allproducts', gpController.getInventory);
+router.get('/allgroup', gpController.getGroup);
+router.get('/allgroupproducts', gpController.getGroupInventory);
 
 router.get('/addUser', gpController.getAddUser);
 router.get('/addProduct', gpController.getAddProduct);
 router.get('/addCustomer', gpController.getAddCustomer);
 router.get('/addSupplier', gpController.getAddSupplier);
 
-router.get('/viewproduct', gpController.getProductPage);
-router.get('/allproducts', gpController.getInventory);
-router.get('/allgroup', gpController.getGroup);
-router.get('/allgroupproducts', gpController.getGroupInventory);
+router.get('/viewproduct/:code', gpController.getProductPage);
+// router.get('/adjustproduct/:code', gpController.);
+// router.get('/editproduct/:code', gpController.);
 
 // router.get('/newPO', gpController.getNewPO);
 // router.get('/newSO', gpController.getNewSO);
@@ -34,7 +38,7 @@ router.get('/purchorders', gpController.getAllPurchOrders);
 router.get('/viewPO', gpController.getPurchaseOrder);
 router.get('/viewSO', gpController.getSalesOrder);
 router.get('/confirmpo', gpController.getConfirmPO);
-// router.get('/confirmso', gpController.getConfirmSO);
+router.get('/confirmso', gpController.getConfirmSO);
 // router.get('/paysopo', gpController.getPaySOPO);
 // router.get('/drsopo', gpController.getDelRecSOPO);
 // router.get('/viewallsopo', gpController.getViewAllSOPO);
