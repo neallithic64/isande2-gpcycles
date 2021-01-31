@@ -50,7 +50,10 @@
 })(jQuery);
 
 
+
 // Non-library scripts below
+
+
 
 function trimArr(arr) {
 	arr.forEach(e => e.value = validator.trim(e.value));
