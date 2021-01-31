@@ -58,6 +58,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody style="font-size: 12px;" >
+                                        {{#each}}
                                         <tr>
                                             <td>2008/01/23</td>
                                             <td><a href="#">PO-000001</a></td>
@@ -69,28 +70,7 @@
                                             <td>2008/01/23</th>
                                             <td>120,000</th>
                                         </tr>
-                                        <tr>
-                                            <td>2008/01/23</td>
-                                            <td><a href="#">PO-000001</a></td>
-                                            <td>Bikes</td>
-                                            <td><div id="status" class="status-toReceive"> To Receive</div></td>
-                                            <td>Received by Gino </td>
-                                            <td>Bank</td>
-                                            {{#if isSO}} <td>Pickup</td> {{/if}}
-                                            <td>2008/01/23</th>
-                                            <td>120,000</th>
-                                        </tr>
-                                        <tr>
-                                            <td>2008/01/23</td>
-                                            <td><a href="#">PO-000001</a></td>
-                                            <td>Lipa Bikes</td>
-                                            <td><div id="status" class="status-pending"> Pending</div></td>
-                                            <td>Received by Gino </td>
-                                            <td>Bank</td>
-                                            {{#if isSO}} <td>Physical</td> {{/if}}
-                                            <td>2008/01/23</th>
-                                            <td>120,000</th>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>

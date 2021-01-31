@@ -55,38 +55,30 @@
                                     <th style="width: 10%;">Inventory Turnover</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Product Name</th>
+                                    <th>Beginning Inventory</th>
+                                    <th>Purchases</th>
+                                    <th>Sales</th>
+                                    <th>Adjustment</th>
+                                    <th>Ending Inventory</th>
+                                    <th>COGS</th>
+                                    <th>Inventory Turnover</th>
+                                </tr>
+                            </tfoot>
                             <tbody>
+                                {{#each product}}
                                 <tr>
-                                    <td>100-1234</td>
-                                    <td>Proutct AA</td>
+                                    <td>{{this.itemCode}}</td>
+                                    <td>{{this.prodName}}</td>
                                     <td>10</td>
                                     <td>20</td>
                                     <td>30</td>
                                     <td>20</td>
                                     <td>20</td>
                                     <td>30</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>100-1234</td>
-                                    <td>Proutct AA</td>
-                                    <td>10</td>
-                                    <td>20</td>
-                                    <td>30</td>
-                                    <td>20</td>
-                                    <td>20</td>
-                                    <td>30</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>100-1234</td>
-                                    <td>Proutct AA</td>
-                                    <td>10</td>
-                                    <td>20</td>
-                                    <td>30</td>
-                                    <td>20</td>
-                                    <td>30</td>
-                                    <td>20</td>
                                     <td>20</td>
                                 </tr>
                             </tbody>

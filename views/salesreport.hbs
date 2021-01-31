@@ -53,28 +53,26 @@
                                     <th style="border-right-width: 1px; border-left-width: 1px;">MONTH YEAR</th>
                                     <th style="border-right-width: 1px; border-left-width: 1px;">MONTH YEAR</th>
                                 </tr>
-                            <tbody>
+                            </thead>
+                            <tfoot>
                                 <tr>
-                                    <td>100-1234</td>
-                                    <td>Proutct AA</td>
+                                    <td>Code</td>
+                                    <td>Product Name</td>
+                                    <td>MONTH YEAR</td>
+                                    <td>MONTH YEAR</td>
+                                    <td>Change %</td>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {{#each product}}
+                                <tr>
+                                    <td>{{this.itemCode}}</td>
+                                    <td>{{this.prodName</td>
                                     <td>10</td>
                                     <td>20</td>
                                     <td style="color: green;">+30%</td>
                                 </tr>
-                                <tr>
-                                    <td>100-1234</td>
-                                    <td>Proutct AA</td>
-                                    <td>10</td>
-                                    <td>20</td>
-                                    <td style="color: #212529;">0%</td>
-                                </tr>
-                                <tr>
-                                    <td>100-1234</td>
-                                    <td>Proutct AA</td>
-                                    <td>10</td>
-                                    <td>20</td>
-                                    <td style="color: red;">-10%</td>
-                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>

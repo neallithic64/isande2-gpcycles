@@ -96,9 +96,10 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let sos = await db.findMany(SalesOrder, {});
-			res.render('all SALES', {
+			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
+				isSO: true,
 				title: 'All Sales Orders',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
@@ -126,9 +127,10 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let pos = await db.findMany(PurchaseOrder, {});
-			res.render('all PURCHS', {
+			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
+				isSO: false,
 				title: 'All Purch Orders',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
@@ -141,7 +143,7 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let purchaseorder = await PurchaseOrder.find({}).populate("items")
-			res.render('viewso', {
+			res.render('viewpo', {
 				topNav: true,
 				sideNav: true,
 				title: 'Purchase Order',

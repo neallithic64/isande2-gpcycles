@@ -25,34 +25,24 @@
                                     <th style="width: 25%;">Total Quantity</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <td>Group</td>
+                                    <td>Variety of Items</td>
+                                    <td>Total Quantity</td>
+                                </tr>
+                            </tfoot>
                             <tbody>
+                                {{#each ItemGroup}}
                                 <tr>
                                     <td style="display: flex;">
-                                        <a href="" style="width: 85%;">GROUP NAME</a>
+                                        <a href="" style="width: 85%;">{{this.itemGroup}}</a>
                                         <div style='background-color: #F50506;  color: white; padding: .5px; text-align: center; width: 20px; height: 20px; border-radius: 50%;'>
                                             #
                                         </div>
                                     </td>
                                     <td>qty</td>
                                     <td>qty</td>
-                                </tr>
-                                <tr>
-                                    <td style="display: flex;">
-                                        <a href="viewProduct.html" style="width: 85%;">Quaxar 9mm to 15mm</a>
-                                        <div></div>
-                                    </td>
-                                    <td>5</td>
-                                    <td>68</td>
-                                </tr>
-                                <tr>
-                                    <td style="display: flex;">
-                                        <a href="viewProduct.html" style="width: 85%;">Quaxar 9mm to 15mm</a>
-                                        <div style='background-color: #F50506;  color: white; padding: .5px; text-align: center; width: 20px; height: 20px; border-radius: 50%;'>
-                                            7
-                                        </div>
-                                    </td>
-                                    <td>10</td>
-                                    <td>200</td>
                                 </tr>
                             </tbody>
                         </table>

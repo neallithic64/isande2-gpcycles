@@ -11,7 +11,7 @@
             <div class="card mb-4">
                 <div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
                     <div style="width: 50%; vertical-align: middle; ">
-                        <div><a href="javascript:history.back()"><p style="margin: 0px;"> &#60; {{this.itemGroup.itemGroup}}</p></a></div>
+                        <div><a href="javascript:history.back()"><p style="margin: 0px;"> &#60; {{productGroup from link}}</p></a></div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,6 +30,19 @@
                                     <th style="width: 15%; text-align: right;">Selling P</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <th style="width: 15%;">Group</th>
+                                    <th style="width: 30%;">Product</th>
+                                    <th style="width: 5%;">Unit</th>
+                                    <th style="width: 5%;">Reorder</th>
+                                    <th style="width: 5%;">Onhand</th>
+                                    <th style="width: 5%;">Incoming</th>
+                                    <th style="width: 5%;">Outgoing</th>
+                                    <th style="width: 15%; text-align: right;">Purchase P</th>
+                                    <th style="width: 15%; text-align: right;">Selling P</th>
+                                </tr>
+                            </tfoot>
                             <tbody>
                                 {{#each products}}
                                 <tr>
