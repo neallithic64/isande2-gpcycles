@@ -244,6 +244,35 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	$('button#POaddItem').click(function() {
+		$('table#POItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+	});
+	
+	$("submit somrthing PO").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				itemCode: e.children[0].children[0].children[0].value,
+				quantity: e.children[1].children[0].children[0].value,
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputPOCons").val(),
+			remarks: $("#inputPORemarks").val(),
+			supplier: $("#inputPOName").val(),
+			dateOrdered: $("#inputPODate").val(),
+			paymentTerms: $("#inputPOTerms").val(),
+			paymentDue: $("#inputPOPayDue").val(),
+			expectedDelivery: $("#inputPODelDate").val()
+		};
+	});
+	
+	$('button#SOaddItem').click(function() {
+		$('table#SOItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+	});
 });
     
 function logout() {

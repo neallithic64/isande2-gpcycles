@@ -23,6 +23,16 @@ async function genItemCode(itGroup) {
 	return itemGrp.index.toString().padStart(2, '0') + '-' + prodCount.length.toString().padStart(6, '0');
 }
 
+async function genOrderCode(ordType) {
+	if (ordType === "PO") {
+		let ords = await db.findMany(PurchaseOrder, {});
+		return "PO-" + ords.length.toString().padStart(6, '0');
+	} else {
+		let ords = await db.findMany(SalesOrder, {});
+		return "SO-" + ords.length.toString().padStart(6, '0');
+	}
+}
+
 /* Index Functions
  */
 const gpController = {
@@ -307,17 +317,59 @@ const gpController = {
 	},
 	
 	getViewAllSOPO: async function(req, res) {
-		res.render('viewallsopo', {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let orders;
+			orders = await db.findMany(req.query.ordertype === "SO" ? SalesOrder : PurchaseOrder, {});
+			res.render('viewallsopo', {
+				topNav: true,
+				sideNav: true,
+				title: 'View All ' + req.query.ordertype,
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				isSO: req.query.ordertype === "SO",
+				orders: orders
+			});
+		}
+	},
+	
+	getNewPO: async function(req, res) {
+		let suppliers = await db.findMany(Supplier, {}, 'name');
+		let products = await db.findMany(Product, {}, 'prodName itemCode');
+		let POnum = (await db.findMany(PurchaseOrder, {})).length;
+		res.render('newPO', {
 			topNav: true,
 			sideNav: true,
-			title: 'View All SO PO',
+			title: 'New PO',
 			name: req.session.user.name,
 			isAdmin: req.session.user.usertype === "Admin",
-			isSO: req.query.ordertype === "SO"
+			suppliers: suppliers,
+			products: products,
+			POnum: POnum.toString().padStart(6, '0')
 		});
 	},
 	
+	getNewSO: async function(req, res) {
+		res.render('newSO', {
+			topNav: true,
+			sideNav: true,
+			title: 'New SO',
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin"
+		});
+	},
+	
+	getItemAJAX: async function(req, res) {
+		try {
+			let item = await db.findOne(Product, {itemCode: req.query.code});
+			res.status(200).send(forceJSON(item));
+		} catch (e) {
+			res.status(500).send(e);
+		}
+	},
+	
 	getConfirmPO: async function(req, res) {
+		// DO NOT IMPLEMENT
 		if (!req.session.user) res.redirect('/login');
 		else {
 			try {
@@ -336,6 +388,7 @@ const gpController = {
 	},
 
 	getConfirmSO: async function(req, res) {
+		// DO NOT IMPLEMENT
 		if (!req.session.user) res.redirect('/login');
 		else {
 			try {
@@ -469,6 +522,33 @@ const gpController = {
 		} catch (e) {
 			return res.status(500).send();
 		}
+	},
+	
+	postNewPO: async function(req, res) {
+		let {items, conditions, remarks, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
+		let ordNum = await genOrderCode("PO");
+		let newPO = {
+			orderNum: ordNum,
+			items: items,
+			penalty: 0,
+			conditions: conditions,
+			remarks: remarks,
+			status: "PENDING",
+			supplier: db.toObjId(supplier),
+			dateOrdered: new Date(dateOrdered),
+			paymentTerms: paymentTerms,
+			paymentDue: new Date(paymentDue),
+			expectedDelivery: new Date(expectedDelivery)
+		};
+		items: {unitPrice: Number};
+		db.insertOne(PurchaseOrder, newPO);
+		res.redirect('/');
+	},
+	
+	postNewSO: async function(req, res) {
+		let {} = req.body;
+		let newSO;
+		db.insertOne(SalesOrder, newSO);
 	}
 };
 

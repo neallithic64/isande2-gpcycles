@@ -31,17 +31,23 @@ router.get('/viewproduct/:code', gpController.getProductPage);
 // router.get('/adjustproduct/:code', gpController.);
 // router.get('/editproduct/:code', gpController.);
 
-// router.get('/newPO', gpController.getNewPO);
-// router.get('/newSO', gpController.getNewSO);
+router.get('/newPO', gpController.getNewPO);
+router.get('/newSO', gpController.getNewSO);
 router.get('/salesorders', gpController.getAllSalesOrders);
 router.get('/purchorders', gpController.getAllPurchOrders);
 router.get('/viewPO', gpController.getPurchaseOrder);
 router.get('/viewSO', gpController.getSalesOrder);
-router.get('/confirmpo', gpController.getConfirmPO);
-router.get('/confirmso', gpController.getConfirmSO);
 // router.get('/paysopo', gpController.getPaySOPO);
 // router.get('/drsopo', gpController.getDelRecSOPO);
 router.get('/viewallsopo*', gpController.getViewAllSOPO);
+
+router.get('/getItemAJAX', gpController.getItemAJAX);
+
+
+
+// NO LONGER IMPLEMENTED
+// router.get('/confirmpo', gpController.getConfirmPO);
+// router.get('/confirmso', gpController.getConfirmSO);
 
 
 
@@ -49,8 +55,8 @@ router.get('/viewallsopo*', gpController.getViewAllSOPO);
 router.post('/login', gpMiddleware.validateLogin, gpController.postLogin);
 router.post('/logout', gpController.postLogout);
 router.post('/addUser', gpMiddleware.validateAddUser, gpController.postAddUser);
-router.post('/newPO');
-router.post('/newSO');
+router.post('/newPO', gpController.postNewPO);
+router.post('/newSO', gpController.postNewSO);
 router.post('/addItemGroup', gpController.postAddItemGroup);
 router.post('/addProduct', gpController.postAddProduct);
 router.post('/addCustomer', gpController.postAddCustomer);
