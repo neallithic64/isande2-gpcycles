@@ -33,39 +33,6 @@ app.engine('hbs', exphbs.create({
 	partialsDir: 'views/partials',
 	layoutsDir: 'views/layouts',
 	helpers: {
-		netPriceDisc: function(price,qty,discount) {
-			return price * qty * (100 - discount);
-		},
-		subtotalOrder: function(order, ord) {
-			var subtotal = 0;
-			if (ord == 'S') {
-				order.items.forEach(function(){
-					subtotal += (order.items.product.sellingPrice * order.items.qty);
-			})}
-			if (ord == 'P') {
-				order.items.forEach(function(){
-					subtotal += (order.items.product.purchasePrice * order.items.qty);
-			})}
-			return subtotal;
-		},
-		getDiscountSO: function(item) {
-			return item.qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
-		},
-		discountOrder: function(order, ord) {
-			var discount = 0;
-			if (ord == 'S') {
-				order.items.forEach(function(){
-					discount += (order.items.product.sellingPrice * order.items.qty * discuntSO(order.items));
-			})}
-			if (ord == 'P') {
-				order.items.forEach(function(){
-					discount += (order.items.product.purchasePrice * order.items.qty * order.items.discount);
-			})}
-			return discount;
-		},
-		netotalOrder: function(order, ord) {
-			return subtotalOrder(order,ord) - discountOrder(order,ord);
-		},
 		getArrIndex: function(arr, index) {
 			return arr[index];
 		},
@@ -102,6 +69,44 @@ app.engine('hbs', exphbs.create({
 		},
 		getFracRate: function(val, total) {
 			return val&&total ? Math.round(val/total * 100) / 100 + '%' : '0%';
+		},
+		adjustmentType: function(adj) {
+			if (adj.length == 9 && adj.subsubstr(0,3) == "SO-") return "Sale";
+			else if (adj.length == 9 && adj.subsubstr(0,3) == "PO-") return "Purchase";
+			else return Adjustment
+		},
+		netPriceDisc: function(price,qty,discount) {
+			return price * qty * (100 - discount);
+		},
+		subtotalOrder: function(order, ord) {
+			var subtotal = 0;
+			if (ord == 'S') {
+				order.items.forEach(function(){
+					subtotal += (order.items.product.sellingPrice * order.items.qty);
+			})}
+			if (ord == 'P') {
+				order.items.forEach(function(){
+					subtotal += (order.items.product.purchasePrice * order.items.qty);
+			})}
+			return subtotal;
+		},
+		getDiscountSO: function(item) {
+			return item.qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
+		},
+		discountOrder: function(order, ord) {
+			var discount = 0;
+			if (ord == 'S') {
+				order.items.forEach(function(){
+					discount += (order.items.product.sellingPrice * order.items.qty * discuntSO(order.items));
+			})}
+			if (ord == 'P') {
+				order.items.forEach(function(){
+					discount += (order.items.product.purchasePrice * order.items.qty * order.items.discount);
+			})}
+			return discount;
+		},
+		netotalOrder: function(order, ord) {
+			return subtotalOrder(order,ord) - discountOrder(order,ord);
 		}
 	}
 }).engine);

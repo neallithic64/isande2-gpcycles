@@ -66,7 +66,7 @@
 
 			<div class="form-group" style="display: flex;flex-wrap: wrap; width:100%; margin: -25px 29px 0px">
 				<p style="width: 28%; margin-bottom: 0%;font-size: 16px;">Description:</p> 
-				<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;"></p>
+				<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.description}}</p>
 			</div>
 		</div>
 
@@ -80,19 +80,19 @@
 					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 738.90</p>
+							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P {{product.purchasePrice}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P 1,000.00</p>
+							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P {{product.sellingPrice}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">50</p>
+							<p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">{{product.discount.qty}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
-							<p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">30%</p>
+							<p style="margin-bottom: 0%; font-size: 16px;color: black; font-weight: 900;">{{product.discount.percentage}}%</p>
 						</div>
 					</div>
 				</div>
@@ -106,11 +106,11 @@
 					<div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
-							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">10</p>
+							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">{{product.reorderPoint}}</p>
 						</div>
 						<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
 							<p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
-							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">30</p>
+							<p style="margin-bottom: 1px;font-size: 16px;color: black; font-weight: 900;">{{product.reorderQty}}</p>
 						</div>
 					</div>
 				</div>
@@ -136,42 +136,27 @@
 								<th>Remarks</th>
 							</tr>
 						</thead>
+						<tfoot>
+							<tr>
+								<th>Type</th>
+								<th>Date</th>
+								<th>Reference</th>
+								<th>Before</th>
+								<th>Adjustment</th>
+								<th>After</th>
+								<th>Remarks</th>
+							</tr>
+						</tfoot>
 						<tbody>
+							{{#each product.adjustmentHistory}}
 							<tr>
-								<td>TYPE</td>
-								<td>YYYY-MM-DD</td>
+								<td>{{adjustmentType this.remarks}}</td>
+								<td>{{this.date}}</td>
 								<td><a href="">REFERENCE</a></td>
-								<td>BEFORE</td>
-								<td>ADJUSTMENT</td>
-								<td><b>AFTER</b></td>
-								<td>REMARKS</td>
-							</tr>
-							<tr>
-								<td>Adjustment</td>
-								<td>2021-01-12</td>
-								<td><a href="">-</a></td>
-								<td>40</td>
-								<td>-10</td>
-								<td><b>30</b></td>
-								<td>lost</td>
-							</tr>
-							<tr>
-								<td>Sale</td>
-								<td>2020-12-31</td>
-								<td><a href="viewProduct.html">SO-19221</a></td>
-								<td>23</td>
-								<td>+17</td>
-								<td><b>40</b></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>Purchase</td>
-								<td>2020-12-21</td>
-								<td><a href="viewProduct.html">PO-19221</a></td>
-								<td>25</td>
-								<td>-2</td>
-								<td><b>23</b></td>
-								<td></td>
+								<td>{{this.before}}</td>
+								<td>{{this.quantity}}</td>
+								<td><b>{{this.after}}</b></td>
+								<td>{{this.remarks}}</td>
 							</tr>
 						</tbody>
 					</table>

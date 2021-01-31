@@ -13,8 +13,8 @@
         <!-- NO EDIT: Product Name & Code -->
         <div class="container-fluid">
             <div style="margin: 20px 0; display: flex; align-items: center; justify-content: space-between;flex-wrap: wrap;">
-                <div><h4 style="color: black;">PRODUCT NAME</h4></div>
-                <div><h5 style="color: #43444d;"> PRODUCT CODE</h5></div>
+                <div><h4 style="color: black;">{{product.prodName}}</h4></div>
+                <div><h5 style="color: #43444d;">{{product.itemCode}}</h5></div>
             </div>
         </div>
         
@@ -28,15 +28,15 @@
                     <div style="margin-top: -10px; padding: 5px; flex-wrap: wrap;">
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Item Group:</p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">GROUPNAME</p>
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.itemGroup.itemGroup}}</p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Supplier:</p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">SUPPLIEE</p>
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.supplier.name}}</p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%;font-size: 16px;">Unit of Measurement:</p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">pcs</p>
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.unit}}</p>
                         </div>
                     </div>
                 </div>
@@ -55,11 +55,11 @@
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">10 (February 31, 2021)</p>
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.incomingQty}} (February 31, 2021)</p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
-                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">5 (February 31, 2021)</p>
+                            <p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.outgoingQty}} (February 31, 2021)</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
             <div class="form-group" style="display: flex;flex-wrap: wrap; width:100%; margin: -25px 29px 0px">
                 <p style="width: 28.4%; margin-bottom: 0%;font-size: 16px;">Description:</p> 
                 <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
-                    <input style="height: 23px; width: 400%;" id="inputdesc" type="text" value="khwbdlkwhbc;iwb">
+                    <input style="height: 23px; width: 400%;" id="inputdesc" type="text" value="{{product.description}}">
                 </p>
             </div>
         </div>
@@ -84,25 +84,25 @@
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Purchase Price:</p> 
                             <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P
-                                <input style="height: 23px; width: 100px;" id="inputPurchasePrice" type="text" value="1,929.98">
+                                <input style="height: 23px; width: 100px;" id="inputPurchasePrice" type="text" value="{{product.purchasePrice}}">
                             </p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Selling Price:</p> 
                             <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">P
-                                <input style="height: 23px; width: 100px;" id="inputSellingPrice" type="text" value="10,000">
+                                <input style="height: 23px; width: 100px;" id="inputSellingPrice" type="text" value="{{product.sellingPrice}}">
                             </p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Minimum Quantity:</p> 
                             <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
-                                <input style="height: 23px; width: 85px;" id="inputMinDiscQty" type="number" value="30">
+                                <input style="height: 23px; width: 85px;" id="inputMinDiscQty" type="number" value="{{product.discount.qty}}">
                             </p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 60%; margin-bottom: 0%; font-size: 16px;">Discount:</p> 
                             <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
-                                <input style="height: 23px; width: 70px;" id="inputDiscountPercent" type="number" value="30">%
+                                <input style="height: 23px; width: 70px;" id="inputDiscountPercent" type="number" value="{{product.discount.percentage}}">%
                             </p>
                         </div>
                     </div>
@@ -118,13 +118,13 @@
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Point:</p> 
                             <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
-                                <input style="height: 23px; width: 85px;" id="inputReorderPoint" type="number" value="30">
+                                <input style="height: 23px; width: 85px;" id="inputReorderPoint" type="number" value="{{product.reorderPoint}}">
                             </p>
                         </div>
                         <div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
                             <p style="width: 50%; margin-bottom: 1px;font-size: 16px;">Reorder Quantity:</p> 
                             <p style="margin-bottom: 0%; font-size: 16px;color: black;  font-weight: 900;">
-                                <input style="height: 23px; width: 85px;" id="inputReorderQty" type="number" value="30">
+                                <input style="height: 23px; width: 85px;" id="inputReorderQty" type="number" value="{{product.reorderQty}}">
                             </p>
                         </div>
                     </div>
