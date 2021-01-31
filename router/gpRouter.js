@@ -41,7 +41,7 @@ router.get('/confirmpo', gpController.getConfirmPO);
 router.get('/confirmso', gpController.getConfirmSO);
 // router.get('/paysopo', gpController.getPaySOPO);
 // router.get('/drsopo', gpController.getDelRecSOPO);
-// router.get('/viewallsopo', gpController.getViewAllSOPO);
+router.get('/viewallsopo*', gpController.getViewAllSOPO);
 
 
 

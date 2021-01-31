@@ -305,7 +305,18 @@ const gpController = {
 
 		}
 	},
-
+	
+	getViewAllSOPO: async function(req, res) {
+		res.render('viewallsopo', {
+			topNav: true,
+			sideNav: true,
+			title: 'View All SO PO',
+			name: req.session.user.name,
+			isAdmin: req.session.user.usertype === "Admin",
+			isSO: req.query.ordertype === "SO"
+		});
+	},
+	
 	getConfirmPO: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
