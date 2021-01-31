@@ -245,6 +245,64 @@ $(document).ready(function() {
 		}
 	});
 });
+
+$(document).ready(function() {
+
+	$('button#submitEditProduct').click(function() {
+		let editProductForm = $('form#editProduct').serializeArray();
+		trimArr(editProductForm);
+		var checks = Array(6).fill(true);
+
+		if (Number.parseFloat(editProductForm[1].value.replace(',', '')) < 0) {
+			checks[0] = false;
+			alert('Price should be a valid amount.');
+		}
+		
+		if (Number.parseFloat(editProductForm[2].value.replace(',', '')) < 0) {
+			checks[1] = false;
+			alert('Price should be a valid amount.');
+		}
+
+		if (!(Number.isInteger(editProductForm[3].value) >= 0)) {
+			checks[2] = false;
+			alert('Minimum discount quantity should be a whole positive number.');
+		}
+
+		if (!(Number.isInteger(editProductForm[4]) == 0 && editProductForm[4].value >= 0 && editProductForm[4].value <= 100 )) {
+			checks[3] = false;
+			alert('Percentage discount should be from 0 to 100.');
+		}
+
+		if (!(Number.isInteger(editProductForm[5].value) == 0 && editProductForm[5].value >= 0)) {
+			checks[4] = false;
+			alert('Reorder point should be a whole positive number.');
+		}
+
+		if (!(Number.isInteger(editProductForm[6].value) == 0 && editProductForm[6].value >= 0)) {
+			checks[5] = false;
+			alert('Reorder quantity should be a whole positive number.');
+		}
+
+		if (checks.every(Boolean)) {
+			$.ajax({
+				method: 'POST',
+				url: "/editproduct/" + window.location.pathname.split('/')[2],
+				data: editProductForm,
+				success: function() {
+					window.location.href = "/viewproduct/" + window.location.pathname.split('/')[2]; 
+				},
+				error: function(str) {
+					alert(str.responseText);
+				}
+			});
+		}
+
+
+	});
+
+});
+
+
     
 function logout() {
 	let xhr = new XMLHttpRequest();

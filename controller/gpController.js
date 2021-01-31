@@ -174,6 +174,27 @@ const gpController = {
 			});
 		}
 	},
+
+	getEditProduct: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let product = await db.findOne(Product, {itemCode: req.params.code});
+			// additional joining from SO and PO collections
+			// unsure about this:
+			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
+			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
+			console.log(sales);
+			console.log(purch);
+			res.render('editproduct', {
+				topNav: true,
+				sideNav: true,
+				title: 'Edit Product',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				product: forceJSON(product)
+			});
+		}
+	},
 	
 	getInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
@@ -469,7 +490,31 @@ const gpController = {
 		} catch (e) {
 			return res.status(500).send();
 		}
+	},
+
+	postEditProduct: async function(req, res) {
+		let {inputPurchasePrice, inputSellingPrice,
+			inputdesc, inputReorderPoint, inputReorderQty, inputMinDiscQty,
+			inputDiscountPercent} = req.body;
+		let editedProduct = {
+			purchasePrice: inputPurchasePrice,
+			sellingPrice: inputSellingPrice,
+			description: inputdesc,
+			discount: {
+				qty: inputMinDiscQty,
+				percentage: inputDiscountPercent
+			},
+			reorderPoint: inputReorderPoint,
+			reorderQty: inputReorderQty
+		};
+		try {
+			await db.updateOne(Product, {itemCode: req.params.code}, editedProduct);
+			return res.status(200).send();
+		} catch (e) {
+			return res.status(500).send();
+		}
 	}
+
 };
 
 module.exports = gpController;
