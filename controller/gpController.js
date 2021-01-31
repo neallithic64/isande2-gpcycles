@@ -111,7 +111,7 @@ const gpController = {
 	getSalesOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let salesorder = await SalesOrder.find({}).populate("items")
+			let salesorder = await SalesOrder.find({}).populate("items");
 			res.render('viewso', {
 				topNav: true,
 				sideNav: true,
@@ -142,7 +142,7 @@ const gpController = {
 	getPurchaseOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let purchaseorder = await PurchaseOrder.find({}).populate("items")
+			let purchaseorder = await PurchaseOrder.find({}).populate("items");
 			res.render('viewpo', {
 				topNav: true,
 				sideNav: true,
@@ -210,7 +210,7 @@ const gpController = {
 	getGroupInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let groupproducts = await db.findMany(Product, {itemGroup: req.query.something})
+			let groupproducts = await db.findMany(Product, {itemGroup: req.query.something});
 			res.render('allgroupproducts', {
 				topNav: true,
 				sideNav: true,
