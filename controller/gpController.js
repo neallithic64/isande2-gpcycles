@@ -190,18 +190,37 @@ const gpController = {
 		}
 	},
 
-	getGroup: async function(req, res) {
+	getGroups: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let groups = await db.findMany(Product, {}).populate("itemGroup");
-			// HAVE TO PROCESS PA - s
+			let groups = await db.aggregate(ItemGroup, [
+				{"$lookup": {
+					from: "Product",
+					localField: "_id",
+					foreignField: "itemGroup",
+					as: "Products"
+				}}
+			]), modGroups = [], lowQty, i;
+			groups.forEach(e => {
+				lowQty = 0;
+				for (i = 0; i < e.Products.length; i++) {
+					if (e.Products[i].quantity < e.Products[i].reorderPoint) lowQty++;
+				}
+				modGroups.push({
+					Name: e.itemGroup,
+					Index: e.index,
+					Items: e.Products.length,
+					Qty: e.Products.reduce((acc, e) => acc + e.quantity, 0),
+					LowQty: lowQty
+				});
+			});
 			res.render('allgroups', {
 				topNav: true,
 				sideNav: true,
 				title: 'Inventory Groups',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				group: forceJSON(groups)
+				groups: modGroups
 			});
 		}
 	},

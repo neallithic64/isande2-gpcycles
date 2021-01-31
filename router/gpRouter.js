@@ -19,7 +19,7 @@ router.get('/customers', gpController.getAllCustomers);
 router.get('/suppliers', gpController.getAllSuppliers);
 router.get('/users', gpController.getAllUsers);
 router.get('/allproducts', gpController.getInventory);
-router.get('/allgroup', gpController.getGroup);
+router.get('/allgroups', gpController.getGroups);
 router.get('/allgroupproducts', gpController.getGroupInventory);
 
 router.get('/addUser', gpController.getAddUser);
