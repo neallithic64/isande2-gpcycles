@@ -159,10 +159,10 @@
 												<span id="viewSOUnitPrice"> {{this.product.sellingPrice}} </span>
 											</td>
 											<td style="text-align: end;">
-												<span id="viewSODisc">{{getDiscountSO this}}%</span>
+												<span id="viewSODisc">{{getDiscountSO this this.qty}}%</span>
 											</td>
 											<td style="text-align: end;">
-												<span id="viewSONetPrice"> {{netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this)}} </span>
+												<span id="viewSONetPrice"> {{netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this this.qty)}} </span>
 											</td>
 										</tr>
 										{{/each}}
@@ -180,7 +180,7 @@
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
 										<span style="width:250px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> {{subtotalOrder salesorder 'S'}} </span>
+										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> {{subtotalOrder salesorder 1}} </span>
 									</div>
 								</div>
 							</div>
@@ -194,7 +194,7 @@
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
 										<span style="width:250px; font-size:16px; font-weight: 700;">Total Discount </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountOrder salesorder 'S'}} </span>
+										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountOrder salesorder 1}} </span>
 									</div>
 								</div>
 							</div>
@@ -204,7 +204,7 @@
 									</div> {{/if}} <!-- if with penalty only -->
 							<div class="form-group" style="display:flex; justify-content: flex-end;">
 								<span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
-								<span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalOrder salesorder 'S'}} </span>
+								<span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalOrder salesorder 1}} </span>
 							</div>
 						</div>
 					</div>

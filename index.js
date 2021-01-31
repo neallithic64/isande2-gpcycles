@@ -80,26 +80,26 @@ app.engine('hbs', exphbs.create({
 		},
 		subtotalOrder: function(order, ord) {
 			var subtotal = 0;
-			if (ord == 'S') {
+			if (ord == 1) {
 				order.items.forEach(function(){
 					subtotal += (order.items.product.sellingPrice * order.items.qty);
 			})}
-			if (ord == 'P') {
+			if (ord == 0) {
 				order.items.forEach(function(){
 					subtotal += (order.items.product.purchasePrice * order.items.qty);
 			})}
 			return subtotal;
 		},
-		getDiscountSO: function(item) {
-			return item.qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
+		getDiscountSO: function(item, qty) {
+			return qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
 		},
 		discountOrder: function(order, ord) {
 			var discount = 0;
-			if (ord == 'S') {
+			if (ord == 1) {
 				order.items.forEach(function(){
-					discount += (order.items.product.sellingPrice * order.items.qty * discuntSO(order.items));
+					discount += (order.items.product.sellingPrice * order.items.qty * getDiscountSO(order.items, order.items.qty));
 			})}
-			if (ord == 'P') {
+			if (ord == 0) {
 				order.items.forEach(function(){
 					discount += (order.items.product.purchasePrice * order.items.qty * order.items.discount);
 			})}
