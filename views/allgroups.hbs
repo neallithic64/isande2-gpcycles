@@ -39,9 +39,11 @@
 										<tr>
 											<td style="display: flex;">
 												<a href="/allgroupproducts/{{{this.Index}}}" style="width: 85%;">{{this.Name}}</a>
+												{{#if this.IsLow}}
 												<div style='background-color: #F50506;  color: white; padding: .5px; text-align: center; width: 20px; height: 20px; border-radius: 50%;'>
 													{{this.LowQty}}
 												</div>
+												{{/if}}
 											</td>
 											<td>{{this.Items}}</td>
 											<td>{{this.Qty}}</td>

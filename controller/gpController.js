@@ -211,7 +211,8 @@ const gpController = {
 					Index: e.index,
 					Items: e.Products.length,
 					Qty: e.Products.reduce((acc, e) => acc + e.quantity, 0),
-					LowQty: lowQty
+					LowQty: lowQty,
+					IsLow: lowQty > 0
 				});
 			});
 			res.render('allgroups', {
