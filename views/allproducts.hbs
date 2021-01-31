@@ -6,7 +6,7 @@
 					<h1 class="mt-4" style="padding:0px 20px">Inventory</h1>
 
 					<ol class="breadcrumb" style="margin:-10px 20px; margin-bottom: 20px; padding: 0px; background-color: transparent;">
-                            <li class="breadcrumb-item"><a href="index.html">View Group</a></li>
+                            <li class="breadcrumb-item"><a href="/allgroups">View Group</a></li>
                             <li class="breadcrumb-item active">View Items</li>
                     </ol>
 
@@ -42,7 +42,7 @@
 										{{#each products}}
 										<tr>
 											<td>{{this.itemGroup.itemGroup}}</td>
-											<td><a href="product.html">{{this.prodName}}</a></td>
+											<td><a href="/viewproduct">{{this.prodName}}</a></td>
 											<td>{{this.unit}}</td>
 											<td>{{this.reorderPoint}}</td>
 											<td>{{this.reorderQty}}</td>

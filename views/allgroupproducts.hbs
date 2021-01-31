@@ -5,7 +5,7 @@
             
             <ol class="breadcrumb" style="margin:-10px 20px; margin-bottom: 20px; padding: 0px; background-color: transparent;">
                 <li class="breadcrumb-item active">View Group</li>
-                <li class="breadcrumb-item"><a href="allproduct.html">View Items</a></li>
+                <li class="breadcrumb-item"><a href="/allproducts">View Items</a></li>
             </ol>
             
             <div class="card mb-4">
@@ -47,7 +47,7 @@
                                 {{#each products}}
                                 <tr>
                                     <td>{{this.group.group}}</td>
-                                    <td><a href="">{{this.prodName}}</a></td>
+                                    <td><a href="/viewproduct">{{this.prodName}}</a></td>
                                     <td>{{this.unit}}</td>
                                     <td>{{this.reorderPoint}}</td>
                                     <td>{{this.reorderQty}}</td>
