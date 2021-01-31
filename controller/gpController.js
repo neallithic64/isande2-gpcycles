@@ -201,7 +201,7 @@ const gpController = {
 				title: 'Inventory Groups',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				group: groups
+				group: forceJSON(groups)
 			});
 		}
 	},
