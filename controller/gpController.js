@@ -121,7 +121,7 @@ const gpController = {
 	getSalesOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let salesorder = await SalesOrder.find({orderNum: req.params.ordNum}).populate("items.product");
+			let salesorder = await SalesOrder.find({orderNum: req.params.ordNum}).populate("items.product customer");
 			res.render('viewso', {
 				topNav: true,
 				sideNav: true,

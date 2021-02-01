@@ -48,6 +48,9 @@ app.engine('hbs', exphbs.create({
 		getFormatISODate: function(date) {
 			return date.toISOString().substr(0, 10);
 		},
+		getDiscountSO: function(item, qty) {
+			return qty < item.product.discount.qty ? 0 : item.product.discount.percentage;
+		},
 		getOrderTotal: function(items, isSO) {
 			if (isSO) return items
 					.reduce((acc, elem) => acc + (elem.qty >= elem.product.discount.qty ? elem.qty * elem.unitPrice * (100 - elem.product.discount.percentage) : elem.qty * elem.unitPrice), 0)
@@ -67,20 +70,12 @@ app.engine('hbs', exphbs.create({
 			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
 		},
 		discountOrder: function(order, ord) {
-			if (ord === 1) {
-				// TO FIX
-				console.log(order.items);
-				return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
-			}
 			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
+			if (ord === 1) return order.items.reduce((acc, e) => acc + (e.qty >= e.product.discount.qty ? e.qty * e.unitPrice * e.product.discount.percentage / 100 : 0), 0);
 		},
 		netotalOrder: function(order, ord) {
-			switch (ord) {
-				case 0:
-					return order.items.reduce((acc, e) => acc + (e.unitPrice * e.qty * (100 - e.discount) / 100), 0);
-				case 1:
-					return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
-			}
+			if (ord === 0) return order.items.reduce((acc, e) => acc + (e.unitPrice * e.qty * (100 - e.discount) / 100), 0);
+			if (ord === 1) return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
 		},
 		netPriceDisc: function(price, qty, discount) {
 			return price * qty * (100 - discount) / 100;
