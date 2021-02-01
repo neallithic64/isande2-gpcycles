@@ -56,7 +56,7 @@ app.engine('hbs', exphbs.create({
 			else return "Adjustment";
 		},
 		netPriceDisc: function(price, qty, discount) {
-			return price * qty * (100 - discount);
+			return price * qty * (100 - discount) / 100;
 		},
 		subtotalOrder: function(order, ord) {
 			let subtotal = 0;
