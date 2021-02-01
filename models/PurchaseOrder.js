@@ -22,7 +22,6 @@ const purchOrdSchema = new mongoose.Schema({
 	dateOrdered: Date,
 	paymentTerms: String,
 	paymentDue:  Date,
-	deliveryMode: String,
 	expectedDelivery: Date
 }, {collection: "PurchaseOrder"});
 

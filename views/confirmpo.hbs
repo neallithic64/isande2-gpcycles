@@ -1,159 +1,159 @@
 <div class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-                    <div  style="margin-bottom: 20px;">
-                        <h1 class="mt-4">Confirm Purchase Order</h1>
-                    </div>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div  style="margin-bottom: 20px;">
+						<h1 class="mt-4">Confirm Purchase Order</h1>
+					</div>
 
-                    <form>
-                        <!-- info -->
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputPONum">Purchase Order #</label>
-                                    <input class="form-control" id="inputPONum" style="color: black;" value="PO-000001" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputPODate">Purchase Order Date</label>
-                                    <input class="form-control" id="inputPODate" value="Date here" readonly/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputPOName">Supplier Name</label>
-                                    <input class="form-control" id="inputPOName" value="Supplier here" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputPODelDate">Expected Delivery Date</label>
-                                    <input class="form-control" id="inputPODelDate" value="Date here" readonly/>
-                                </div>
-                            </div>
-                        </div>
+					<form>
+						<!-- info -->
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPONum">Purchase Order #</label>
+									<input class="form-control" id="inputPONum" style="color: black;" value="PO-000001" readonly/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPODate">Purchase Order Date</label>
+									<input class="form-control" id="inputPODate" value="Date here" readonly/>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPOName">Supplier Name</label>
+									<input class="form-control" id="inputPOName" value="Supplier here" readonly/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPODelDate">Expected Delivery Date</label>
+									<input class="form-control" id="inputPODelDate" value="Date here" readonly/>
+								</div>
+							</div>
+						</div>
 
-                        <!-- items table -->
-                        <div class="card mb-4">
-                            <div class="card-header" style="background: #e9ecef">
-                                <i class="fas fa-table mr-1"></i>
-                                <span style="font-weight: 700;">Items</span>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="tablethin table-bordered" id="POItems" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Item</th>
-                                                <th style="text-align: end;">Quantity</th>
-                                                <th style="text-align: end;">Unit Price</span> </th>
-                                                <th style="text-align: end;">Discount</th>
-                                                <th style="text-align: end;">Net Price</span> </th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Item</th>
-                                                <th style="text-align: end;">Quantity</th>
-                                                <th style="text-align: end;">Unit Price</th>
-                                                <th style="text-align: end;">Discount</th>
-                                                <th style="text-align: end;">Net Price</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr>
-                                                <td style="padding-bottom: 0px">
-                                                    <div class="form-group">
-                                                        <input class="form-control" id="inputPOItem" value="Item name here" style="background: #ffffff; border-width: 0px; font-size: 15px;" readonly/>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputPOQty" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;background: #ffffff;" value="Qty here" readonly/> 
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputPOUnit" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputPODiscount" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="% here" readonly/> 
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputPOTotal" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/> 
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+						<!-- items table -->
+						<div class="card mb-4">
+							<div class="card-header" style="background: #e9ecef">
+								<i class="fas fa-table mr-1"></i>
+								<span style="font-weight: 700;">Items</span>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="tablethin table-bordered" id="POItems" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<th>Item</th>
+												<th style="text-align: end;">Quantity</th>
+												<th style="text-align: end;">Unit Price</span> </th>
+												<th style="text-align: end;">Discount</th>
+												<th style="text-align: end;">Net Price</span> </th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>Item</th>
+												<th style="text-align: end;">Quantity</th>
+												<th style="text-align: end;">Unit Price</th>
+												<th style="text-align: end;">Discount</th>
+												<th style="text-align: end;">Net Price</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<tr>
+												<td style="padding-bottom: 0px">
+													<div class="form-group">
+														<input class="form-control" id="inputPOItem" value="Item name here" style="background: #ffffff; border-width: 0px; font-size: 15px;" readonly/>
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputPOQty" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;background: #ffffff;" value="Qty here" readonly/> 
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputPOUnit" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/>
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputPODiscount" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="% here" readonly/> 
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputPOTotal" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/> 
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 
-                        <!-- other info -->
-                        <div class="form-row" style="margin-top: -10px; display:flex; flex-direction: row; justify-content: flex-end;">
-                            <div class="col-md-6" style="margin-top: 0px">
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
-                                    <label class="small mb-1" for="inputPOSub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
-                                    <input class="form-control" id="inputPOSub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-                                    <label class="small mb-1" for="inputPOTotalDisc" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
-                                    <input class="form-control" id="inputPOTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px;">
-                                    <label class="small mb-1" for="inputPONet" style="color: #F50506; font-weight: 700; width: 130px; font-size: 18px; padding-top: 5px;">NET TOTAL</label>
-                                    <input class="form-control" id="inputPONet" style="font-size: 18px; font-weight: 700; padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                            </div>
-                        </div>
+						<!-- other info -->
+						<div class="form-row" style="margin-top: -10px; display:flex; flex-direction: row; justify-content: flex-end;">
+							<div class="col-md-6" style="margin-top: 0px">
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
+									<label class="small mb-1" for="inputPOSub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
+									<input class="form-control" id="inputPOSub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+									<label class="small mb-1" for="inputPOTotalDisc" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
+									<input class="form-control" id="inputPOTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px;">
+									<label class="small mb-1" for="inputPONet" style="color: #F50506; font-weight: 700; width: 130px; font-size: 18px; padding-top: 5px;">NET TOTAL</label>
+									<input class="form-control" id="inputPONet" style="font-size: 18px; font-weight: 700; padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+							</div>
+						</div>
 
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputPOTerms">Terms</label>
-                                    <input class="form-control" id="inputPOTerms" value="Terms here" readonly/>
-                                </div>
-                            </div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPOTerms">Terms</label>
+									<input class="form-control" id="inputPOTerms" value="Terms here" readonly/>
+								</div>
+							</div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputPOPayDue">Payment Due Date</label>
-                                    <input class="form-control" id="inputPOPayDue" value="Date here" readonly/>
-                                </div>
-                            </div>   
-                        </div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputPOPayDue">Payment Due Date</label>
+									<input class="form-control" id="inputPOPayDue" value="Date here" readonly/>
+								</div>
+							</div>   
+						</div>
 
-                        <div class="form-group">
-                            <label class="small mb-1" for="inputPORemarks">Remarks</label>
-                            <input class="form-control" id="inputPORemarks" type="text" value="Remarks here" readonly/>
-                        </div>
-                        <div class="form-group">
-                            <label class="small mb-1" for="inputPOCons">Conditions</label>
-                            <input class="form-control" id="inputPOCons" type="text" value="Conditions here" readonly/>
-                        </div>
-                        <div style="margin-top: 20px; margin-bottom: 20px;">
-                            <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                <button style="margin-right: 10px;" class="btn btn-info">Draft</button>
-                                {{#if isAdmin}}
-                                <button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
-                                <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> 
-                                {{/if}}
-                                <button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </main>
-        </div>
-    </div>
+						<div class="form-group">
+							<label class="small mb-1" for="inputPORemarks">Remarks</label>
+							<input class="form-control" id="inputPORemarks" type="text" value="Remarks here" readonly/>
+						</div>
+						<div class="form-group">
+							<label class="small mb-1" for="inputPOCons">Conditions</label>
+							<input class="form-control" id="inputPOCons" type="text" value="Conditions here" readonly/>
+						</div>
+						<div style="margin-top: 20px; margin-bottom: 20px;">
+							<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
+								<button style="margin-right: 10px;" class="btn btn-info">Draft</button>
+								{{#if isAdmin}}
+								<button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
+								<button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> 
+								{{/if}}
+								<button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</main>
+		</div>
+	</div>
 </div>

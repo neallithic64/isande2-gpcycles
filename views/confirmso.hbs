@@ -1,178 +1,178 @@
 <div class="sb-nav-fixed">
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-                    <div  style="margin-bottom: 20px;">
-                        <h1 class="mt-4">Confirm Sales Order</h1>
-                    </div>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div  style="margin-bottom: 20px;">
+						<h1 class="mt-4">Confirm Sales Order</h1>
+					</div>
 
-                    <form>
-                        <!-- info -->
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSONum">Sales Order #</label>
-                                    <input class="form-control" id="inputSONum" style="color: black;" value="SO-000001" readonly/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSOName">Customer Name</label>
-                                    <input class="form-control" id="inputSOName" value="Supplier here" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSODate">Sales Order Date</label> <span style="color: red"> * </span>
-                                    <input class="form-control" id="inputSODate" value="Date here" readonly/>
-                                </div>
-                            </div>
-                        </div>
+					<form>
+						<!-- info -->
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSONum">Sales Order #</label>
+									<input class="form-control" id="inputSONum" style="color: black;" value="SO-000001" readonly/>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSOName">Customer Name</label>
+									<input class="form-control" id="inputSOName" value="Supplier here" readonly/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSODate">Sales Order Date</label> <span style="color: red"> * </span>
+									<input class="form-control" id="inputSODate" value="Date here" readonly/>
+								</div>
+							</div>
+						</div>
 
-                        <!-- items table -->
-                        <div class="card mb-4">
-                            <div class="card-header" style="background: #e9ecef">
-                                <i class="fas fa-table mr-1"></i>
-                                <span style="font-weight: 700;">Items</span>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="tablethin table-bordered" id="SOItems" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Item</th>
-                                                <th style="text-align: end;">Quantity</th>
-                                                <th style="text-align: end;">Unit Price</span> </th>
-                                                <th style="text-align: end;">Discount</th>
-                                                <th style="text-align: end;">Net Price</span> </th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Item</th>
-                                                <th style="text-align: end;">Quantity</th>
-                                                <th style="text-align: end;">Unit Price</th>
-                                                <th style="text-align: end;">Discount</th>
-                                                <th style="text-align: end;">Net Price</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <tr>
-                                                <td style="padding-bottom: 0px">
-                                                    <div class="form-group">
-                                                        <input class="form-control" id="inputSOItem" value="Item name here" style="background: #ffffff; border-width: 0px; font-size: 15px;" readonly/>
-                                                    </div>
-                                                    <div id="currentQtyDiv" class="small mb-1" style="padding-left: 3px;" >
-                                                        <span id="currentQty" style="color: red"> 70 stocks left. </span>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputSOQty" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;background: #ffffff;" value="Qty here" readonly/> 
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputSOUnit" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputSODiscount" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0%" readonly/> 
-                                                    </div>
-                                                </td>
-                                                <td style="width: 150px; color: black;">
-                                                    <div class="form-group" style="color: black;">
-                                                        <input class="form-control" id="inputSOTotal" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/> 
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+						<!-- items table -->
+						<div class="card mb-4">
+							<div class="card-header" style="background: #e9ecef">
+								<i class="fas fa-table mr-1"></i>
+								<span style="font-weight: 700;">Items</span>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="tablethin table-bordered" id="SOItems" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<th>Item</th>
+												<th style="text-align: end;">Quantity</th>
+												<th style="text-align: end;">Unit Price</span> </th>
+												<th style="text-align: end;">Discount</th>
+												<th style="text-align: end;">Net Price</span> </th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>Item</th>
+												<th style="text-align: end;">Quantity</th>
+												<th style="text-align: end;">Unit Price</th>
+												<th style="text-align: end;">Discount</th>
+												<th style="text-align: end;">Net Price</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<tr>
+												<td style="padding-bottom: 0px">
+													<div class="form-group">
+														<input class="form-control" id="inputSOItem" value="Item name here" style="background: #ffffff; border-width: 0px; font-size: 15px;" readonly/>
+													</div>
+													<div id="currentQtyDiv" class="small mb-1" style="padding-left: 3px;" >
+														<span id="currentQty" style="color: red"> 70 stocks left. </span>
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputSOQty" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;background: #ffffff;" value="Qty here" readonly/> 
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputSOUnit" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/>
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputSODiscount" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0%" readonly/> 
+													</div>
+												</td>
+												<td style="width: 150px; color: black;">
+													<div class="form-group" style="color: black;">
+														<input class="form-control" id="inputSOTotal" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/> 
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 
-                        <!-- other info -->
-                        <div class="form-row" style="margin-top: -10px">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSOAdj">Price Adjustment</label>
-                                    <input class="form-control" id="inputSOAdj" value="Adjustment here" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-md-6" style="margin-top: 0px">
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
-                                    <label class="small mb-1" for="inputSOSub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
-                                    <input class="form-control" id="inputSOSub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-                                    <label class="small mb-1" for="inputSOTotalDisc" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
-                                    <input class="form-control" id="inputSOTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-                                    <label class="small mb-1" for="inputSOFinalAdj" style="width: 130px; font-size: 15px; padding-top: 5px;">Adjustment</label>
-                                    <input class="form-control" id="inputSOFinalAdj" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                                <div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-                                    <label class="small mb-1" for="inputSONet" style="color: #F50506; font-weight: 700; width: 130px; font-size: 18px; padding-top: 5px;">NET TOTAL</label>
-                                    <input class="form-control" id="inputSONet" style="font-weight: 700; padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
-                                </div>
-                            </div>
-                        </div>
+						<!-- other info -->
+						<div class="form-row" style="margin-top: -10px">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSOAdj">Price Adjustment</label>
+									<input class="form-control" id="inputSOAdj" value="Adjustment here" readonly/>
+								</div>
+							</div>
+							<div class="col-md-6" style="margin-top: 0px">
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
+									<label class="small mb-1" for="inputSOSub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
+									<input class="form-control" id="inputSOSub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+									<label class="small mb-1" for="inputSOTotalDisc" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
+									<input class="form-control" id="inputSOTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+									<label class="small mb-1" for="inputSOFinalAdj" style="width: 130px; font-size: 15px; padding-top: 5px;">Adjustment</label>
+									<input class="form-control" id="inputSOFinalAdj" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
+									<label class="small mb-1" for="inputSONet" style="color: #F50506; font-weight: 700; width: 130px; font-size: 18px; padding-top: 5px;">NET TOTAL</label>
+									<input class="form-control" id="inputSONet" style="font-weight: 700; padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								</div>
+							</div>
+						</div>
 
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSOTerms">Terms</label>
-                                    <input class="form-control" id="inputSOTerms" value="Terms here" readonly/>
-                                </div>
-                            </div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSOTerms">Terms</label>
+									<input class="form-control" id="inputSOTerms" value="Terms here" readonly/>
+								</div>
+							</div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSOPayDue">Payment Due Date</label>
-                                    <input class="form-control" id="inputSOPayDue" value="Date here" readonly/>
-                                </div>
-                            </div>   
-                        </div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSOPayDue">Payment Due Date</label>
+									<input class="form-control" id="inputSOPayDue" value="Date here" readonly/>
+								</div>
+							</div>   
+						</div>
 
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSOMode">Mode</label>
-                                    <input class="form-control" id="inputSOMode" value="Mode here" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputSODelDate">Expected Delivery Date</label>
-                                    <input class="form-control" id="inputSODelDate" value="Date here" readonly/>
-                                </div>
-                            </div>  
-                        </div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSOMode">Mode</label>
+									<input class="form-control" id="inputSOMode" value="Mode here" readonly/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="small mb-1" for="inputSODelDate">Expected Delivery Date</label>
+									<input class="form-control" id="inputSODelDate" value="Date here" readonly/>
+								</div>
+							</div>  
+						</div>
 
-                        <div class="form-group">
-                            <label class="small mb-1" for="inputSORemarks">Remarks</label>
-                            <input class="form-control" id="inputSORemarks" type="text" value="Remarks here" readonly/>
-                        </div>
-                        <div class="form-group">
-                            <label class="small mb-1" for="inputSOCons">Conditions</label>
-                            <input class="form-control" id="inputSOCons" type="text" value="Conditions here" readonly/>
-                        </div>
-                        <div style="margin-top: 20px; margin-bottom: 20px;">
-                            <div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                <button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
-                                {{#if isSecretary}} <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> {{/if}}
-                                <button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </main>
-        </div>
-    </div>
+						<div class="form-group">
+							<label class="small mb-1" for="inputSORemarks">Remarks</label>
+							<input class="form-control" id="inputSORemarks" type="text" value="Remarks here" readonly/>
+						</div>
+						<div class="form-group">
+							<label class="small mb-1" for="inputSOCons">Conditions</label>
+							<input class="form-control" id="inputSOCons" type="text" value="Conditions here" readonly/>
+						</div>
+						<div style="margin-top: 20px; margin-bottom: 20px;">
+							<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
+								<button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
+								{{#if isSecretary}} <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> {{/if}}
+								<button class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</main>
+		</div>
+	</div>
 </div>

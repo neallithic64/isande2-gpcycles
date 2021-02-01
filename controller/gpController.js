@@ -23,6 +23,16 @@ async function genItemCode(itGroup) {
 	return itemGrp.index.toString().padStart(2, '0') + '-' + prodCount.length.toString().padStart(6, '0');
 }
 
+async function genOrderCode(ordType) {
+	if (ordType === "PO") {
+		let ords = await db.findMany(PurchaseOrder, {});
+		return "PO-" + ords.length.toString().padStart(6, '0');
+	} else {
+		let ords = await db.findMany(SalesOrder, {});
+		return "SO-" + ords.length.toString().padStart(6, '0');
+	}
+}
+
 /* Index Functions
  */
 const gpController = {
@@ -349,17 +359,82 @@ const gpController = {
 	},
 	
 	getViewAllSOPO: async function(req, res) {
-		res.render('viewallsopo', {
-			topNav: true,
-			sideNav: true,
-			title: 'View All SO PO',
-			name: req.session.user.name,
-			isAdmin: req.session.user.usertype === "Admin",
-			isSO: req.query.ordertype === "SO"
-		});
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let orders;
+			orders = await db.findMany(req.query.ordertype === "SO" ? SalesOrder : PurchaseOrder, {});
+			res.render('viewallsopo', {
+				topNav: true,
+				sideNav: true,
+				title: 'View All ' + req.query.ordertype,
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				isSO: req.query.ordertype === "SO",
+				orders: orders
+			});
+		}
+	},
+	
+	getNewPO: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			try {
+				let suppliers = await db.findMany(Supplier, {}, 'name');
+				let products = await db.findMany(Product, {}, 'prodName');
+				let POnum = (await db.findMany(PurchaseOrder, {})).length;
+				res.render('newPO', {
+					topNav: true,
+					sideNav: true,
+					title: 'New PO',
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin",
+					suppliers: suppliers,
+					products: products,
+					POnum: POnum.toString().padStart(6, '0')
+				});
+			} catch (e) {
+				console.log(e);
+				res.render('error');
+			}
+		}
+	},
+	
+	getNewSO: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			try {
+				let customers = await db.findMany(Customer, {}, 'name');
+				let products = await db.findMany(Product, {}, 'prodName');
+				let SOnum = (await db.findMany(SalesOrder, {})).length;
+				res.render('newSO', {
+					topNav: true,
+					sideNav: true,
+					title: 'New SO',
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin",
+					isSecretary: true,
+					customers: customers,
+					products: products,
+					SOnum: SOnum.toString().padStart(6, '0')
+				});
+			} catch (e) {
+				console.log(e);
+				res.render('error');
+			}
+		}
+	},
+	
+	getItemAJAX: async function(req, res) {
+		try {
+			let item = await db.findOne(Product, {_id: req.query.code});
+			res.status(200).send(forceJSON(item));
+		} catch (e) {
+			res.status(500).send(e);
+		}
 	},
 	
 	getConfirmPO: async function(req, res) {
+		// DO NOT IMPLEMENT
 		if (!req.session.user) res.redirect('/login');
 		else {
 			try {
@@ -378,6 +453,7 @@ const gpController = {
 	},
 
 	getConfirmSO: async function(req, res) {
+		// DO NOT IMPLEMENT
 		if (!req.session.user) res.redirect('/login');
 		else {
 			try {
@@ -556,8 +632,59 @@ const gpController = {
 		} catch (e) {
 			return res.status(500).send();
 		}
+	},
+	
+	postNewPO: async function(req, res) {
+		try {
+			let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
+			let ordNum = await genOrderCode("PO");
+			let newPO = {
+				orderNum: ordNum,
+				items: items,
+				penalty: 0,
+				conditions: conditions,
+				remarks: remarks,
+				status: status,
+				supplier: db.toObjId(supplier),
+				dateOrdered: new Date(dateOrdered),
+				paymentTerms: paymentTerms,
+				paymentDue: new Date(paymentDue),
+				expectedDelivery: new Date(expectedDelivery)
+			};
+			console.log(newPO);
+			db.insertOne(PurchaseOrder, newPO);
+			res.redirect('/');
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	postNewSO: async function(req, res) {
+		try {
+			let {items, adjustment, remarks, status, customer, dateOrdered, paymentTerms, paymentDue, deliveryMode, expectedDelivery} = req.body;
+			let ordNum = await genOrderCode("SO");
+			let newSO = {
+				orderNum: ordNum,
+				items: items,
+				penalty: 0,
+				adjustment: adjustment,
+				remarks: remarks,
+				status: status,
+				customer: db.toObjId(customer),
+				dateOrdered: new Date(dateOrdered),
+				paymentTerms: paymentTerms,
+				paymentDue: new Date(paymentDue),
+				deliveryMode: deliveryMode,
+				expectedDelivery: new Date(expectedDelivery)
+			};
+			db.insertOne(SalesOrder, newSO);
+			res.redirect('/');
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
 	}
-
 };
 
 module.exports = gpController;

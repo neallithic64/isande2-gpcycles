@@ -55,13 +55,12 @@
 
 
 
-function trimArr(arr) {
-	arr.forEach(e => e.value = validator.trim(e.value));
-}
-
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
 	$('#dataTable').DataTable();
+	
+	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
+		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
 	
 	$('button#submitAddUser').click(function() {
 		let addUserForm = $('form#addUser').serializeArray();
@@ -138,7 +137,6 @@ $(document).ready(function() {
 		}
 	});
 	
-
 	$('button#submitAddSupplier').click(function() {
 		let addSupplierForm = $('form#addSupplier').serializeArray();
 		trimArr(addSupplierForm);
@@ -176,7 +174,7 @@ $(document).ready(function() {
 			});
 		}
 	});
-
+	
 	$('button#submitAddProduct').click(function() {
 		let addProductForm = $('form#addProduct').serializeArray();
 		trimArr(addProductForm);
@@ -233,6 +231,231 @@ $(document).ready(function() {
 				}
 			});
 		}
+	});
+	
+	$('button#POaddItem').click(function() {
+		$('table#POItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+	});
+	
+	$('button#SOaddItem').click(function() {
+		$('table#SOItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+	});
+	
+	$('tbody').on("change", '.inputPOItem', function() {
+		let currElem = $(this), item = currElem.val();
+		$.ajax({
+			method: 'GET',
+			url: '/getItemAJAX',
+			data: {code: item},
+			success: function(res) {
+				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	$('tbody').on("change", '.inputSOItem', function() {
+		let currElem = $(this), item = currElem.val();
+		$.ajax({
+			method: 'GET',
+			url: '/getItemAJAX',
+			data: {code: item},
+			success: function(res) {
+				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				currElem.closest('td').next().find('input').attr('discountPoint', res.discount.qty);
+				currElem.closest('td').next().find('input').attr('discountPercent', res.discount.percentage);
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	$("#POSubmitDraft").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputPOCons").val(),
+			remarks: $("#inputPORemarks").val(),
+			status: "Draft",
+			supplier: $("#inputPOName").val(),
+			dateOrdered: $("#inputPODate").val(),
+			paymentTerms: $("#inputPOTerms").val(),
+			paymentDue: $("#inputPOPayDue").val(),
+			expectedDelivery: $("#inputPODelDate").val()
+		};
+		$.ajax({
+			method: 'POST',
+			url: '/newPO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	$("#POSubmitConfPay").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputPOCons").val(),
+			remarks: $("#inputPORemarks").val(),
+			status: "Paid",
+			supplier: $("#inputPOName").val(),
+			dateOrdered: $("#inputPODate").val(),
+			paymentTerms: $("#inputPOTerms").val(),
+			paymentDue: $("#inputPOPayDue").val(),
+			expectedDelivery: $("#inputPODelDate").val()
+		};
+		$.ajax({
+			method: 'POST',
+			url: '/newPO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	$("#POSubmitConf").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputPOCons").val(),
+			remarks: $("#inputPORemarks").val(),
+			status: "Confirmed",
+			supplier: $("#inputPOName").val(),
+			dateOrdered: $("#inputPODate").val(),
+			paymentTerms: $("#inputPOTerms").val(),
+			paymentDue: $("#inputPOPayDue").val(),
+			expectedDelivery: $("#inputPODelDate").val()
+		};
+		$.ajax({
+			method: 'POST',
+			url: '/newPO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	$('tbody').on("change", ':input[type="number"]', function() {
+		if (window.location.pathname === '/newPO') {
+			try {
+				let currElem = $(this),
+					qty = Number.parseFloat(currElem.closest('tr').find('.inputPOQty').val()),
+					unit = Number.parseFloat(currElem.closest('tr').find('.inputPOUnit').val().replace(',', '')),
+					discount = Number.parseFloat(currElem.closest('tr').find('.inputPODiscount').val());
+				if (Number.isNaN(discount)) discount = 0;
+				currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				updatePOTotals();
+			} catch (e) {
+				console.log(e);
+				alert('error! check console.');
+			}
+		} else {
+			try {
+				let currElem = $(this),
+					qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
+					unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
+					discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
+				if (Number.isNaN(discount)) discount = 0;
+				currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				updateSOTotals();
+			} catch (e) {
+				console.log(e);
+				alert('error! check console.');
+			}
+		}
+	});
+	
+	$('tbody').on("change", '.inputSOQty', function() {
+		let currElem = $(this), qty = currElem.val(), unit, discount;
+		if (qty >= Number.parseInt(currElem.attr('discountPoint')))
+			currElem.closest('td').next().next().find('input').val(currElem.attr('discountPercent') + '.0');
+		else currElem.closest('td').next().next().find('input').val('0.0');
+		// updating totals
+		qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
+			unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
+			discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
+		currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+		updateSOTotals();
+	});
+	
+	$('#inputSOAdj').change(function() {
+		updateSOTotals();
+	});
+	
+	$("#SOSubmitConf").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputSOCons").val(),
+			remarks: $("#inputSORemarks").val(),
+			adjustment: $("#inputSOAdj").val(),
+			status: "SOMETHING",
+			customer: $("#inputSOName").val(),
+			dateOrdered: $("#inputSODate").val(),
+			paymentTerms: $("#inputSOTerms").val(),
+			paymentDue: $("#inputSOPayDue").val(),
+			deliveryMode: $("#inputSOMode").val(),
+			expectedDelivery: $("#inputSODelDate").val()
+		};
+		$.ajax({
+			method: 'POST',
+			url: '/newSO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	$("#SOSubmitConfPay").click(function() {
 	});
 });
 
@@ -327,4 +550,44 @@ function logout() {
 		if (xhr.readyState === 4 && xhr.status) window.location.href = "/login";
 	});
 	xhr.send();
+}
+
+function updatePOTotals() {
+	let qty, unit, discount = 0.0, subtotal = 0.0;
+	
+	$('tbody tr').each(function(i, e) {
+		qty = Number.parseFloat(e.querySelectorAll('input')[0].value);
+		unit = Number.parseFloat(e.querySelectorAll('input')[1].value.replace(',', ''));
+		subtotal += qty * unit;
+		discount += qty * unit * (Number.parseFloat(e.querySelectorAll('input')[2].value) / 100);
+	});
+	let nettotal = $.map($('.inputPOTotal'), function (e) {return e.value.replace(',', '');})
+			.reduce((acc, e) => acc + Number.parseFloat(e), 0.0);
+	$("#inputPOSub").val(subtotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputPOTotalDisc").val(discount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputPONet").val(nettotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+}
+
+function updateSOTotals() {
+	let qty, unit, discount = 0.0, subtotal = 0.0, adj;
+	
+	$('tbody tr').each(function(i, e) {
+		qty = Number.parseFloat(e.querySelectorAll('input')[0].value);
+		unit = Number.parseFloat(e.querySelectorAll('input')[1].value.replace(',', ''));
+		subtotal += qty * unit;
+		discount += qty * unit * (Number.parseFloat(e.querySelectorAll('input')[2].value) / 100);
+	});
+	adj = !isNaN(Number.parseFloat($('#inputSOAdj').val())) ? Number.parseFloat($('#inputSOAdj').val()) : 0.0;
+	console.log(adj);
+	let nettotal = $.map($('.inputSOTotal'), function (e) {return e.value.replace(',', '');})
+			.reduce((acc, e) => acc + Number.parseFloat(e), 0.0);
+	nettotal -= adj;
+	$("#inputSOSub").val(subtotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputSOTotalDisc").val(discount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputSOFinalAdj").val(adj.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputSONet").val(nettotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+}
+
+function trimArr(arr) {
+	arr.forEach(e => e.value = validator.trim(e.value));
 }
