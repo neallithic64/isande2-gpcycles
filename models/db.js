@@ -70,6 +70,7 @@ const database = {
 			console.log('Document modified: ' + result.nModified);
 			return true;
 		} catch (e) {
+			console.log(e);
 			return false;
 		}
 	},

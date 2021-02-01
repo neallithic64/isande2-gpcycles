@@ -29,7 +29,7 @@ router.get('/addSupplier', gpController.getAddSupplier);
 
 router.get('/viewproduct/:code', gpController.getProductPage);
 // router.get('/adjustproduct/:code', gpController.);
-// router.get('/editproduct/:code', gpController.);
+router.get('/editproduct/:code', gpController.getEditProduct);
 
 router.get('/newPO', gpController.getNewPO);
 router.get('/newSO', gpController.getNewSO);
@@ -61,6 +61,7 @@ router.post('/addItemGroup', gpController.postAddItemGroup);
 router.post('/addProduct', gpController.postAddProduct);
 router.post('/addCustomer', gpController.postAddCustomer);
 router.post('/addSupplier', gpController.postAddSupplier);
+router.post('/editproduct/:code', gpController.postEditProduct);
 
 
 

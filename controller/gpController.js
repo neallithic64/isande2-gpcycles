@@ -184,6 +184,27 @@ const gpController = {
 			});
 		}
 	},
+
+	getEditProduct: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let product = await db.findOne(Product, {itemCode: req.params.code});
+			// additional joining from SO and PO collections
+			// unsure about this:
+			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
+			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
+			console.log(sales);
+			console.log(purch);
+			res.render('editproduct', {
+				topNav: true,
+				sideNav: true,
+				title: 'Edit Product',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				product: forceJSON(product)
+			});
+		}
+	},
 	
 	getInventory: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
@@ -532,37 +553,29 @@ const gpController = {
 			return res.status(500).send();
 		}
 	},
-	
-	postNewPO: async function(req, res) {
+
+	postEditProduct: async function(req, res) {
+		let {inputPurchasePrice, inputSellingPrice,
+			inputdesc, inputReorderPoint, inputReorderQty, inputMinDiscQty,
+			inputDiscountPercent} = req.body;
+		let editedProduct = {
+			purchasePrice: inputPurchasePrice,
+			sellingPrice: inputSellingPrice,
+			description: inputdesc,
+			discount: {
+				qty: inputMinDiscQty,
+				percentage: inputDiscountPercent
+			},
+			reorderPoint: inputReorderPoint,
+			reorderQty: inputReorderQty
+		};
 		try {
-			let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
-			let ordNum = await genOrderCode("PO");
-			let newPO = {
-				orderNum: ordNum,
-				items: items,
-				penalty: 0,
-				conditions: conditions,
-				remarks: remarks,
-				status: status,
-				supplier: db.toObjId(supplier),
-				dateOrdered: new Date(dateOrdered),
-				paymentTerms: paymentTerms,
-				paymentDue: new Date(paymentDue),
-				expectedDelivery: new Date(expectedDelivery)
-			};
-			console.log(newPO);
-			db.insertOne(PurchaseOrder, newPO);
-			res.redirect('/');
+			await db.updateOne(Product, {itemCode: req.params.code}, editedProduct);
+			return res.status(200).send();
 		} catch (e) {
-			console.log(e);
+			return res.status(500).send();
 		}
-	},
-	
-	postNewSO: async function(req, res) {
-		let {} = req.body;
-		let newSO;
-		db.insertOne(SalesOrder, newSO);
 	}
+
 };
 
-module.exports = gpController;
