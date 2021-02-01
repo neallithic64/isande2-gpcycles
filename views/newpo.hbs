@@ -29,7 +29,7 @@
 								<div class="form-group">
 									<label class="small mb-1" for="inputPOName">Supplier Name</label> <span style="color: red"> * </span>
 									<select class="form-control" id="inputPOName">
-										<option value="0"> Enter supplier name </option>
+										<option value="0" disabled selected> Enter supplier name </option>
 										{{#each suppliers}}
 											<option value="{{{this._id}}}"> {{this.name}} </option>
 										{{/each}}
@@ -75,8 +75,8 @@
 											<tr>
 												<td style="padding-bottom: 0px">
 													<div class="form-group">
-														<select class="form-control inputSOItem" style="border-width: 0px;padding: 0px;font-size: 15px;">
-															<option value="0"> Enter item name </option>
+														<select class="form-control inputPOItem" style="border-width: 0px;padding: 0px;font-size: 15px;">
+															<option value="0" disabled selected> Enter item name </option>
 															{{#each products}}
 																<option value="{{{this._id}}}"> {{this.prodName}} </option>
 															{{/each}}

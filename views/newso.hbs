@@ -14,7 +14,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="small mb-1" for="inputSONum">Sales Order #</label> <span style="color: red"> * </span>
-									<span class="form-control" id="inputSONum" style="color: black;"> SO-{{POnum}} </span>
+									<span class="form-control" id="inputSONum" style="color: black;"> SO-{{SOnum}} </span>
 								</div>
 							</div>
 						</div>
@@ -23,7 +23,7 @@
 								<div class="form-group">
 									<label class="small mb-1" for="inputSOName">Customer Name</label> <span style="color: red"> * </span>
 									<select class="form-control" id="inputSOName">
-										<option value="0"> Enter customer name </option>
+										<option value="0" disabled selected> Enter customer name </option>
 										{{#each customers}}
 											<option value="{{{this._id}}}"> {{this.name}} </option>
 										{{/each}}
@@ -70,7 +70,7 @@
 												<td style="padding-bottom: 0px">
 													<div class="form-group">
 														<select class="form-control inputSOItem" style="border-width: 0px;padding: 0px;font-size: 15px;">
-															<option value="0"> Enter item name </option>
+															<option value="0" disabled selected> Enter item name </option>
 															{{#each products}}
 																<option value="{{{this._id}}}"> {{this.prodName}} </option>
 															{{/each}}
@@ -165,9 +165,9 @@
 								<div class="form-group">
 									<label class="small mb-1" for="inputSOMode">Mode</label> <span style="color: red"> * </span>
 									<select class="form-control" id="inputSOMode" required>
-										<option value="0"> Physical </option>
-										<option value="1"> Pickup </option>
-										<option value="2"> Delivery </option>
+										<option value="0" disabled selected> Pick mode </option>
+										<option value="Pickup"> Pickup </option>
+										<option value="Delivery"> Delivery </option>
 									</select>
 								</div>
 							</div>

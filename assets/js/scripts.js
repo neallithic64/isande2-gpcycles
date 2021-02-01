@@ -247,7 +247,11 @@ $(document).ready(function() {
 		$('table#POItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
 	});
 	
-	$('tbody').on("change", '.inputSOItem', function() {
+	$('button#SOaddItem').click(function() {
+		$('table#SOItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+	});
+	
+	$('tbody').on("change", '.inputPOItem', function() {
 		let currElem = $(this), item = currElem.val();
 		$.ajax({
 			method: 'GET',
@@ -262,18 +266,19 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('tbody').on("change", ':input[type="number"]', function() {
-		try {
-			let currElem = $(this),
-				qty = Number.parseFloat(currElem.closest('tr').find('.inputPOQty').val()),
-				unit = Number.parseFloat(currElem.closest('tr').find('.inputPOUnit').val().replace(',', '')),
-				discount = Number.parseFloat(currElem.closest('tr').find('.inputPODiscount').val());
-			if (Number.isNaN(discount)) discount = 0;
-			currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-			updateTotals();
-		} catch (e) {
-			alert(e);
-		}
+	$('tbody').on("change", '.inputSOItem', function() {
+		let currElem = $(this), item = currElem.val();
+		$.ajax({
+			method: 'GET',
+			url: '/getItemAJAX',
+			data: {code: item},
+			success: function(res) {
+				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
 	});
 	
 	$("#POSubmitDraft").click(function() {
@@ -376,8 +381,34 @@ $(document).ready(function() {
 		});
 	});
 	
-	$('button#SOaddItem').click(function() {
-		$('table#SOItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+	$('tbody').on("change", ':input[type="number"]', function() {
+		if (window.location.pathname === '/newPO') {
+			try {
+				let currElem = $(this),
+					qty = Number.parseFloat(currElem.closest('tr').find('.inputPOQty').val()),
+					unit = Number.parseFloat(currElem.closest('tr').find('.inputPOUnit').val().replace(',', '')),
+					discount = Number.parseFloat(currElem.closest('tr').find('.inputPODiscount').val());
+				if (Number.isNaN(discount)) discount = 0;
+				currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				updatePOTotals();
+			} catch (e) {
+				console.log(e);
+				alert('error! check console.');
+			}
+		} else {
+			try {
+				let currElem = $(this),
+					qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
+					unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
+					discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
+				if (Number.isNaN(discount)) discount = 0;
+				currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				updateSOTotals();
+			} catch (e) {
+				console.log(e);
+				alert('error! check console.');
+			}
+		}
 	});
 });
 
@@ -448,7 +479,7 @@ function logout() {
 	xhr.send();
 }
 
-function updateTotals() {
+function updatePOTotals() {
 	let qty, unit, discount = 0.0, subtotal = 0.0;
 	
 	$('tbody tr').each(function(i, e) {
@@ -462,6 +493,22 @@ function updateTotals() {
 	$("#inputPOSub").val(subtotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 	$("#inputPOTotalDisc").val(discount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 	$("#inputPONet").val(nettotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+}
+
+function updateSOTotals() {
+	let qty, unit, discount = 0.0, subtotal = 0.0;
+	
+	$('tbody tr').each(function(i, e) {
+		qty = Number.parseFloat(e.querySelectorAll('input')[0].value);
+		unit = Number.parseFloat(e.querySelectorAll('input')[1].value.replace(',', ''));
+		subtotal += qty * unit;
+		discount += qty * unit * (Number.parseFloat(e.querySelectorAll('input')[2].value) / 100);
+	});
+	let nettotal = $.map($('.inputSOTotal'), function (e) {return e.value.replace(',', '');})
+			.reduce((acc, e) => acc + Number.parseFloat(e), 0.0);
+	$("#inputSOSub").val(subtotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputSOTotalDisc").val(discount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputSONet").val(nettotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 }
 
 function trimArr(arr) {

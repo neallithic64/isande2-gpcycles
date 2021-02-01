@@ -373,20 +373,34 @@ const gpController = {
 				});
 			} catch (e) {
 				console.log(e);
-				res.redirect('error');
+				res.render('error');
 			}
-
 		}
 	},
 	
 	getNewSO: async function(req, res) {
-		res.render('newSO', {
-			topNav: true,
-			sideNav: true,
-			title: 'New SO',
-			name: req.session.user.name,
-			isAdmin: req.session.user.usertype === "Admin"
-		});
+		if (!req.session.user) res.redirect('/login');
+		else {
+			try {
+				let customers = await db.findMany(Customer, {}, 'name');
+				let products = await db.findMany(Product, {}, 'prodName');
+				let SOnum = (await db.findMany(SalesOrder, {})).length;
+				res.render('newSO', {
+					topNav: true,
+					sideNav: true,
+					title: 'New SO',
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin",
+					isSecretary: true,
+					customers: customers,
+					products: products,
+					SOnum: SOnum.toString().padStart(6, '0')
+				});
+			} catch (e) {
+				console.log(e);
+				res.render('error');
+			}
+		}
 	},
 	
 	getItemAJAX: async function(req, res) {
