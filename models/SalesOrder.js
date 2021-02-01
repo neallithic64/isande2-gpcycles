@@ -12,6 +12,7 @@ const saleOrdSchema = new mongoose.Schema({
 		netPrice: Number
 	}],
 	penalty: Number,
+	conditions: String,
 	adjustment: Number,
 	remarks: String,
 	status: String,
