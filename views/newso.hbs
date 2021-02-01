@@ -4,7 +4,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<div  style="margin-bottom: 20px;">
+					<div style="margin-bottom: 20px;">
 						<h1 class="mt-4">New Sales Order</h1>
 					</div>
 
@@ -14,7 +14,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="small mb-1" for="inputSONum">Sales Order #</label> <span style="color: red"> * </span>
-									<span class="form-control" id="inputSONum" style="color: black;"> SO-000001 </span>
+									<span class="form-control" id="inputSONum" style="color: black;"> SO-{{POnum}} </span>
 								</div>
 							</div>
 						</div>
@@ -23,10 +23,10 @@
 								<div class="form-group">
 									<label class="small mb-1" for="inputSOName">Customer Name</label> <span style="color: red"> * </span>
 									<select class="form-control" id="inputSOName">
-										<option value="0"> Physical </option>
-										<option value="1"> Shannon Ho </option>
-										<option value="2"> Matthew Lim </option>
-										<option value="2"> Julia Estella </option>
+										<option value="0"> Enter customer name </option>
+										{{#each customers}}
+											<option value="{{{this._id}}}"> {{this.name}} </option>
+										{{/each}}
 									</select>
 								</div>
 							</div>
@@ -52,7 +52,7 @@
 												<th>Item <span style="color: red"> * </span> </th>
 												<th style="text-align: end;">Quantity <span style="color: red"> * </span> </th>
 												<th style="text-align: end;">Unit Price</span> </th>
-												<th style="text-align: end;">Discount</th>
+												<th style="text-align: end;">Discount (%)</th>
 												<th style="text-align: end;">Net Price</span> </th>
 											</tr>
 										</thead>
@@ -61,7 +61,7 @@
 												<th>Item <span style="color: red"> * </span> </th>
 												<th style="text-align: end;">Quantity <span style="color: red"> * </span> </th>
 												<th style="text-align: end;">Unit Price</th>
-												<th style="text-align: end;">Discount</th>
+												<th style="text-align: end;">Discount (%)</th>
 												<th style="text-align: end;">Net Price</th>
 											</tr>
 										</tfoot>
@@ -69,43 +69,43 @@
 											<tr>
 												<td style="padding-bottom: 0px">
 													<div class="form-group">
-														<select class="form-control" style="border-width: 0px; padding: 0px; font-size: 15px;" id="inputSOItem">
+														<select class="form-control inputSOItem" style="border-width: 0px;padding: 0px;font-size: 15px;">
 															<option value="0"> Enter item name </option>
-															<option value="1"> Tube </option>
-															<option value="2"> Unit </option>
-															<option value="2"> Wheels </option>
+															{{#each products}}
+																<option value="{{{this._id}}}"> {{this.prodName}} </option>
+															{{/each}}
 														</select>
 													</div>
 													<div id="currentQtyDiv" class="small mb-1" style="padding-left: 3px;" >
 														<span id="currentQty" style="color: red"> 70 stocks left. </span>
 													</div>
 												</td>
-												<td style="width: 150px; color: black;">
+												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputSOQty" type="number" min="1" max="1000" style="width: 150px; border-width: 0px; text-align: end; padding: 4px; font-size: 15px;" placeholder="Enter quantity" /> 
+														<input class="form-control inputSOQty" type="number" min="1" max="1000" style="width: 150px;border-width: 0px;text-align: end;padding: 4px;font-size: 15px;" placeholder="Enter quantity" /> 
 													</div>
 												</td>
-												<td style="width: 150px; color: black;">
+												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputSOUnit" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/>
+														<input class="form-control inputSOUnit" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" readonly/>
 													</div>
 												</td>
-												<td style="width: 150px; color: black;">
+												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputSODiscount" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0%" readonly/> 
+														<input class="form-control inputSODiscount" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.0" readonly/>
 													</div>
 												</td>
-												<td style="width: 150px; color: black;">
+												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputSOTotal" style="width: 150px; border-width: 0px; padding: 4px; font-size: 15px; text-align: end; background-color: #ffffff;" value="0.00" readonly/> 
+														<input class="form-control inputSOTotal" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" readonly/>
 													</div>
 												</td>
 											</tr>
 										</tbody>
 									</table>
 									<div>
-										<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-											<button style="margin-right: 10px; color: #F50506; background-color: transparent; border-width: 0px;">+ Add another item </button>
+										<div class="form-group mt-4 mb-0" style="display: flex;flex-direction: row;justify-content: flex-end;">
+											<button id="SOaddItem" type="button" style="margin-right: 10px;color: #F50506;background-color: transparent;border-width: 0px;">+ Add another item </button>
 										</div>
 									</div>
 								</div>
@@ -121,21 +121,21 @@
 								</div>
 							</div>
 							<div class="col-md-6" style="margin-top: 0px">
-								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
-									<label class="small mb-1" for="inputSOSub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
-									<input class="form-control" id="inputSOSub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								<div class="form-group" style="display:flex;flex-direction: row;justify-content: flex-end;">
+									<label class="small mb-1" for="inputSOSub" style="width: 130px;font-size: 15px;padding-top: 5px;">SUBTOTAL</label>
+									<input class="form-control" id="inputSOSub" style="padding-top: 0px;width: 200px;border-width: 0px;background-color: transparent;text-align: end;"type="text" value="0.00" readonly/>
 								</div>
-								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-									<label class="small mb-1" for="inputSOFinalAdj" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
-									<input class="form-control" id="inputSOFinalAdj" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								<div class="form-group" style="display:flex;flex-direction: row;justify-content: flex-end;margin-top: -20px">
+									<label class="small mb-1" for="inputSOTotalDisc" style="width: 130px;font-size: 15px;padding-top: 5px;">Total Discount</label>
+									<input class="form-control" id="inputSOTotalDisc" style="padding-top: 0px;width: 200px;border-width: 0px;background-color: transparent;text-align: end;"type="text" value="0.00" readonly/>
 								</div>
-								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-									<label class="small mb-1" for="inputSOFinalAdj" style="width: 130px; font-size: 15px; padding-top: 5px;">Adjustment</label>
-									<input class="form-control" id="inputSOFinalAdj" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								<div class="form-group" style="display:flex;flex-direction: row;justify-content: flex-end;margin-top: -20px">
+									<label class="small mb-1" for="inputSOFinalAdj" style="width: 130px;font-size: 15px;padding-top: 5px;">Adjustment</label>
+									<input class="form-control" id="inputSOFinalAdj" style="padding-top: 0px;width: 200px;border-width: 0px;background-color: transparent;text-align: end;"type="text" value="0.00" readonly/>
 								</div>
-								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
-									<label class="small mb-1" for="inputSONet" style="color: #F50506; font-weight: 700; width: 130px; font-size: 18px; padding-top: 5px;">NET TOTAL</label>
-									<input class="form-control" id="inputSONet" style="font-weight: 700; padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+								<div class="form-group" style="display:flex;flex-direction: row;justify-content: flex-end;margin-top: -20px">
+									<label class="small mb-1" for="inputSONet" style="color: #F50506;font-weight: 700;width: 130px;font-size: 18px;padding-top: 5px;">NET TOTAL</label>
+									<input class="form-control" id="inputSONet" style="font-weight: 700;padding-top: 0px;width: 200px;border-width: 0px;background-color: transparent;text-align: end;"type="text" value="0.00" readonly/>
 								</div>
 							</div>
 						</div>
@@ -145,9 +145,9 @@
 								<div class="form-group">
 									<label class="small mb-1" for="inputSOTerms">Terms</label> <span style="color: red"> * </span>
 									<select class="form-control" id="inputSOTerms" required>
-										<option value="0"> Physical </option>
-										<option value="1"> Bank </option>
-										<option value="2"> COD </option>
+										<option value="Physical"> Physical </option>
+										<option value="Bank"> Bank </option>
+										<option value="COD"> COD </option>
 									</select>
 								</div>
 							</div>
@@ -157,7 +157,7 @@
 									<label class="small mb-1" for="inputSOPayDue">Payment Due Date</label> <span style="color: red"> * </span>
 									<input class="form-control" id="inputSOPayDue" type="date" placeholder="Enter date" required/>
 								</div>
-							</div>   
+							</div>
 						</div>
 
 						<div class="form-row">
@@ -176,7 +176,7 @@
 									<label class="small mb-1" for="inputSODelDate">Expected Delivery Date</label> <span style="color: red"> * </span>
 									<input class="form-control" id="inputSODelDate" type="date" placeholder="Enter date" required/>
 								</div>
-							</div>  
+							</div>
 						</div>
 
 						<div class="form-group">
@@ -187,12 +187,15 @@
 							<label class="small mb-1" for="inputSOCons">Conditions</label>
 							<input class="form-control" id="inputSOCons" type="text" placeholder="Enter conditions">
 						</div>
-						<div style="margin-top: 20px; margin-bottom: 20px;">
-							<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end;">
-							   <button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
-							{{#if isSecretary}} <button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> {{/if}}
-								{{#if isSales}} <button class="btn btn-outline-secondary" onclick="window.location.href='/newso'">Cancel</button> 
-								{{else}} <button class="btn btn-outline-secondary" onclick="window.location.href='/viewallsopo'">Cancel</button> {{/if}}
+						<div style="margin-top: 20px;margin-bottom: 20px;">
+							<div class="form-group mt-4 mb-0" style="display: flex;flex-direction: row;justify-content: flex-end;">
+								<button type="button" style="margin-right: 10px;width: 200px;background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
+								{{#if isSecretary}} <button type="button" style="margin-right: 10px;" class="btn btn-primary">Confirm</button> {{/if}}
+								{{#if isSales}}
+									<button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/newso'">Cancel</button> 
+								{{else}}
+									<button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/viewallsopo'">Cancel</button>
+								{{/if}}
 							</div>
 						</div>
 					</form>

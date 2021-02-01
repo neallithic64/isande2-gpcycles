@@ -30,9 +30,9 @@
 									<label class="small mb-1" for="inputPOName">Supplier Name</label> <span style="color: red"> * </span>
 									<select class="form-control" id="inputPOName">
 										<option value="0"> Enter supplier name </option>
-									{{#each suppliers}}
-										<option value="{{{this._id}}}"> {{this.name}} </option>
-									{{/each}}
+										{{#each suppliers}}
+											<option value="{{{this._id}}}"> {{this.name}} </option>
+										{{/each}}
 									</select>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 												</td>
 												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control inputPODiscount" type="number" min="0" max="100" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" placeholder="Enter discount"/>
+														<input class="form-control inputPODiscount" type="number" min="0" max="100" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.0" placeholder="Enter discount"/>
 													</div>
 												</td>
 												<td style="width: 150px;color: black;">
@@ -167,8 +167,8 @@
 							<div class="form-group mt-4 mb-0" style="display: flex;flex-direction: row;justify-content: flex-end;">
 								<button type="button" id="POSubmitDraft" style="margin-right: 10px;" class="btn btn-info">Draft</button>
 								{{#if isAdmin}}
-								<button type="button" id="POSubmitConfPay" style="margin-right: 10px;width: 200px;background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
-								<button type="button" id="POSubmitConf" style="margin-right: 10px;" class="btn btn-primary">Confirm</button> 
+									<button type="button" id="POSubmitConfPay" style="margin-right: 10px;width: 200px;background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
+									<button type="button" id="POSubmitConf" style="margin-right: 10px;" class="btn btn-primary">Confirm</button> 
 								{{/if}}
 								<button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/viewallsopo'">Cancel</button>
 							</div>

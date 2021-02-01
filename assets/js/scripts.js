@@ -55,10 +55,6 @@
 
 
 
-function trimArr(arr) {
-	arr.forEach(e => e.value = validator.trim(e.value));
-}
-
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
 	$('#dataTable').DataTable();
@@ -317,8 +313,9 @@ $(document).ready(function() {
 		let products = [];
 		$('tbody tr').each((i, e) => {
 			products.push({
-				itemCode: e.children[0].children[0].children[0].value,
-				quantity: e.children[1].children[0].children[0].value,
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
 				discount: e.children[3].children[0].children[0].value
 			});
 		});
@@ -333,13 +330,25 @@ $(document).ready(function() {
 			paymentDue: $("#inputPOPayDue").val(),
 			expectedDelivery: $("#inputPODelDate").val()
 		};
+		$.ajax({
+			method: 'POST',
+			url: '/newPO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
 	});
 	$("#POSubmitConf").click(function() {
 		let products = [];
 		$('tbody tr').each((i, e) => {
 			products.push({
-				itemCode: e.children[0].children[0].children[0].value,
-				quantity: e.children[1].children[0].children[0].value,
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
 				discount: e.children[3].children[0].children[0].value
 			});
 		});
@@ -354,6 +363,17 @@ $(document).ready(function() {
 			paymentDue: $("#inputPOPayDue").val(),
 			expectedDelivery: $("#inputPODelDate").val()
 		};
+		$.ajax({
+			method: 'POST',
+			url: '/newPO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
 	});
 	
 	$('button#SOaddItem').click(function() {
@@ -443,3 +463,8 @@ function updateTotals() {
 	$("#inputPOTotalDisc").val(discount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 	$("#inputPONet").val(nettotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 }
+
+function trimArr(arr) {
+	arr.forEach(e => e.value = validator.trim(e.value));
+}
+
