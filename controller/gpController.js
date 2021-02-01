@@ -152,14 +152,15 @@ const gpController = {
 	getPurchaseOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let purchaseorder = await PurchaseOrder.find({orderNum: req.params.ordNum}).populate("items.product");
+			let purchaseorder = await PurchaseOrder.find({orderNum: req.params.ordNum}).populate("items.product supplier");
+			console.log(purchaseorder[0]);
 			res.render('viewpo', {
 				topNav: true,
 				sideNav: true,
 				title: 'Purchase Order',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				purchaseorder: purchaseorder
+				purchaseorder: purchaseorder[0]
 			});
 		}
 	},

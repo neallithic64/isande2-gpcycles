@@ -59,38 +59,53 @@ app.engine('hbs', exphbs.create({
 			return price * qty * (100 - discount);
 		},
 		subtotalOrder: function(order, ord) {
-			var subtotal = 0;
+			let subtotal = 0;
 			if (ord === 1) {
+				// TO FIX
 				order.forEach(function(e) {
+					console.log(e);
 					subtotal += e.items.product.sellingPrice * e.items.qty;
 				});
 			}
-			if (ord === 0) {
-				order.forEach(function(e1) {
-					subtotal += e1.items.reduce((acc, e2) => acc + e2.unitPrice * e2.qty);
-				});
-			}
-			return subtotal;
+			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty, 0);
 		},
 		getDiscountSO: function(item, qty) {
 			return qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
 		},
 		discountOrder: function(order, ord) {
-			var discount = 0;
+			let discount = 0;
 			if (ord === 1) {
+				// TO FIX
 				order.forEach(function(e) {
+					console.log(e);
 					discount += (e.items.product.sellingPrice * e.items.qty * getDiscountSO(e.items, e.items.qty));
 				});
 			}
-			if (ord === 0) {
-				order.forEach(function(e1) {
-					discount += e1.items.reduce((acc, e2) => acc + e2.unitPrice * e2.qty * e2.discount);
-				});
-			}
+			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
 			return discount;
 		},
 		netotalOrder: function(order, ord) {
-			return subtotalOrder(order, ord) - discountOrder(order, ord);
+			let subtotal = 0, discount = 0;
+			switch (ord) {
+				case 0: {
+					return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
+					// return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty);
+					break;
+				}
+				case 1: {
+					// TO FIX
+					order.forEach(function(e) {
+						console.log(e);
+						discount += (e.items.product.sellingPrice * e.items.qty * getDiscountSO(e.items, e.items.qty));
+					});
+					order.forEach(function(e) {
+						console.log(e);
+						subtotal += e.items.product.sellingPrice * e.items.qty;
+					});
+					break;
+				}
+			}
+			return subtotal - discount;
 		}
 	}
 }).engine);
