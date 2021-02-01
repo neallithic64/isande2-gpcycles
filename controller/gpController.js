@@ -575,7 +575,39 @@ const gpController = {
 		} catch (e) {
 			return res.status(500).send();
 		}
+	},
+	
+	postNewPO: async function(req, res) {
+		try {
+			let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
+			let ordNum = await genOrderCode("PO");
+			let newPO = {
+				orderNum: ordNum,
+				items: items,
+				penalty: 0,
+				conditions: conditions,
+				remarks: remarks,
+				status: status,
+				supplier: db.toObjId(supplier),
+				dateOrdered: new Date(dateOrdered),
+				paymentTerms: paymentTerms,
+				paymentDue: new Date(paymentDue),
+				expectedDelivery: new Date(expectedDelivery)
+			};
+			console.log(newPO);
+			db.insertOne(PurchaseOrder, newPO);
+			res.redirect('/');
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	postNewSO: async function(req, res) {
+		let {} = req.body;
+		let newSO;
+		db.insertOne(SalesOrder, newSO);
 	}
-
 };
 
+module.exports = gpController;
