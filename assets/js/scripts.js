@@ -180,53 +180,43 @@ $(document).ready(function() {
 	$('button#submitAddProduct').click(function() {
 		let addProductForm = $('form#addProduct').serializeArray();
 		trimArr(addProductForm);
-		var checks = Array(10).fill(true);
+		var checks = Array(8).fill(true);
 		
 		checks[0] = addProductForm.some(e => validator.isEmpty(e.value)) ? false : true;
 		if (!checks[0]) alert('Please fill in all fields.');
-		
-		if (addProductForm[2].value == null) {
-			checks[1] = false;
-			alert('Please input a valid group.');
-		}
-
-		if (addProductForm[3].value == null) {
-			checks[2] = false;
-			alert('Please input a valid supplier.');
-		}
 
 		if (Number.parseFloat(addProductForm[4].value.replace(',', '')) < 0) {
-			checks[3] = false;
+			checks[1] = false;
 			alert('Price should be a valid amount.');
 		}
 		
 		if (Number.parseFloat(addProductForm[5].value.replace(',', '')) < 0) {
-			checks[4] = false;
+			checks[2] = false;
 			alert('Price should be a valid amount.');
 		}
 
-		if (!(Number.isInteger(addProductForm[7].value) && addProductForm[7].value >= 0)) {
-			checks[5] = false;
+		if (!validator.isInt(addProductForm[7].value, {min: 0})) {
+			checks[3] = false;
 			alert('Starting quantity should be a whole positive number.');
 		}
 
-		if (!(Number.isInteger(addProductForm[8].value) && addProductForm[8].value >= 0)) {
-			checks[6] = false;
+		if (!validator.isInt(addProductForm[8].value, {min: 0})) {
+			checks[4] = false;
 			alert('Reorder point should be a whole positive number.');
 		}
 
-		if (!(Number.isInteger(addProductForm[9].value) && addProductForm[9].value >= 0)) {
-			checks[7] = false;
+		if (!validator.isInt(addProductForm[9].value, {min: 1})) {
+			checks[5] = false;
 			alert('Reorder quantity should be a whole positive number.');
 		}
 
-		if (!(Number.isInteger(addProductForm[10].value) && addProductForm[10].value >= 0)) {
-			checks[8] = false;
+		if (!validator.isInt(addProductForm[10].value, {min: 1})) {
+			checks[6] = false;
 			alert('Minimum discount quantity should be a whole positive number.');
 		}
 
-		if (!(Number.isFloat(addProductForm[11]) && addProductForm[11].value >= 0 && addProductForm[11].value <= 100 )) {
-			checks[9] = false;
+		if (!validator.isInt(addProductForm[11].value, {min: 0, max: 100})) {
+			checks[7] = false;
 			alert('Percentage discount should be from 0 to 100.');
 		}
 		
@@ -263,22 +253,22 @@ $(document).ready(function() {
 			alert('Price should be a valid amount.');
 		}
 
-		if (!(Number.isInteger(editProductForm[3].value) >= 0)) {
+		if (!validator.isInt(editProductForm[3].value, {min: 1})) {
 			checks[2] = false;
 			alert('Minimum discount quantity should be a whole positive number.');
 		}
 
-		if (!(Number.isInteger(editProductForm[4]) == 0 && editProductForm[4].value >= 0 && editProductForm[4].value <= 100 )) {
+		if (!validator.isInt(editProductForm[4].value, {min:0, max: 100})) {
 			checks[3] = false;
 			alert('Percentage discount should be from 0 to 100.');
 		}
 
-		if (!(Number.isInteger(editProductForm[5].value) == 0 && editProductForm[5].value >= 0)) {
+		if (!validator.isInt(editProductForm[5].value, {min: 0})) {
 			checks[4] = false;
 			alert('Reorder point should be a whole positive number.');
 		}
 
-		if (!(Number.isInteger(editProductForm[6].value) == 0 && editProductForm[6].value >= 0)) {
+		if (!validator.isInt(editProductForm[6].value, {min: 1})) {
 			checks[5] = false;
 			alert('Reorder quantity should be a whole positive number.');
 		}
@@ -296,8 +286,34 @@ $(document).ready(function() {
 				}
 			});
 		}
+	});
 
+	$('button#submitAdjustProduct').click(function() {
+		let adjustProductForm = $('form#adjustProduct').serializeArray();
+		trimArr(adjustProductForm);
+		var checks = Array(2).fill(true);
+		
+		checks[0] = adjustProductForm.some(e => validator.isEmpty(e.value)) ? false : true;
+		if (!checks[0]) alert('Please fill in all fields.');
+		
+		if (!validator.isInt(adjustProductForm[1].value, {min: 0})) {
+			checks[1] = false;
+			alert('Current count should be a whole positive number.');
+		}
 
+		if (checks.every(Boolean)) {
+			$.ajax({
+				method: 'POST',
+				url: "/adjustProduct/" + window.location.pathname.split('/')[2],
+				data: adjustProductForm,
+				success: function() {
+					window.location.href = "/viewproduct/" + window.location.pathname.split('/')[2];
+				},
+				error: function(str) {
+					alert(str.responseText);
+				}
+			});
+		}
 	});
 
 });
