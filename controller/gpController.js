@@ -168,13 +168,11 @@ const gpController = {
 	getProductPage: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let product = await db.findOne(Product, {itemCode: req.params.code});
+			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
 			// additional joining from SO and PO collections
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
 			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
-			console.log(sales);
-			console.log(purch);
 			res.render('viewproduct', {
 				topNav: true,
 				sideNav: true,
