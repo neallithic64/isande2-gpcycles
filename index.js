@@ -55,27 +55,23 @@ app.engine('hbs', exphbs.create({
 			else if (adj.length === 9 && adj.subsubstr(0,3) === "PO-") return "Purchase";
 			else return "Adjustment";
 		},
-		netPriceDisc: function(price, qty, discount) {
-			return price * qty * (100 - discount) / 100;
-		},
 		subtotalOrder: function(order, ord) {
 			let subtotal = 0;
 			if (ord === 1) {
 				// TO FIX
+				console.log(order);
 				order.forEach(function(e) {
-					console.log(e);
 					subtotal += e.items.product.sellingPrice * e.items.qty;
 				});
 			}
-			console.log(order);
 			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty, 0);
 		},
 		discountOrder: function(order, ord) {
 			let discount = 0;
 			if (ord === 1) {
 				// TO FIX
+				console.log(order);
 				order.forEach(function(e) {
-					console.log(e);
 					discount += (e.items.product.sellingPrice * e.items.qty * (e.items.qty < e.product.disount.qty ? 0 : e.product.disount.percentage));
 				});
 			}
@@ -86,8 +82,7 @@ app.engine('hbs', exphbs.create({
 			let subtotal = 0, discount = 0;
 			switch (ord) {
 				case 0:
-					return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty, 0)
-							- order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
+					return order.items.reduce((acc, e) => acc + (e.unitPrice * e.qty * (100 - e.discount) / 100), 0);
 				case 1: {
 					// TO FIX
 					order.forEach(function(e) {
@@ -102,6 +97,9 @@ app.engine('hbs', exphbs.create({
 				}
 			}
 			return subtotal - discount;
+		},
+		netPriceDisc: function(price, qty, discount) {
+			return price * qty * (100 - discount) / 100;
 		}
 	}
 }).engine);
