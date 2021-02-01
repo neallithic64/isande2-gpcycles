@@ -159,10 +159,10 @@
 												<span id="viewSOUnitPrice"> {{this.product.sellingPrice}} </span>
 											</td>
 											<td style="text-align: end;">
-												<span id="viewSODisc">{{getDiscountSO this this.qty}}%</span>
+												<span id="viewSODisc">{{!getDiscountSO this this.qty}}%</span>
 											</td>
 											<td style="text-align: end;">
-												<span id="viewSONetPrice"> {{netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this this.qty)}} </span>
+												<span id="viewSONetPrice"> {{!netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this this.qty)}} </span>
 											</td>
 										</tr>
 										{{/each}}
