@@ -67,15 +67,18 @@ app.engine('hbs', exphbs.create({
 		getDateNow: function() {
 			return new Date();
 		},
-		getFracRate: function(val, total) {
-			return val&&total ? Math.round(val/total * 100) / 100 + '%' : '0%';
+		getFormatDate: function(date) {
+			return date.toISOString().substr(0, 10);
+		},
+		getOrderTotal: function(items) {
+			return items.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (1 - (elem.discount/100)), 0);
 		},
 		adjustmentType: function(adj) {
-			if (adj.length == 9 && adj.subsubstr(0,3) == "SO-") return "Sale";
+			if (adj.length === 9 && adj.subsubstr(0,3) === "SO-") return "Sale";
 			else if (adj.length == 9 && adj.subsubstr(0,3) == "PO-") return "Purchase";
-			else return Adjustment
+			else return "Adjustment";
 		},
-		netPriceDisc: function(price,qty,discount) {
+		netPriceDisc: function(price, qty, discount) {
 			return price * qty * (100 - discount);
 		},
 		subtotalOrder: function(order, ord) {
