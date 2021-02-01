@@ -63,6 +63,8 @@ $(document).ready(function() {
 	// Call the dataTables jQuery plugin
 	$('#dataTable').DataTable();
 	
+	if (window.location.pathname === '/newpo' || window.location.pathname === '/newso') $(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
+	
 	$('button#submitAddUser').click(function() {
 		let addUserForm = $('form#addUser').serializeArray();
 		trimArr(addUserForm);
