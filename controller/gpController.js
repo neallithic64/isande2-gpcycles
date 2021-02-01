@@ -338,7 +338,7 @@ const gpController = {
 		else {
 			try {
 				let suppliers = await db.findMany(Supplier, {}, 'name');
-				let products = await db.findMany(Product, {}, 'prodName itemCode');
+				let products = await db.findMany(Product, {}, 'prodName');
 				let POnum = (await db.findMany(PurchaseOrder, {})).length;
 				res.render('newPO', {
 					topNav: true,
@@ -352,7 +352,7 @@ const gpController = {
 				});
 			} catch (e) {
 				console.log(e);
-				res.redirect('error')
+				res.redirect('error');
 			}
 
 		}
@@ -370,7 +370,7 @@ const gpController = {
 	
 	getItemAJAX: async function(req, res) {
 		try {
-			let item = await db.findOne(Product, {itemCode: req.query.code});
+			let item = await db.findOne(Product, {_id: req.query.code});
 			res.status(200).send(forceJSON(item));
 		} catch (e) {
 			res.status(500).send(e);
@@ -534,23 +534,28 @@ const gpController = {
 	},
 	
 	postNewPO: async function(req, res) {
-		let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
-		let ordNum = await genOrderCode("PO");
-		let newPO = {
-			orderNum: ordNum,
-			items: items,
-			penalty: 0,
-			conditions: conditions,
-			remarks: remarks,
-			status: status,
-			supplier: db.toObjId(supplier),
-			dateOrdered: new Date(dateOrdered),
-			paymentTerms: paymentTerms,
-			paymentDue: new Date(paymentDue),
-			expectedDelivery: new Date(expectedDelivery)
-		};
-		db.insertOne(PurchaseOrder, newPO);
-		res.redirect('/');
+		try {
+			let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
+			let ordNum = await genOrderCode("PO");
+			let newPO = {
+				orderNum: ordNum,
+				items: items,
+				penalty: 0,
+				conditions: conditions,
+				remarks: remarks,
+				status: status,
+				supplier: db.toObjId(supplier),
+				dateOrdered: new Date(dateOrdered),
+				paymentTerms: paymentTerms,
+				paymentDue: new Date(paymentDue),
+				expectedDelivery: new Date(expectedDelivery)
+			};
+			console.log(newPO);
+			db.insertOne(PurchaseOrder, newPO);
+			res.redirect('/');
+		} catch (e) {
+			console.log(e);
+		}
 	},
 	
 	postNewSO: async function(req, res) {

@@ -282,8 +282,9 @@ $(document).ready(function() {
 		let products = [];
 		$('tbody tr').each((i, e) => {
 			products.push({
-				itemCode: e.children[0].children[0].children[0].value,
-				quantity: e.children[1].children[0].children[0].value,
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
 				discount: e.children[3].children[0].children[0].value
 			});
 		});
@@ -298,6 +299,17 @@ $(document).ready(function() {
 			paymentDue: $("#inputPOPayDue").val(),
 			expectedDelivery: $("#inputPODelDate").val()
 		};
+		$.ajax({
+			method: 'POST',
+			url: '/newPO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
 	});
 	$("#POSubmitConfPay").click(function() {
 		let products = [];
