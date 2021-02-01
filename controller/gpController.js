@@ -46,7 +46,7 @@ const gpController = {
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin"
 				});
-			} else res.redirect('/addSO');
+			} else res.redirect('/newSO');
 		} else res.redirect('/login');
 	},
 	
