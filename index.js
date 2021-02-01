@@ -43,12 +43,17 @@ app.engine('hbs', exphbs.create({
 			}
 		},
 		getFormatDate: function(date) {
-			return date.toISOString().substr(0, 10);
+			return date.toString().substr(0, 10);
 		},
-		getOrderTotal: function(items) {
-			return items.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (100 - elem.discount), 0)
-						.toFixed(2)
-						.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		getOrderTotal: function(items, isSO) {
+			if (isSO) return items
+					.reduce((acc, elem) => acc + (elem.qty >= elem.product.discount.qty ? elem.qty * elem.unitPrice * (100 - elem.product.discount.percentage) : elem.qty * elem.unitPrice), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			else return items
+					.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (100 - elem.discount), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		adjustmentType: function(adj) {
 			if (adj.length === 9 && adj.subsubstr(0,3) === "SO-") return "Sale";

@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <div class="sb-nav-fixed">
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_content">
@@ -61,18 +63,19 @@
 										{{#each orders}}
 										<tr>
 											<td>{{getFormatDate this.dateOrdered}}</td>
-											{{#if isSO}}
+											{{#if ../isSO}}
 												<td><a href="/viewSO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+												<td>{{this.customer.name}}</td>
 											{{else}}
 												<td><a href="/viewPO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+												<td>{{this.supplier.name}}</td>
 											{{/if}}
-											{{#if isSO}}<td>{{this.customer.name}}</td>{{else}}<td>{{this.supplier.name}}</td>{{/if}}
 											<td><div id="status" class="status-received">{{this.status}}</div></td>
 											<td>{{this.remarks}}</td>
 											<td>{{this.paymentTerms}}</td>
-											{{#if isSO}} <td>{{this.deliveryMode}}</td> {{/if}}
+											{{#if ../isSO}} <td>{{this.deliveryMode}}</td> {{/if}}
 											<td>{{getFormatDate this.expectedDelivery}}</th>
-											<td>{{getOrderTotal this.items}}</th>
+											<td>{{getOrderTotal this.items ../isSO}}</th>
 										</tr>
 										{{/each}}
 									</tbody>

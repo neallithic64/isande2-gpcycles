@@ -363,7 +363,7 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let orders;
-			orders = await db.findMany(req.query.ordertype === "SO" ? SalesOrder : PurchaseOrder, {});
+			orders = req.query.ordertype === "SO" ? await SalesOrder.find({}).populate('items.product customer') : await PurchaseOrder.find({}).populate('items.product supplier');
 			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
@@ -371,7 +371,7 @@ const gpController = {
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
 				isSO: req.query.ordertype === "SO",
-				orders: orders
+				orders: forceJSON(orders)
 			});
 		}
 	},
