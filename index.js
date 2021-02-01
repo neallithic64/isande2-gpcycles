@@ -39,24 +39,12 @@ app.engine('hbs', exphbs.create({
 		getPrice: function(price) {
 			return price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
-		getPURL: function(id) {
-			return '/product/' + id;
-		},
-		getPriceTotal: function(cart) {
-			return cart.reduce((total, item) => total + item.price * item.qty, 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		},
 		getOrdAccess: function(cart, index, attr) {
 			switch (attr) {
 				case 0: return cart[index].size;
 				case 1: return cart[index].price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 				case 2: return (cart[index].qty * cart[index].price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			}
-		},
-		categToString: function(cats) {
-			return cats.map(e => e.categName).join(', ');
-		},
-		isProofEmpty: function(proofPay) {
-			return proofPay.length > 0 ? 'Yes' : 'No';
 		},
 		getSalesStatActs: function(status) {
 			switch (status) {
