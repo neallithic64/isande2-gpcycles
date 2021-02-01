@@ -618,9 +618,29 @@ const gpController = {
 	},
 	
 	postNewSO: async function(req, res) {
-		let {} = req.body;
-		let newSO;
-		db.insertOne(SalesOrder, newSO);
+		try {
+			let {items, adjustment, remarks, status, customer, dateOrdered, paymentTerms, paymentDue, deliveryMode, expectedDelivery} = req.body;
+			let ordNum = await genOrderCode("SO");
+			let newSO = {
+				orderNum: ordNum,
+				items: items,
+				penalty: 0,
+				adjustment: adjustment,
+				remarks: remarks,
+				status: status,
+				customer: db.toObjId(customer),
+				dateOrdered: new Date(dateOrdered),
+				paymentTerms: paymentTerms,
+				paymentDue: new Date(paymentDue),
+				deliveryMode: deliveryMode,
+				expectedDelivery: new Date(expectedDelivery)
+			};
+			db.insertOne(SalesOrder, newSO);
+			res.redirect('/');
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
 	}
 };
 
