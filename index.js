@@ -36,24 +36,11 @@ app.engine('hbs', exphbs.create({
 		getArrIndex: function(arr, index) {
 			return arr[index];
 		},
-		getPrice: function(price) {
-			return price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		},
-		getOrdAccess: function(cart, index, attr) {
-			switch (attr) {
-				case 0: return cart[index].size;
-				case 1: return cart[index].price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-				case 2: return (cart[index].qty * cart[index].price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			}
-		},
 		getSalesStatActs: function(status) {
 			switch (status) {
 				case 'CANCELLED':
 				case 'SHIPPED': return 'disabledactions';
 			}
-		},
-		getDateNow: function() {
-			return new Date();
 		},
 		getFormatDate: function(date) {
 			return date.toISOString().substr(0, 10);
