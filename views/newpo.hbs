@@ -4,7 +4,7 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<div  style="margin-bottom: 20px;">
+					<div style="margin-bottom: 20px;">
 						<h1 class="mt-4">New Purchase Order</h1>
 					</div>
 
@@ -75,7 +75,7 @@
 											<tr>
 												<td style="padding-bottom: 0px">
 													<div class="form-group">
-														<select class="form-control" style="border-width: 0px;padding: 0px;font-size: 15px;" id="inputSOItem">
+														<select class="form-control inputSOItem" style="border-width: 0px;padding: 0px;font-size: 15px;">
 															<option value="0"> Enter item name </option>
 															{{#each products}}
 																<option value="{{{this.itemCode}}}"> {{this.prodName}} </option>
@@ -85,22 +85,22 @@
 												</td>
 												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputPOQty" type="number" min="1" max="1000" style="width: 150px;border-width: 0px;text-align: end;padding: 4px;font-size: 15px;" placeholder="Enter quantity" /> 
+														<input class="form-control inputPOQty" type="number" min="1" max="1000" style="width: 150px;border-width: 0px;text-align: end;padding: 4px;font-size: 15px;" placeholder="Enter quantity" /> 
 													</div>
 												</td>
 												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputPOUnit" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" readonly/>
+														<input class="form-control inputPOUnit" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" readonly/>
 													</div>
 												</td>
 												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputPODiscount" type="number" min="0" max="100" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" placeholder="Enter discount"/> 
+														<input class="form-control inputPODiscount" type="number" min="0" max="100" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" placeholder="Enter discount"/> 
 													</div>
 												</td>
 												<td style="width: 150px;color: black;">
 													<div class="form-group" style="color: black;">
-														<input class="form-control" id="inputPOTotal" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" readonly/> 
+														<input class="form-control inputPOTotal" style="width: 150px;border-width: 0px;padding: 4px;font-size: 15px;text-align: end;background-color: #ffffff;" value="0.00" readonly/> 
 													</div>
 												</td>
 											</tr>
@@ -150,7 +150,7 @@
 									<label class="small mb-1" for="inputPOPayDue">Payment Due Date</label> <span style="color: red"> * </span>
 									<input class="form-control" id="inputPOPayDue" type="date" placeholder="Enter date" required/>
 								</div>
-							</div>   
+							</div>
 						</div>
 
 
@@ -165,12 +165,12 @@
 						</div>
 						<div style="margin-top: 20px;margin-bottom: 20px;">
 							<div class="form-group mt-4 mb-0" style="display: flex;flex-direction: row;justify-content: flex-end;">
-								<button style="margin-right: 10px;" class="btn btn-info">Draft</button>
+								<button type="button" id="POSubmitDraft" style="margin-right: 10px;" class="btn btn-info">Draft</button>
 								{{#if isAdmin}}
-								<button style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
-								<button style="margin-right: 10px;" class="btn btn-primary">Confirm</button> 
+								<button type="button" id="POSubmitConfPay" style="margin-right: 10px; width: 200px; background-color: #b31f21;" class="btn btn-primary">Confirm and Pay</button>
+								<button type="button" id="POSubmitConf" style="margin-right: 10px;" class="btn btn-primary">Confirm</button> 
 								{{/if}}
-								<button class="btn btn-outline-secondary" onclick="window.location.href='/viewallsopo'">Cancel</button>
+								<button type="button" class="btn btn-outline-secondary" onclick="window.location.href='/viewallsopo'">Cancel</button>
 							</div>
 						</div>
 					</form>

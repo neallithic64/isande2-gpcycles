@@ -334,19 +334,28 @@ const gpController = {
 	},
 	
 	getNewPO: async function(req, res) {
-		let suppliers = await db.findMany(Supplier, {}, 'name');
-		let products = await db.findMany(Product, {}, 'prodName itemCode');
-		let POnum = (await db.findMany(PurchaseOrder, {})).length;
-		res.render('newPO', {
-			topNav: true,
-			sideNav: true,
-			title: 'New PO',
-			name: req.session.user.name,
-			isAdmin: req.session.user.usertype === "Admin",
-			suppliers: suppliers,
-			products: products,
-			POnum: POnum.toString().padStart(6, '0')
-		});
+		if (!req.session.user) res.redirect('/login');
+		else {
+			try {
+				let suppliers = await db.findMany(Supplier, {}, 'name');
+				let products = await db.findMany(Product, {}, 'prodName itemCode');
+				let POnum = (await db.findMany(PurchaseOrder, {})).length;
+				res.render('newPO', {
+					topNav: true,
+					sideNav: true,
+					title: 'New PO',
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin",
+					suppliers: suppliers,
+					products: products,
+					POnum: POnum.toString().padStart(6, '0')
+				});
+			} catch (e) {
+				console.log(e);
+				res.redirect('error')
+			}
+
+		}
 	},
 	
 	getNewSO: async function(req, res) {
@@ -525,7 +534,7 @@ const gpController = {
 	},
 	
 	postNewPO: async function(req, res) {
-		let {items, conditions, remarks, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
+		let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
 		let ordNum = await genOrderCode("PO");
 		let newPO = {
 			orderNum: ordNum,
@@ -533,14 +542,13 @@ const gpController = {
 			penalty: 0,
 			conditions: conditions,
 			remarks: remarks,
-			status: "PENDING",
+			status: status,
 			supplier: db.toObjId(supplier),
 			dateOrdered: new Date(dateOrdered),
 			paymentTerms: paymentTerms,
 			paymentDue: new Date(paymentDue),
 			expectedDelivery: new Date(expectedDelivery)
 		};
-		items: {unitPrice: Number};
 		db.insertOne(PurchaseOrder, newPO);
 		res.redirect('/');
 	},

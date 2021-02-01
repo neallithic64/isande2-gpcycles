@@ -249,7 +249,36 @@ $(document).ready(function() {
 		$('table#POItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
 	});
 	
-	$("submit somrthing PO").click(function() {
+	$('tbody').on("change", '.inputSOItem', function() {
+		let currElem = $(this), item = currElem.val();
+		$.ajax({
+			method: 'GET',
+			url: '/getItemAJAX',
+			data: {code: item},
+			success: function(res) {
+				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	$('tbody').on("change", ':input[type="number"]', function() {
+		try {
+			let currElem = $(this),
+				qty = Number.parseFloat(currElem.closest('tr').find('.inputPOQty').val()),
+				unit = Number.parseFloat(currElem.closest('tr').find('.inputPOUnit').val().replace(',', '')),
+				discount = Number.parseFloat(currElem.closest('tr').find('.inputPODiscount').val());
+			if (Number.isNaN(discount)) discount = 0;
+			currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			updateTotals();
+		} catch (e) {
+			alert(e);
+		}
+	});
+	
+	$("#POSubmitDraft").click(function() {
 		let products = [];
 		$('tbody tr').each((i, e) => {
 			products.push({
@@ -262,6 +291,49 @@ $(document).ready(function() {
 			items: products,
 			conditions: $("#inputPOCons").val(),
 			remarks: $("#inputPORemarks").val(),
+			status: "Draft",
+			supplier: $("#inputPOName").val(),
+			dateOrdered: $("#inputPODate").val(),
+			paymentTerms: $("#inputPOTerms").val(),
+			paymentDue: $("#inputPOPayDue").val(),
+			expectedDelivery: $("#inputPODelDate").val()
+		};
+	});
+	$("#POSubmitConfPay").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				itemCode: e.children[0].children[0].children[0].value,
+				quantity: e.children[1].children[0].children[0].value,
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputPOCons").val(),
+			remarks: $("#inputPORemarks").val(),
+			status: "Paid",
+			supplier: $("#inputPOName").val(),
+			dateOrdered: $("#inputPODate").val(),
+			paymentTerms: $("#inputPOTerms").val(),
+			paymentDue: $("#inputPOPayDue").val(),
+			expectedDelivery: $("#inputPODelDate").val()
+		};
+	});
+	$("#POSubmitConf").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				itemCode: e.children[0].children[0].children[0].value,
+				quantity: e.children[1].children[0].children[0].value,
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputPOCons").val(),
+			remarks: $("#inputPORemarks").val(),
+			status: "Confirmed",
 			supplier: $("#inputPOName").val(),
 			dateOrdered: $("#inputPODate").val(),
 			paymentTerms: $("#inputPOTerms").val(),
@@ -282,4 +354,20 @@ function logout() {
 		if (xhr.readyState === 4 && xhr.status) window.location.href = "/login";
 	});
 	xhr.send();
+}
+
+function updateTotals() {
+	let qty, unit, discount = 0.0, subtotal = 0.0;
+	
+	$('tbody tr').each(function(i, e) {
+		qty = Number.parseFloat(e.querySelectorAll('input')[0].value);
+		unit = Number.parseFloat(e.querySelectorAll('input')[1].value.replace(',', ''));
+		subtotal += qty * unit;
+		discount += qty * unit * (Number.parseFloat(e.querySelectorAll('input')[2].value) / 100);
+	});
+	let nettotal = $.map($('.inputPOTotal'), function (e) {return e.value.replace(',', '');})
+			.reduce((acc, e) => acc + Number.parseFloat(e), 0.0);
+	$("#inputPOSub").val(subtotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputPOTotalDisc").val(discount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	$("#inputPONet").val(nettotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 }
