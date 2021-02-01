@@ -258,7 +258,7 @@ $(document).ready(function() {
 			url: '/getItemAJAX',
 			data: {code: item},
 			success: function(res) {
-				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				currElem.closest('td').next().next().find('input').val(res.purchasePrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 			},
 			error: function(str) {
 				alert(str.responseText);

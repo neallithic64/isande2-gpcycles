@@ -67,10 +67,8 @@ app.engine('hbs', exphbs.create({
 					subtotal += e.items.product.sellingPrice * e.items.qty;
 				});
 			}
+			console.log(order);
 			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty, 0);
-		},
-		getDiscountSO: function(item, qty) {
-			return qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
 		},
 		discountOrder: function(order, ord) {
 			let discount = 0;
@@ -78,7 +76,7 @@ app.engine('hbs', exphbs.create({
 				// TO FIX
 				order.forEach(function(e) {
 					console.log(e);
-					discount += (e.items.product.sellingPrice * e.items.qty * getDiscountSO(e.items, e.items.qty));
+					discount += (e.items.product.sellingPrice * e.items.qty * (e.items.qty < e.product.disount.qty ? 0 : e.product.disount.percentage));
 				});
 			}
 			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
@@ -87,11 +85,9 @@ app.engine('hbs', exphbs.create({
 		netotalOrder: function(order, ord) {
 			let subtotal = 0, discount = 0;
 			switch (ord) {
-				case 0: {
-					return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
-					// return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty);
-					break;
-				}
+				case 0:
+					return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty, 0)
+							- order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
 				case 1: {
 					// TO FIX
 					order.forEach(function(e) {
