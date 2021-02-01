@@ -61,7 +61,11 @@
 										{{#each orders}}
 										<tr>
 											<td>{{getFormatDate this.dateOrdered}}</td>
-											<td><a href="/viewSOPO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+											{{#if isSO}}
+												<td><a href="/viewSO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+											{{else}}
+												<td><a href="/viewPO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+											{{/if}}
 											{{#if isSO}}<td>{{this.customer.name}}</td>{{else}}<td>{{this.supplier.name}}</td>{{/if}}
 											<td><div id="status" class="status-received">{{this.status}}</div></td>
 											<td>{{this.remarks}}</td>

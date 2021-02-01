@@ -59,7 +59,9 @@ app.engine('hbs', exphbs.create({
 			return date.toISOString().substr(0, 10);
 		},
 		getOrderTotal: function(items) {
-			return items.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (1 - (elem.discount/100)), 0);
+			return items.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (100 - elem.discount), 0)
+						.toFixed(2)
+						.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		adjustmentType: function(adj) {
 			if (adj.length === 9 && adj.subsubstr(0,3) === "SO-") return "Sale";
@@ -72,13 +74,13 @@ app.engine('hbs', exphbs.create({
 		subtotalOrder: function(order, ord) {
 			var subtotal = 0;
 			if (ord === 1) {
-				order.items.forEach(function(){
-					subtotal += (order.items.product.sellingPrice * order.items.qty);
+				order.forEach(function(e) {
+					subtotal += e.items.product.sellingPrice * e.items.qty;
 				});
 			}
 			if (ord === 0) {
-				order.items.forEach(function(){
-					subtotal += (order.items.product.purchasePrice * order.items.qty);
+				order.forEach(function(e1) {
+					subtotal += e1.items.reduce((acc, e2) => acc + e2.unitPrice * e2.qty);
 				});
 			}
 			return subtotal;
@@ -89,19 +91,19 @@ app.engine('hbs', exphbs.create({
 		discountOrder: function(order, ord) {
 			var discount = 0;
 			if (ord === 1) {
-				order.items.forEach(function(){
-					discount += (order.items.product.sellingPrice * order.items.qty * getDiscountSO(order.items, order.items.qty));
+				order.forEach(function(e) {
+					discount += (e.items.product.sellingPrice * e.items.qty * getDiscountSO(e.items, e.items.qty));
 				});
 			}
 			if (ord === 0) {
-				order.items.forEach(function(){
-					discount += (order.items.product.purchasePrice * order.items.qty * order.items.discount);
+				order.forEach(function(e1) {
+					discount += e1.items.reduce((acc, e2) => acc + e2.unitPrice * e2.qty * e2.discount);
 				});
 			}
 			return discount;
 		},
 		netotalOrder: function(order, ord) {
-			return subtotalOrder(order,ord) - discountOrder(order,ord);
+			return subtotalOrder(order, ord) - discountOrder(order, ord);
 		}
 	}
 }).engine);
