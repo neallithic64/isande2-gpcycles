@@ -45,6 +45,9 @@ app.engine('hbs', exphbs.create({
 		getFormatDate: function(date) {
 			return date.toString().substr(0, 10);
 		},
+		getFormatISODate: function(date) {
+			return date.toISOString().substr(0, 10);
+		},
 		getOrderTotal: function(items, isSO) {
 			if (isSO) return items
 					.reduce((acc, elem) => acc + (elem.qty >= elem.product.discount.qty ? elem.qty * elem.unitPrice * (100 - elem.product.discount.percentage) : elem.qty * elem.unitPrice), 0)

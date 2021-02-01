@@ -65,7 +65,7 @@
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
 										<span style="width:250px; font-size:16px; font-weight: 700;">Sales Order Date </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSODate">{{salesorder.dateOrdered}}</span>
+										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSODate">{{getFormatISODate salesorder.dateOrdered}}</span>
 									</div>
 								</div>
 							</div>
@@ -93,7 +93,7 @@
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
 										<span style="width:250px; font-size:16px; font-weight: 700;">Payment Due </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPayDue"> {{salesorder.paymentDue}} </span>
+										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPayDue"> {{getFormatISODate salesorder.paymentDue}} </span>
 									</div>
 								</div>
 							</div>
@@ -113,7 +113,7 @@
 							</div>
 							<div class="form-group" style="display:flex; justify-content: flex-end;">
 								<span style="width:250px; font-size:16px; font-weight: 700;">Expected Delivery </span>
-								<span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> {{salesorder.expectedDelivery}} </span>
+								<span style="width: 80px; font-size:16px; text-align: end;" id="viewPODelDate"> {{getFormatISODate salesorder.expectedDelivery}} </span>
 							</div>
 							
 							<div class="table-responsive" style="margin-top:30px;">
