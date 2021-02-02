@@ -559,6 +559,7 @@ const gpController = {
 	},
 	
 	postAddItemGroup: async function(req, res) {
+		// will NOT be used in the actual app.
 		let {itemgrp} = req.body;
 		try {
 			await db.insertOne(ItemGroup, {itemGroup: itemgrp});

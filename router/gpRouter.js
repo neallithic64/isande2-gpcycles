@@ -58,7 +58,6 @@ router.post('/logout', gpController.postLogout);
 router.post('/addUser', gpMiddleware.validateAddUser, gpController.postAddUser);
 router.post('/newPO', gpController.postNewPO);
 router.post('/newSO', gpController.postNewSO);
-router.post('/addItemGroup', gpController.postAddItemGroup);
 router.post('/addProduct', gpController.postAddProduct);
 router.post('/addCustomer', gpController.postAddCustomer);
 router.post('/addSupplier', gpController.postAddSupplier);
@@ -67,6 +66,11 @@ router.post('/adjustproduct/:code', gpController.postAdjustProduct);
 
 router.post('/cancelSOPO', gpController.postCancelOrder);
 router.post('/paySOPO', gpController.postPayOrder);
+
+
+
+// NO LONGER IMPLEMENTED
+// router.post('/addItemGroup', gpController.postAddItemGroup);
 
 
 
