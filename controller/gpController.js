@@ -727,7 +727,9 @@ const gpController = {
 	postCancelOrder: async function(req, res) {
 		try {
 			let {orderNum, reason} = req.body;
-			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder, {orderNum: orderNum}, {status: "Cancelled"});
+			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: "Cancelled", remarks: {'$concat': ['$remarks', reason]}});
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
