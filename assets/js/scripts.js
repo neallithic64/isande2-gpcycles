@@ -248,7 +248,7 @@ $(document).ready(function() {
 			url: '/getItemAJAX',
 			data: {code: item},
 			success: function(res) {
-				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+				currElem.closest('td').next().next().find('input').val(res.purchasePrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -435,7 +435,7 @@ $(document).ready(function() {
 			conditions: $("#inputSOCons").val(),
 			remarks: $("#inputSORemarks").val(),
 			adjustment: $("#inputSOAdj").val(),
-			status: "SOMETHING",
+			status: $("#inputSOMode").val() === "Delivery" ? "To Deliver" : "For Pickup",
 			customer: $("#inputSOName").val(),
 			dateOrdered: $("#inputSODate").val(),
 			paymentTerms: $("#inputSOTerms").val(),
@@ -456,6 +456,39 @@ $(document).ready(function() {
 		});
 	});
 	$("#SOSubmitConfPay").click(function() {
+		let products = [];
+		$('tbody tr').each((i, e) => {
+			products.push({
+				product: e.children[0].children[0].children[0].value,
+				qty: e.children[1].children[0].children[0].value,
+				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
+				discount: e.children[3].children[0].children[0].value
+			});
+		});
+		let data = {
+			items: products,
+			conditions: $("#inputSOCons").val(),
+			remarks: $("#inputSORemarks").val(),
+			adjustment: $("#inputSOAdj").val(),
+			status: "Fulfilled",
+			customer: $("#inputSOName").val(),
+			dateOrdered: $("#inputSODate").val(),
+			paymentTerms: $("#inputSOTerms").val(),
+			paymentDue: $("#inputSOPayDue").val(),
+			deliveryMode: $("#inputSOMode").val(),
+			expectedDelivery: $("#inputSODelDate").val()
+		};
+		$.ajax({
+			method: 'POST',
+			url: '/newSO',
+			data: data,
+			success: function() {
+				console.log('yay');
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
 	});
 });
 

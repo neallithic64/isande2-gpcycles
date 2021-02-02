@@ -46,7 +46,7 @@ const gpController = {
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin"
 				});
-			} else res.redirect('/addSO');
+			} else res.redirect('/newSO');
 		} else res.redirect('/login');
 	},
 	
@@ -121,14 +121,14 @@ const gpController = {
 	getSalesOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let salesorder = await SalesOrder.find({}).populate("items");
+			let salesorder = await SalesOrder.find({orderNum: req.params.ordNum}).populate("items.product customer");
 			res.render('viewso', {
 				topNav: true,
 				sideNav: true,
 				title: 'Sales Order',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				salesorder: salesorder
+				salesorder: salesorder[0]
 			});
 		}
 	},
@@ -152,14 +152,15 @@ const gpController = {
 	getPurchaseOrder: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let purchaseorder = await PurchaseOrder.find({}).populate("items");
+			let purchaseorder = await PurchaseOrder.find({orderNum: req.params.ordNum}).populate("items.product supplier");
+			console.log(purchaseorder[0]);
 			res.render('viewpo', {
 				topNav: true,
 				sideNav: true,
 				title: 'Purchase Order',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				purchaseorder: purchaseorder
+				purchaseorder: purchaseorder[0]
 			});
 		}
 	},
@@ -167,13 +168,11 @@ const gpController = {
 	getProductPage: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let product = await db.findOne(Product, {itemCode: req.params.code});
+			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
 			// additional joining from SO and PO collections
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
 			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
-			console.log(sales);
-			console.log(purch);
 			res.render('viewproduct', {
 				topNav: true,
 				sideNav: true,
@@ -377,7 +376,7 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let orders;
-			orders = await db.findMany(req.query.ordertype === "SO" ? SalesOrder : PurchaseOrder, {});
+			orders = req.query.ordertype === "SO" ? await SalesOrder.find({}).populate('items.product customer') : await PurchaseOrder.find({}).populate('items.product supplier');
 			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
@@ -385,7 +384,7 @@ const gpController = {
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
 				isSO: req.query.ordertype === "SO",
-				orders: orders
+				orders: forceJSON(orders)
 			});
 		}
 	},
