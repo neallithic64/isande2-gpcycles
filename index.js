@@ -165,4 +165,4 @@ app.use(bodyParser.json());
 const router = require('./router/gpRouter');
 app.use('/', router);
 
-app.listen(PORT, () => console.log(`Listening to localhost on port ${PORT}.`));
+app.listen(PORT, () => console.log(`Listening to localhost:${PORT}.`));

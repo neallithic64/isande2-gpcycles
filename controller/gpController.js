@@ -816,8 +816,6 @@ const gpController = {
 			return res.status(500).send();
 		}
 	}
-	
-	
 };
 
 module.exports = gpController;
