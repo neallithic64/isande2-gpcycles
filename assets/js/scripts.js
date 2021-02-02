@@ -510,6 +510,24 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$("#paySOPOSubmitButton").click(function() {
+		let ordNum = window.location.pathname.split('/')[2],
+			penalty = $("#inputPenalty").val(),
+			remarks = $("##inputPenaltyRemarks").val();
+		$.ajax({
+			method: 'POST',
+			url: '/paySOPO',
+			data: {orderNum: ordNum, penalty: penalty, remarks: remarks},
+			success: function() {
+				alert('Order has been paid.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
 });
 
 $(document).ready(function() {

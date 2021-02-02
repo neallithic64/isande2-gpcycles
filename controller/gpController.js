@@ -376,7 +376,9 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let orders;
-			orders = req.query.ordertype === "SO" ? await SalesOrder.find({}).populate('items.product customer') : await PurchaseOrder.find({}).populate('items.product supplier');
+			orders = req.query.ordertype === "SO"
+					? await SalesOrder.find({}).populate('items.product customer')
+					: await PurchaseOrder.find({}).populate('items.product supplier');
 			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
@@ -486,7 +488,16 @@ const gpController = {
 	},
 	
 	getPaySOPO: async function(req, res) {
-		// 
+		let orderNum = req.params.ordNum;
+		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
+		res.render('paysopo', {
+			topNav: true,
+			sideNav: true,
+			title: 'Receive SO',
+			name: req.session.user.name,
+			isSecretary: req.session.user.usertype === "Secretary",
+			isSO: orderNum.substr(0, 2) === "SO"
+		});
 	},
 	
 	getDelRecSOPO: async function(req, res) {
@@ -735,7 +746,36 @@ const gpController = {
 			console.log(e);
 			return res.status(500).send();
 		}
+	},
+	
+	
+	postPayOrder: async function(req, res) {
+		try {
+			let {orderNum, penalty, remarks} = req.body;
+			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: "To Receive", penalty: penalty, remarks: {'$concat': ['$remarks', remarks]}});
+			return res.status(200).send();
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	postReceiveOrder: async function(req, res) {
+		try {
+			let {orderNum} = req.body;
+			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: ""});
+			return res.status(200).send();
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
 	}
+	
+	
 };
 
 module.exports = gpController;

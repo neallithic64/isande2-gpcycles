@@ -64,7 +64,9 @@ router.post('/addCustomer', gpController.postAddCustomer);
 router.post('/addSupplier', gpController.postAddSupplier);
 router.post('/editproduct/:code', gpController.postEditProduct);
 router.post('/adjustproduct/:code', gpController.postAdjustProduct);
+
 router.post('/cancelSOPO', gpController.postCancelOrder);
+router.post('/paySOPO', gpController.postPayOrder);
 
 
 
