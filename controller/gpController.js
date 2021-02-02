@@ -472,7 +472,10 @@ const gpController = {
 	},
 	
 	
-	
+	postHome: async function(req, res) {
+		
+
+	},
 	
 	
 	postLogin: async function(req, res) {
