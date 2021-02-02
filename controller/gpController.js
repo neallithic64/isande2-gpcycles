@@ -636,7 +636,7 @@ const gpController = {
 				adjustmentHistory: {
 					date: new Date(),
 					before: quantity,
-					quantity: Number.parseInt(quantity) - Number.parseInt(inputCurrentCount),
+					quantity: Number.parseInt(inputCurrentCount) - Number.parseInt(quantity),
 					after: inputCurrentCount,
 					remarks: inputRemarks
 				}
