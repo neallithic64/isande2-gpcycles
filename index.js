@@ -107,6 +107,45 @@ app.engine('hbs', exphbs.create({
 		},
 		netotalOrder: function(order, ord) {
 			return subtotalOrder(order,ord) - discountOrder(order,ord);
+		},
+		begInv: function(product) {
+			return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+		},
+		sumPurch: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return sum;
+		},
+		sumSales: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="SO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return sum;
+		},
+		sumAdj: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				if (product.adjustmentHistory[i].reference == null)
+					sum += product.adjustmentHistory[i].quantity;
+			return sum;
+		},
+		cogs: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return (product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity) + sum - product.quantity;
+		},
+		invTurnover: function(product) {
+			var beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return 2 * (beg + sum - product.quantity) / (beg + product.quantity);
 		}
 	}
 }).engine);

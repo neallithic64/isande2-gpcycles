@@ -295,6 +295,21 @@ const gpController = {
 			});
 		}
 	},
+
+	getInventoryReport: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let products = await Product.find({}).populate("itemGroup");
+			res.render('inventoryreport', {
+				topNav: true,
+				sideNav: true,
+				title: 'Inventory Report',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				products: forceJSON(products)
+			});
+		}
+	},
 	
 	getAddUser: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
