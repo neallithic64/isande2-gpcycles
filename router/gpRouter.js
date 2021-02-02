@@ -21,6 +21,7 @@ router.get('/users', gpController.getAllUsers);
 router.get('/allproducts', gpController.getInventory);
 router.get('/allgroups', gpController.getGroups);
 router.get('/allgroupproducts/:index', gpController.getGroupInventory);
+router.get('/inventoryreport', gpController.getInventoryReport);
 
 router.get('/addUser', gpController.getAddUser);
 router.get('/addProduct', gpController.getAddProduct);
@@ -35,8 +36,8 @@ router.get('/newPO', gpController.getNewPO);
 router.get('/newSO', gpController.getNewSO);
 router.get('/salesorders', gpController.getAllSalesOrders);
 router.get('/purchorders', gpController.getAllPurchOrders);
-router.get('/viewPO', gpController.getPurchaseOrder);
-router.get('/viewSO', gpController.getSalesOrder);
+router.get('/viewPO/:ordNum', gpController.getPurchaseOrder);
+router.get('/viewSO/:ordNum', gpController.getSalesOrder);
 // router.get('/paysopo', gpController.getPaySOPO);
 // router.get('/drsopo', gpController.getDelRecSOPO);
 router.get('/viewallsopo*', gpController.getViewAllSOPO);
@@ -63,7 +64,6 @@ router.post('/addCustomer', gpController.postAddCustomer);
 router.post('/addSupplier', gpController.postAddSupplier);
 router.post('/editproduct/:code', gpController.postEditProduct);
 router.post('/adjustproduct/:code', gpController.postAdjustProduct);
-
 
 
 // Error Page

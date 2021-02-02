@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <div class="sb-nav-fixed">
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_content">
@@ -34,8 +36,8 @@
 									<thead>
 										<tr>
 											<th>Date</th>
-											<th>PO #</th>
-											<th>Supplier</th>
+											{{#if isSO}}<th>SO #</th>{{else}}<th>PO #</th>{{/if}}
+											{{#if isSO}}<th>Customer</th>{{else}}<th>Supplier</th>{{/if}}
 											<th>Status</th>
 											<th>Remarks</th>
 											<th>Terms</th>
@@ -47,8 +49,8 @@
 									<tfoot>
 										<tr>
 											<th>Date</th>
-											<th>PO #</th>
-											<th>Supplier</th>
+											{{#if isSO}}<th>SO #</th>{{else}}<th>PO #</th>{{/if}}
+											{{#if isSO}}<th>Customer</th>{{else}}<th>Supplier</th>{{/if}}
 											<th>Status</th>
 											<th>Remarks</th>
 											<th>Terms</th>
@@ -60,15 +62,20 @@
 									<tbody style="font-size: 12px;" >
 										{{#each orders}}
 										<tr>
-											<td>2008/01/23</td>
-											<td><a href="#">PO-000001</a></td>
-											<td>Lipa Bikes</td>
-											<td><div id="status" class="status-received"> Received</div></td>
-											<td>Received by Gino </td>
-											<td>Bank</td>
-											{{#if isSO}} <td>Delivery</td> {{/if}}
-											<td>2008/01/23</th>
-											<td>120,000</th>
+											<td>{{getFormatDate this.dateOrdered}}</td>
+											{{#if ../isSO}}
+												<td><a href="/viewSO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+												<td>{{this.customer.name}}</td>
+											{{else}}
+												<td><a href="/viewPO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
+												<td>{{this.supplier.name}}</td>
+											{{/if}}
+											<td><div id="status" class="status-received">{{this.status}}</div></td>
+											<td>{{this.remarks}}</td>
+											<td>{{this.paymentTerms}}</td>
+											{{#if ../isSO}} <td>{{this.deliveryMode}}</td> {{/if}}
+											<td>{{getFormatDate this.expectedDelivery}}</th>
+											<td>{{getOrderTotal this.items ../isSO}}</th>
 										</tr>
 										{{/each}}
 									</tbody>

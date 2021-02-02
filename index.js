@@ -36,77 +36,88 @@ app.engine('hbs', exphbs.create({
 		getArrIndex: function(arr, index) {
 			return arr[index];
 		},
-		getPrice: function(price) {
-			return price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		},
-		getPURL: function(id) {
-			return '/product/' + id;
-		},
-		getPriceTotal: function(cart) {
-			return cart.reduce((total, item) => total + item.price * item.qty, 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		},
-		getOrdAccess: function(cart, index, attr) {
-			switch (attr) {
-				case 0: return cart[index].size;
-				case 1: return cart[index].price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-				case 2: return (cart[index].qty * cart[index].price).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			}
-		},
-		categToString: function(cats) {
-			return cats.map(e => e.categName).join(', ');
-		},
-		isProofEmpty: function(proofPay) {
-			return proofPay.length > 0 ? 'Yes' : 'No';
-		},
 		getSalesStatActs: function(status) {
 			switch (status) {
 				case 'CANCELLED':
 				case 'SHIPPED': return 'disabledactions';
 			}
 		},
-		getDateNow: function() {
-			return new Date();
+		getFormatDate: function(date) {
+			return date.toString().substr(0, 10);
 		},
-		getFracRate: function(val, total) {
-			return val&&total ? Math.round(val/total * 100) / 100 + '%' : '0%';
-		},
-		adjustmentType: function(adj) {
-			if (adj.length == 9 && adj.subsubstr(0,3) == "SO-") return "Sale";
-			else if (adj.length == 9 && adj.subsubstr(0,3) == "PO-") return "Purchase";
-			else return Adjustment
-		},
-		netPriceDisc: function(price,qty,discount) {
-			return price * qty * (100 - discount);
-		},
-		subtotalOrder: function(order, ord) {
-			var subtotal = 0;
-			if (ord == 1) {
-				order.items.forEach(function(){
-					subtotal += (order.items.product.sellingPrice * order.items.qty);
-			})}
-			if (ord == 0) {
-				order.items.forEach(function(){
-					subtotal += (order.items.product.purchasePrice * order.items.qty);
-			})}
-			return subtotal;
+		getFormatISODate: function(date) {
+			return date.toISOString().substr(0, 10);
 		},
 		getDiscountSO: function(item, qty) {
-			return qty < item.product.disount.qty ? 0 : item.product.disount.percentage;
+			return qty < item.product.discount.qty ? 0 : item.product.discount.percentage;
+		},
+		getOrderTotal: function(items, isSO) {
+			if (isSO) return items
+					.reduce((acc, elem) => acc + (elem.qty >= elem.product.discount.qty ? elem.qty * elem.unitPrice * (100 - elem.product.discount.percentage) : elem.qty * elem.unitPrice), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			else return items
+					.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (100 - elem.discount), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		},
+		adjustmentType: function(adj) {
+			if (adj.length === 9 && adj.subsubstr(0,3) === "SO-") return "Sale";
+			else if (adj.length === 9 && adj.subsubstr(0,3) === "PO-") return "Purchase";
+			else return "Adjustment";
+		},
+		subtotalOrder: function(order, ord) {
+			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
 		},
 		discountOrder: function(order, ord) {
-			var discount = 0;
-			if (ord == 1) {
-				order.items.forEach(function(){
-					discount += (order.items.product.sellingPrice * order.items.qty * getDiscountSO(order.items, order.items.qty));
-			})}
-			if (ord == 0) {
-				order.items.forEach(function(){
-					discount += (order.items.product.purchasePrice * order.items.qty * order.items.discount);
-			})}
-			return discount;
+			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
+			if (ord === 1) return order.items.reduce((acc, e) => acc + (e.qty >= e.product.discount.qty ? e.qty * e.unitPrice * e.product.discount.percentage / 100 : 0), 0);
 		},
 		netotalOrder: function(order, ord) {
-			return subtotalOrder(order,ord) - discountOrder(order,ord);
+			if (ord === 0) return order.items.reduce((acc, e) => acc + (e.unitPrice * e.qty * (100 - e.discount) / 100), 0);
+			if (ord === 1) return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
+		},
+		netPriceDisc: function(price, qty, discount) {
+			return price * qty * (100 - discount) / 100;
+		},
+		begInv: function(product) {
+			return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+		},
+		sumPurch: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return sum;
+		},
+		sumSales: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="SO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return sum;
+		},
+		sumAdj: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				if (product.adjustmentHistory[i].reference == null)
+					sum += product.adjustmentHistory[i].quantity;
+			return sum;
+		},
+		cogs: function(product) {
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return (product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity) + sum - product.quantity;
+		},
+		invTurnover: function(product) {
+			var beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+			var sum=0;
+			for(i=0; i<product.adjustmentHistory.length; i++)
+				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+					sum += product.adjustmentHistory[i].quantity;
+			return 2 * (beg + sum - product.quantity) / (beg + product.quantity);
 		}
 	}
 }).engine);

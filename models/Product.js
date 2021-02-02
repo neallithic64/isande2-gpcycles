@@ -26,6 +26,7 @@ const productSchema = new mongoose.Schema({
 	reorderQty: Number,
 	adjustmentHistory: [{
 		date: Date,
+		reference: String,
 		before: Number,
 		quantity: Number,
 		after: Number,
