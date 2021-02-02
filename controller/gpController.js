@@ -622,7 +622,8 @@ const gpController = {
 			await db.insertOne(Product, product);
 			return res.status(200).send();
 		} catch (e) {
-			return res.status(500).send();
+			console.log(e);
+			return res.status(500).send(e);
 		}
 	},
 
@@ -690,7 +691,7 @@ const gpController = {
 			};
 			console.log(newPO);
 			await db.insertOne(PurchaseOrder, newPO);
-			res.redirect('/');
+			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
 			return res.status(500).send();
@@ -716,7 +717,7 @@ const gpController = {
 				expectedDelivery: new Date(expectedDelivery)
 			};
 			await db.insertOne(SalesOrder, newSO);
-			res.redirect('/');
+			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
 			return res.status(500).send();

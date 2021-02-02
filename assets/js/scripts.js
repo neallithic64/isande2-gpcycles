@@ -224,10 +224,10 @@ $(document).ready(function() {
 				url: '/addProduct',
 				data: addProductForm,
 				success: function() {
-					window.location.href = '/';
+					window.location.href = '/allproducts';
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
