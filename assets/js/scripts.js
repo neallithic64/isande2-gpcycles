@@ -534,6 +534,9 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$("#submitDeliverSOButton").click();
+	$("#submitReceivePOButton").click();
 });
 
 $(document).ready(function() {
