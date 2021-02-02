@@ -43,6 +43,7 @@ router.get('/viewSO/:ordNum', gpController.getSalesOrder);
 router.get('/viewallsopo*', gpController.getViewAllSOPO);
 
 router.get('/getItemAJAX', gpController.getItemAJAX);
+router.get('/getSalesOrderAJAX', gpController.getSalesOrderAJAX);
 
 
 

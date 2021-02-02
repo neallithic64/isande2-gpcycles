@@ -446,6 +446,22 @@ const gpController = {
 			res.status(500).send(e);
 		}
 	},
+
+	getSalesOrderAJAX: async function(req, res) {
+		try {
+			let soPhysical = await db.findMany(SalesOrder, {paymentTerms: "Physical"});
+			let soOnline = await db.findMany(SalesOrder, {'$not': {paymentTerms: "Physical"}});
+			let soDates = await SalesOrder.distinct('dateOrdered');
+			let item = {
+				soPhysical: forceJSON(soPhysical),
+				soOnline: forceJSON(soOnline),
+				soDates: forceJSON(soDates).sort()
+			}
+			res.status(200).send(item);
+		} catch (e) {
+			res.status(500).send(e);
+		}
+	},
 	
 	getConfirmPO: async function(req, res) {
 		// DO NOT IMPLEMENT
@@ -484,13 +500,6 @@ const gpController = {
 
 		}
 	},
-	
-	
-	postHome: async function(req, res) {
-		
-
-	},
-	
 	
 	postLogin: async function(req, res) {
 		let {username} = req.body;
