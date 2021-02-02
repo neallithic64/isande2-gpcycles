@@ -5,6 +5,8 @@
 */
 /* global validator */
 
+let isFilter = false;
+
 (function($) {
 	"use strict";
 	// Add active state to sidbar nav links
@@ -20,7 +22,7 @@
 		$("body").toggleClass("sb-sidenav-toggled");
 	});
 
-	if (window.location.pathname === "/viewPO" || window.location.pathname === "/viewSO") {
+	if (window.location.pathname.includes("/viewPO") || window.location.pathname.includes("/viewSO") ) {
 		// Get the modal
 		var modal = document.getElementById("cancelModal");
 
@@ -61,6 +63,8 @@ $(document).ready(function() {
 	
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
+	
+	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val()) - Number.parseFloat($("#payTotalDisc").val()));
 	
 	$('button#submitAddUser').click(function() {
 		let addUserForm = $('form#addUser').serializeArray();
@@ -224,10 +228,10 @@ $(document).ready(function() {
 				url: '/addProduct',
 				data: addProductForm,
 				success: function() {
-					window.location.href = '/';
+					window.location.href = '/allproducts';
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
@@ -299,7 +303,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -332,7 +336,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -365,7 +369,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -427,7 +431,8 @@ $(document).ready(function() {
 				product: e.children[0].children[0].children[0].value,
 				qty: e.children[1].children[0].children[0].value,
 				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
-				discount: e.children[3].children[0].children[0].value
+				discount: e.children[3].children[0].children[0].value,
+				netPrice: e.children[4].children[0].children[0].value
 			});
 		});
 		let data = {
@@ -448,7 +453,7 @@ $(document).ready(function() {
 			url: '/newSO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -462,7 +467,8 @@ $(document).ready(function() {
 				product: e.children[0].children[0].children[0].value,
 				qty: e.children[1].children[0].children[0].value,
 				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
-				discount: e.children[3].children[0].children[0].value
+				discount: e.children[3].children[0].children[0].value,
+				netPrice: e.children[4].children[0].children[0].value
 			});
 		});
 		let data = {
@@ -483,7 +489,45 @@ $(document).ready(function() {
 			url: '/newSO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=SO';
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	
+	
+	// STATUS UPDATE FUNCTIONS
+	
+	$("#cancelSOPOSubmitButton").click(function() {
+		let ordNum = window.location.pathname.split('/')[2], reason = $("#inputCancelRemarks").val();
+		$.ajax({
+			method: 'POST',
+			url: '/cancelSOPO',
+			data: {orderNum: ordNum, reason: reason},
+			success: function() {
+				alert('Order has been cancelled.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	$("#paySOPOSubmitButton").click(function() {
+		let ordNum = window.location.pathname.split('/')[2],
+			penalty = $("#inputPenalty").val(),
+			remarks = $("#inputPenaltyRemarks").val();
+		$.ajax({
+			method: 'POST',
+			url: '/paySOPO',
+			data: {orderNum: ordNum, penalty: penalty, remarks: remarks},
+			success: function() {
+				alert('Order has been paid.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -574,7 +618,23 @@ $(document).ready(function() {
 
 });
 
-
+function filter() {
+	console.log(isFilter);
+	if (isFilter) {
+		console.log(document.getElementById("filtered"));
+		document.getElementById("filterbutton").style.color = "background-color: #F50506; color: white";
+		document.getElementById("filtered").style.visibility = "visible";
+		document.getElementById("unfiltered").style.display = "none";
+	}
+	else {
+		console.log(document.getElementById("unfiltered"));
+		document.getElementById("filterbutton").style.color = "background-color: #white; color: black;";
+		document.getElementById("unfiltered").style.visibility = "visible";
+		document.getElementById("filtered").style.display = "none";
+	}
+	isFilter = !isFilter;
+	console.log(isFilter);
+};
     
 function logout() {
 	let xhr = new XMLHttpRequest();

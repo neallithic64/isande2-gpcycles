@@ -9,6 +9,7 @@ const saleOrdSchema = new mongoose.Schema({
 		},
 		qty: Number,
 		unitPrice: Number,
+		discount: Number,
 		netPrice: Number
 	}],
 	penalty: Number,
@@ -22,7 +23,7 @@ const saleOrdSchema = new mongoose.Schema({
 	},
 	dateOrdered: Date,
 	paymentTerms: String,
-	paymentDue:  Date,
+	paymentDue: Date,
 	deliveryMode: String,
 	expectedDelivery: Date
 }, {collection: "SalesOrder"});
