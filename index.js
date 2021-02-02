@@ -118,6 +118,9 @@ app.engine('hbs', exphbs.create({
 				// if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
 					sum += product.adjustmentHistory[i].quantity;
 			return 2 * (beg + sum - product.quantity) / (beg + product.quantity);
+		},
+		statusStyle: function(status) {
+			return 'status-' + status.charAt(0).toLowerCase() + status.split(' ').join('').substr(1);
 		}
 	}
 }).engine);

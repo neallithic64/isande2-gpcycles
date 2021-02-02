@@ -70,7 +70,7 @@
 												<td><a href="/viewPO/{{{this.orderNum}}}">{{this.orderNum}}</a></td>
 												<td>{{this.supplier.name}}</td>
 											{{/if}}
-											<td><div id="status" class="status-received">{{this.status}}</div></td>
+											<td><div id="status" class="{{{statusStyle this.status}}}">{{this.status}}</div></td>
 											<td>{{this.remarks}}</td>
 											<td>{{this.paymentTerms}}</td>
 											{{#if ../isSO}} <td>{{this.deliveryMode}}</td> {{/if}}

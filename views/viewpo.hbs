@@ -49,7 +49,7 @@
 							<div style="text-align:end; align-items:flex-end; display: flex; flex-direction: column; margin-top: 5px;">
 								<span style="font-weight: 700; font-size:40px;"> Purchase Order </span>
 								<span id="viewPONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> {{purchaseorder.orderNum}} </span>
-								<span id="viewPOStatus" class="status-draft"> {{purchaseorder.status}} </span>
+								<span id="viewPOStatus" class="{{{statusStyle purchaseorder.status}}}"> {{purchaseorder.status}} </span>
 							</div>
 						</div>
 						<div class="card-body">
