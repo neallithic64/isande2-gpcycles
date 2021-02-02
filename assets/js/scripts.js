@@ -429,7 +429,8 @@ $(document).ready(function() {
 				product: e.children[0].children[0].children[0].value,
 				qty: e.children[1].children[0].children[0].value,
 				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
-				discount: e.children[3].children[0].children[0].value
+				discount: e.children[3].children[0].children[0].value,
+				netPrice: e.children[4].children[0].children[0].value
 			});
 		});
 		let data = {
@@ -464,7 +465,8 @@ $(document).ready(function() {
 				product: e.children[0].children[0].children[0].value,
 				qty: e.children[1].children[0].children[0].value,
 				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
-				discount: e.children[3].children[0].children[0].value
+				discount: e.children[3].children[0].children[0].value,
+				netPrice: e.children[4].children[0].children[0].value
 			});
 		});
 		let data = {

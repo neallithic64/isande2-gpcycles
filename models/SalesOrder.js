@@ -9,6 +9,7 @@ const saleOrdSchema = new mongoose.Schema({
 		},
 		qty: Number,
 		unitPrice: Number,
+		discount: Number,
 		netPrice: Number
 	}],
 	penalty: Number,

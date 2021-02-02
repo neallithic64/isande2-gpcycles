@@ -505,7 +505,7 @@ const gpController = {
 	
 	getDelRecSOPO: async function(req, res) {
 		let orderNum = req.params.ordNum, partial = (req.query.partial === 'true');
-		// let order = await (orderNum.substr(0, 2) === "SO" ? : ).findOne().populate();
+		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder).findOne().populate();
 		res.render('drsopo', {
 			topNav: true,
 			sideNav: true,
@@ -513,7 +513,8 @@ const gpController = {
 			name: req.session.user.name,
 			isSecretary: req.session.user.usertype === "Secretary",
 			isSO: orderNum.substr(0, 2) === "SO",
-			isPartial: partial
+			isPartial: partial,
+			order: forceJSON(order)
 		});
 	},
 	
@@ -772,7 +773,7 @@ const gpController = {
 			let {orderNum} = req.body;
 			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
-					{status: "Received"}); // ????
+					{status: "Received"});
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
