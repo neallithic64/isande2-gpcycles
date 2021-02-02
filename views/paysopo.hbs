@@ -10,14 +10,14 @@
                         </div>
 
                         <div style="margin-bottom: 5px;">
-                            {{#if isPO}}
-                                <span class="mt-4" style="font-size: 18px;"> Payable to: </span>
-                                <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
-                                <input id="orderType" name="orderType" type="hidden" value="PO"></input>
-                            {{else}} 
+                            {{#if isSO}}
                                 <span class="mt-4" style="font-size: 18px;"> Receivable from: </span>
                                 <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
                                 <input id="orderType" name="orderType" type="hidden" value="SO"></input>
+                            {{else}} 
+                               <span class="mt-4" style="font-size: 18px;"> Payable to: </span>
+                                <span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+                                <input id="orderType" name="orderType" type="hidden" value="PO"></input> 
                             {{/if}}
                         </div>
 
@@ -44,66 +44,6 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <span id="payItemNum"> 1 </span>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <span id="payItem"> Cat Eye Silver </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payQty"> 100 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payUnitPrice"> 1234.00 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payDisc"> 10 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payNetPrice"> 32,500.00 </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <span id="payItemNum"> 1 </span>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <span id="payItem"> Cat Eye Silver </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payQty"> 100 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payUnitPrice"> 1234.00 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payDisc"> 10 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payNetPrice"> 32,500.00 </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <span id="payItemNum"> 1 </span>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <span id="payItem"> Cat Eye Silver </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payQty"> 100 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payUnitPrice"> 1234.00 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payDisc"> 10 </span>
-                                        </td>
-                                        <td style="text-align: end;">
-                                            <span id="payNetPrice"> 32,500.00 </span>
-                                        </td>
-                                    </tr>
                                     <tr>
                                         <td style="text-align: center;">
                                             <span id="payItemNum"> 1 </span>

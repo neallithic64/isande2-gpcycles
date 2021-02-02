@@ -22,7 +22,7 @@ let isFilter = false;
 		$("body").toggleClass("sb-sidenav-toggled");
 	});
 
-	if (window.location.pathname === "/viewPO" || window.location.pathname === "/viewSO") {
+	if (window.location.pathname.includes("/viewPO") || window.location.pathname.includes("/viewSO") ) {
 		// Get the modal
 		var modal = document.getElementById("cancelModal");
 
@@ -226,10 +226,10 @@ $(document).ready(function() {
 				url: '/addProduct',
 				data: addProductForm,
 				success: function() {
-					window.location.href = '/';
+					window.location.href = '/allproducts';
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
@@ -301,7 +301,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -334,7 +334,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -367,7 +367,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -450,7 +450,7 @@ $(document).ready(function() {
 			url: '/newSO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -485,7 +485,27 @@ $(document).ready(function() {
 			url: '/newSO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=SO';
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	
+	
+	// STATUS UPDATE FUNCTIONS
+	
+	$("#cancelSOPOSubmitButton").click(function() {
+		let ordNum = window.location.pathname.split('/')[2], reason = $("#inputCancelRemarks").val();
+		$.ajax({
+			method: 'POST',
+			url: '/cancelSOPO',
+			data: {orderNum: ordNum, reason: reason},
+			success: function() {
+				alert('Order has been cancelled.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
 				alert(str.responseText);

@@ -146,6 +146,9 @@ app.engine('hbs', exphbs.create({
 				}
 			}
 			return (beg+purch-end) * product.purchasePrice * 2 / (beg+end);
+		},
+		statusStyle: function(status) {
+			return 'status-' + status.charAt(0).toLowerCase() + status.split(' ').join('').substr(1);
 		}
 	}
 }).engine);

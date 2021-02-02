@@ -51,7 +51,7 @@
 							<div style="text-align:end; align-items:flex-end; display: flex; flex-direction: column; margin-top: 5px;">
 								<span style="font-weight: 700; font-size:40px;"> Sales Order </span>
 								<span id="viewSONum" style="font-weight: 700; font-size:25px; margin-top: -10px;"> {{salesorder.orderNum}} </span>
-								<span id="viewSOStatus" class="status-fulfilled"> {{salesorder.status}} </span>
+								<span id="viewSOStatus" class="{{{statusStyle salesorder.status}}}"> {{salesorder.status}} </span>
 							</div>
 						</div>
 						<div class="card-body">
@@ -198,10 +198,12 @@
 									</div>
 								</div>
 							</div>
-							{{#if isOverdue}} <div class="form-group" style="display:flex; justify-content: flex-end;">
+							{{#if isOverdue}} <!-- if with penalty only -->
+								<div class="form-group" style="display:flex; justify-content: flex-end;">
 									<span style="width:250px; font-size:16px; font-weight: 700;">Penalty </span>
 									<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPenalty"> {{salesorder.penalty}} </span>
-									</div> {{/if}} <!-- if with penalty only -->
+								</div>
+							{{/if}}
 							<div class="form-group" style="display:flex; justify-content: flex-end;">
 								<span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
 								<span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalOrder salesorder 1}} </span>
