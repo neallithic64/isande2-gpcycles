@@ -485,6 +485,26 @@ const gpController = {
 		}
 	},
 	
+	getPaySOPO: async function(req, res) {
+		// 
+	},
+	
+	getDelRecSOPO: async function(req, res) {
+		let orderNum = req.params.ordNum, partial = (req.query.partial === 'true');
+		// let order = await (orderNum.substr(0, 2) === "SO" ? : ).findOne().populate();
+		res.render('drsopo', {
+			topNav: true,
+			sideNav: true,
+			title: 'Receive SO',
+			name: req.session.user.name,
+			isSecretary: req.session.user.usertype === "Secretary",
+			isSO: orderNum.substr(0, 2) === "SO",
+			isPartial: partial
+		});
+	},
+	
+	
+	
 	
 	
 	
@@ -666,7 +686,7 @@ const gpController = {
 				expectedDelivery: new Date(expectedDelivery)
 			};
 			console.log(newPO);
-			db.insertOne(PurchaseOrder, newPO);
+			await db.insertOne(PurchaseOrder, newPO);
 			res.redirect('/');
 		} catch (e) {
 			console.log(e);
@@ -692,8 +712,19 @@ const gpController = {
 				deliveryMode: deliveryMode,
 				expectedDelivery: new Date(expectedDelivery)
 			};
-			db.insertOne(SalesOrder, newSO);
+			await db.insertOne(SalesOrder, newSO);
 			res.redirect('/');
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	postCancelOrder: async function(req, res) {
+		try {
+			let {orderNum, reason} = req.body;
+			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder, {orderNum: orderNum}, {status: "Cancelled"});
+			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
 			return res.status(500).send();

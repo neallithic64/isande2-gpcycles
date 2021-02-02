@@ -38,8 +38,8 @@ router.get('/salesorders', gpController.getAllSalesOrders);
 router.get('/purchorders', gpController.getAllPurchOrders);
 router.get('/viewPO/:ordNum', gpController.getPurchaseOrder);
 router.get('/viewSO/:ordNum', gpController.getSalesOrder);
-// router.get('/paysopo', gpController.getPaySOPO);
-// router.get('/drsopo', gpController.getDelRecSOPO);
+router.get('/paysopo/:ordNum*', gpController.getPaySOPO);
+router.get('/drsopo/:ordNum*', gpController.getDelRecSOPO);
 router.get('/viewallsopo*', gpController.getViewAllSOPO);
 
 router.get('/getItemAJAX', gpController.getItemAJAX);
@@ -64,6 +64,8 @@ router.post('/addCustomer', gpController.postAddCustomer);
 router.post('/addSupplier', gpController.postAddSupplier);
 router.post('/editproduct/:code', gpController.postEditProduct);
 router.post('/adjustproduct/:code', gpController.postAdjustProduct);
+router.post('/cancelSOPO', gpController.postCancelOrder);
+
 
 
 // Error Page
