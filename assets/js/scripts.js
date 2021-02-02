@@ -299,7 +299,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -332,7 +332,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -365,7 +365,7 @@ $(document).ready(function() {
 			url: '/newPO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -448,7 +448,7 @@ $(document).ready(function() {
 			url: '/newSO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
 				alert(str.responseText);
@@ -483,7 +483,7 @@ $(document).ready(function() {
 			url: '/newSO',
 			data: data,
 			success: function() {
-				console.log('yay');
+				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
 				alert(str.responseText);
