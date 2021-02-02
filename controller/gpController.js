@@ -489,14 +489,17 @@ const gpController = {
 	
 	getPaySOPO: async function(req, res) {
 		let orderNum = req.params.ordNum;
-		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
+		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
+				.findOne({orderNum: orderNum})
+				.populate('items.product');
 		res.render('paysopo', {
 			topNav: true,
 			sideNav: true,
 			title: 'Receive SO',
 			name: req.session.user.name,
-			isSecretary: req.session.user.usertype === "Secretary",
-			isSO: orderNum.substr(0, 2) === "SO"
+			isSO: orderNum.substr(0, 2) === "SO",
+			isOverdue: Date.parse(order.paymentDue) <= Date.now(),
+			order: forceJSON(order)
 		});
 	},
 	
@@ -559,7 +562,7 @@ const gpController = {
 	},
 	
 	postAddItemGroup: async function(req, res) {
-		// will NOT be used in the actual app.
+		// DO NOT IMPLEMENT
 		let {itemgrp} = req.body;
 		try {
 			await db.insertOne(ItemGroup, {itemGroup: itemgrp});
@@ -741,7 +744,7 @@ const gpController = {
 			let {orderNum, reason} = req.body;
 			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
-					{status: "Cancelled", remarks: {'$concat': ['$remarks', reason]}});
+					{status: "Cancelled", remarks: reason});
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
@@ -753,9 +756,10 @@ const gpController = {
 	postPayOrder: async function(req, res) {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
+			console.log(orderNum);
 			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
-					{status: "To Receive", penalty: penalty, remarks: {'$concat': ['$remarks', remarks]}});
+					{status: "To Receive", penalty: penalty, remarks: remarks});
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
@@ -768,7 +772,7 @@ const gpController = {
 			let {orderNum} = req.body;
 			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
-					{status: ""});
+					{status: "Received"}); // ????
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);

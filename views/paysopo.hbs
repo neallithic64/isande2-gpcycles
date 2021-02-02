@@ -44,54 +44,64 @@
 									</tr>
 								</tfoot>
 								<tbody>
+									{{#each order.items}}
 									<tr>
 										<td style="text-align: center;">
-											<span id="payItemNum"> 1 </span>
+											<span id="payItemNum"> {{getNaturalIndex @index}} </span>
 										</td>
 										<td style="text-align: center;">
-											<span id="payItem"> Cat Eye Silver </span>
+											<span id="payItem"> {{this.product.prodName}} </span>
 										</td>
 										<td style="text-align: end;">
-											<span id="payQty"> 100 </span>
+											<span id="payQty"> {{this.qty}} </span>
 										</td>
 										<td style="text-align: end;">
-											<span id="payUnitPrice"> 1234.00 </span>
+											<span id="payUnitPrice"> {{this.unitPrice}} </span>
 										</td>
 										<td style="text-align: end;">
-											<span id="payDisc"> 10 </span>
+											<span id="payDisc">
+												{{#if isSO}} {{getDiscountSO this this.qty}}
+												{{else}} {{this.discount}}
+												{{/if}}
+											</span>
 										</td>
 										<td style="text-align: end;">
-											<span id="payNetPrice"> 32,500.00 </span>
+											<span id="payNetPrice">
+												{{#if isSO}} {{netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this this.qty)}}
+												{{else}}  {{netPriceDisc this.product.purchasePrice this.qty this.discount}}
+												{{/if}}
+											</span>
 										</td>
 									</tr>
+									{{/each}}
 								</tbody>
 							</table>
 						</div>
 
 
 						<div class="form-row" style="margin-top: -10px">
-							<div class="col-md-6" style="display: flex; flex-direction: column;">
+							<div class="col-md-6" style="display: flex;flex-direction: column;">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="small mb-1" for="payPOPenalty">Penalty</label>
-										<input class="form-control" style="width: 490px;" id="inputPenalty" type="text" placeholder="0.00">
+										<input class="form-control" style="width: 490px;" id="inputPenalty" type="text" placeholder="0.00" {{#if isOverdue}}{{else}}readonly{{/if}}>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="small mb-1" for="payPORemarks">Remarks</label>
-										<input class="form-control" style="width: 490px;" id="inputPenaltyRemarks" type="text" placeholder="Type here">
+										<input class="form-control" style="width: 490px;" id="inputPenaltyRemarks" type="text" placeholder="Type here" {{#if isOverdue}}{{else}}readonly{{/if}}>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6" style="margin-top: 7px">
-								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end;">
+								<div class="form-group" style="display:flex;flex-direction: row; justify-content: flex-end;">
 									<label class="small mb-1" for="paySub" style="width: 130px; font-size: 15px; padding-top: 5px;">SUBTOTAL</label>
-									<input class="form-control" id="paySub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+									<input class="form-control" id="paySub" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;" type="text" {{#if isSO}}value="{{{subtotalOrder order 1}}}"{{else}}value="{{{subtotalOrder order 0}}}"{{/if}} readonly/>
 								</div>
 								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">
 									<label class="small mb-1" for="payTotalDisc" style="width: 130px; font-size: 15px; padding-top: 5px;">Total Discount</label>
-									<input class="form-control" id="payTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" readonly/>
+									<input class="form-control" id="payTotalDisc" style="padding-top: 0px; width: 200px; border-width: 0px; background-color: transparent; text-align: end;"type="text" value="0.00" {{#if isSO}}value="{{{discountOrder order 1}}}"{{else}}value="{{{discountOrder order 0}}}"{{/if}} readonly/>
 								</div>
 								{{#if isOverdue}}
 								<div class="form-group" style="display:flex; flex-direction: row; justify-content: flex-end; margin-top: -20px">

@@ -22,7 +22,7 @@ const saleOrdSchema = new mongoose.Schema({
 	},
 	dateOrdered: Date,
 	paymentTerms: String,
-	paymentDue:  Date,
+	paymentDue: Date,
 	deliveryMode: String,
 	expectedDelivery: Date
 }, {collection: "SalesOrder"});

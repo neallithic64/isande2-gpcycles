@@ -62,6 +62,8 @@ $(document).ready(function() {
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
 	
+	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val()) - Number.parseFloat($("#payTotalDisc").val()));
+	
 	$('button#submitAddUser').click(function() {
 		let addUserForm = $('form#addUser').serializeArray();
 		trimArr(addUserForm);
@@ -514,7 +516,7 @@ $(document).ready(function() {
 	$("#paySOPOSubmitButton").click(function() {
 		let ordNum = window.location.pathname.split('/')[2],
 			penalty = $("#inputPenalty").val(),
-			remarks = $("##inputPenaltyRemarks").val();
+			remarks = $("#inputPenaltyRemarks").val();
 		$.ajax({
 			method: 'POST',
 			url: '/paySOPO',
