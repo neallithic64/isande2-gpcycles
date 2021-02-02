@@ -39,7 +39,7 @@
 									<select class="form-control" name="supplier" style="padding:.75rem 0.5em .688rem; height: 100%;" required>
 										<option value="" disabled selected> Select supplier </option>
 										{{#each suppliers}}
-											<option value="{{{_id}}}"> {{#SUPPLIER_NAME}} </option>
+											<option value="{{{_id}}}"> {{this.name}} </option>
 										{{/each}}
 									</select>
 								</div>
