@@ -5,6 +5,8 @@
 */
 /* global validator */
 
+let isFilter = false;
+
 (function($) {
 	"use strict";
 	// Add active state to sidbar nav links
@@ -574,7 +576,23 @@ $(document).ready(function() {
 
 });
 
-
+function filter() {
+	console.log(isFilter);
+	if (isFilter) {
+		console.log(document.getElementById("filtered"));
+		document.getElementById("filterbutton").style.color = "background-color: #F50506; color: white";
+		document.getElementById("filtered").style.visibility = "visible";
+		document.getElementById("unfiltered").style.display = "none";
+	}
+	else {
+		console.log(document.getElementById("unfiltered"));
+		document.getElementById("filterbutton").style.color = "background-color: #white; color: black;";
+		document.getElementById("unfiltered").style.visibility = "visible";
+		document.getElementById("filtered").style.display = "none";
+	}
+	isFilter = !isFilter;
+	console.log(isFilter);
+};
     
 function logout() {
 	let xhr = new XMLHttpRequest();
