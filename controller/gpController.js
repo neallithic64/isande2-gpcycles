@@ -789,7 +789,7 @@ const gpController = {
 	postReceiveOrder: async function(req, res) {
 		try {
 			let {orderNum, partial, partialItems} = req.body;
-			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i;
+			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i, addsub = oType === "SO" ? -1 : 1;
 			// update status
 			await db.updateOne(oType === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
@@ -800,14 +800,14 @@ const gpController = {
 				// partialItems is an array that contains objects
 				// {prodCode, qty}
 				for (i = 0; i < partialItems.length; i++) {
-					await db.updateOne(Product, {prodCode: partialItems[i].prodCode}, {'$inc': {quantity: -1*partialItems[i].qty}});
+					await db.updateOne(Product, {prodCode: partialItems[i].prodCode}, {'$inc': {quantity: addsub * partialItems[i].qty}});
 					// not sure if there's anything else
 				}
 			} else {
 				// update qty's from SOPO
 				let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
 				for (i = 0; i < SOPO.items.length; i++) {
-					await db.updateOne(Product, {prodCode: SOPO.items[i].product.prodCode}, {'$inc': {quantity: -1*SOPO.items[i].qty}});
+					await db.updateOne(Product, {prodCode: SOPO.items[i].product.prodCode}, {'$inc': {quantity: addsub * SOPO.items[i].qty}});
 				}
 			}
 			return res.status(200).send();
