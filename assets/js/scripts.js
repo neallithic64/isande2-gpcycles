@@ -233,39 +233,37 @@ $(document).ready(function() {
 			});
 		}
 	});
-
-	$.ajax({
-		method: 'GET',
-		url: "/getDashboardCards",
-		data: "",
-		success: function(item) {
-			document.getElementById("dbPhysicalSales").innerHTML = item.soPhysical;
-			document.getElementById("dbOnlineSales").innerHTML = item.soOnline;
-
-			let i, j, k, revenue, purchases, profit;
-			revenue = 0;
-			for (j = 0; j < item.soOrders.length; j++) {
-				for (k = 0; k < item.soOrders[j].items.length; k++) {
-					revenue += item.soOrders[j].items[k].netPrice;
+	
+	if (window.location.pathname === "/") {
+		$.ajax({
+			method: 'GET',
+			url: "/getDashboardCards",
+			data: "",
+			success: function(item) {
+				document.getElementById("dbPhysicalSales").innerHTML = item.soPhysical;
+				document.getElementById("dbOnlineSales").innerHTML = item.soOnline;
+				let i, j, k, revenue, purchases, profit;
+				revenue = 0;
+				for (j = 0; j < item.soOrders.length; j++) {
+					for (k = 0; k < item.soOrders[j].items.length; k++) {
+						revenue += item.soOrders[j].items[k].netPrice;
+					}
 				}
-			}
-
-			purchases = 0;
-			for (j = 0; j < item.poOrders.length; j++) {
-				for (k = 0; k < item.poOrders[j].items.length; k++) {
-					purchases += ((item.poOrders[j].items[k].qty * item.poOrders[j].items[k].unitPrice) * (1 - (item.poOrders[j].items[k].discount / 100)));
+				purchases = 0;
+				for (j = 0; j < item.poOrders.length; j++) {
+					for (k = 0; k < item.poOrders[j].items.length; k++) {
+						purchases += ((item.poOrders[j].items[k].qty * item.poOrders[j].items[k].unitPrice) * (1 - (item.poOrders[j].items[k].discount / 100)));
+					}
 				}
+				profit = revenue - purchases;
+				document.getElementById("dbRevenue").innerHTML = revenue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				document.getElementById("dbProfit").innerHTML = profit.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			},
+			error: function(str) {
+				console.log(str);
 			}
-
-			profit = revenue - purchases;
-			document.getElementById("dbRevenue").innerHTML = revenue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			document.getElementById("dbProfit").innerHTML = profit.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-		},
-		error: function(str) {
-			console.log(str);
-		}
-	}),
+		});
+	}
 	
 	$('button#POaddItem').click(function() {
 		$('table#POItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
@@ -305,6 +303,11 @@ $(document).ready(function() {
 				alert(str.responseText);
 			}
 		});
+	});
+	
+	$("#inputPOName").change(function() {
+		let supplier = $(this).val();
+		console.log(supplier);
 	});
 	
 	$("#POSubmitDraft").click(function() {
