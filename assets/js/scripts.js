@@ -56,10 +56,10 @@ let isFilter = false;
 // Non-library scripts below
 
 
-
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
-	$('#dataTable').DataTable();
+	$('#datatable').DataTable();
+
 	
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
@@ -738,3 +738,93 @@ function updateSOTotals() {
 function trimArr(arr) {
 	arr.forEach(e => e.value = validator.trim(e.value));
 }
+
+var grp = 0;
+$(document).ready(function() {
+	// Call the dataTables jQuery plugin
+	$('#datatable').dataTable();
+	
+	$('#report').dataTable({
+		'iDisplayLength': 100
+	});
+
+	$("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$(".dropdown-menu li").filter(function() {
+		  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+
+	if (window.location.pathname === "/inventoryreport") {
+		let ulElem = $("#groupnum");
+		let str = "00: Adaptor\n01: Aero Bar\n02: Bar Tape\n04: Bell\n05: Bike Bag\n06: Bike Light\n07: Bike Racks\n08: Bottle\n09: Bottle Cage\n10: Bottom Bracket\n11: Brakes\n12: Cable\n13: Cage Storage\n14: Caliper Road\n15: Chain\n16: Chain Catcher\n17: Chain Guide\n18: Crankset\n19: Drop Out\n21: Frame\n22: Free Hub\n23: Front Derailleur\n24: Group Set\n25: Handle Bar\n26: Handle Grip\n27: Headset\n28: Helmet\n29: Hub\n30: Lube\n33: Others\n34: Patch\n35: Pedal\n36: Pulley\n37: Pump\n39: Rebuild Kit\n40: STI\n41: Sealant\n42: Seat Clamp\n43: Seat Post\n45: Shoe Cover\n46: Skewer\n47: Spacer\n48: Speedometer\n49: Sprocket\n51: Tire\n52: Tools\n53: Tube\n54: Tubeless Valve\n55: Unit\n56: Valve Extender";
+		str.split("\n").forEach(e => ulElem.append("<li onclick='group(\"" + e.split(": ")[0] + "\")'>" + e + "</li>"));
+	}
+
+});
+
+function group(grp) {
+	$('tbody tr').each(function(index,element) {
+		element.style.display="";
+		if(grp!=="-1" && !element.classList.contains('g'+grp))
+			element.style.display="none";
+	})
+}
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+    
+    for (var i = 1; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+        
+        for (var j = 0; j < cols.length; j++) 
+            row.push(cols[j].innerText);
+        
+        csv.push(row.join(","));        
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+
+//  function saveDiv(divId, title) {
+// 	var doc = new jsPDF();
+//  doc.fromHTML(`<html><head><title>${title}</title></head><body>` + document.getElementById(divId).innerHTML + `</body></html>`);
+//  doc.save('div.pdf');
+// }
+
+function printDiv(div) {
+	var printContents = document.getElementById(div).innerHTML;
+	var original = document.body.innerHTML;
+	document.body.innerHTML = printContents;
+	window.print();
+	document.body.innerHTML = original;
+}
+
