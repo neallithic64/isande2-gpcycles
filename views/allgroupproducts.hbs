@@ -47,7 +47,9 @@
 									</tfoot>
 									<tbody>
 										{{#each products}}
-										<tr>
+										{{#if (getProdLowCount this)}} <tr style="background-color: #FFB0AB;">
+										{{else}} <tr>
+										{{/if}}
 											<td>{{this.itemGroup.itemGroup}}</td>
 											<td><a href="/viewproduct/{{{this.itemCode}}}">{{this.prodName}}</a></td>
 											<td>{{this.unit}}</td>

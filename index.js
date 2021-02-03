@@ -52,7 +52,7 @@ app.engine('hbs', exphbs.create({
 			return date.toISOString().substr(0, 10);
 		},
 		getProdLowCount: function(product) {
-			return (product.reorderPoint > product.quantity) ? true : false;
+			return product.reorderPoint > product.quantity;
 		},
 		getDiscountSO: function(item, qty) {
 			return qty < item.product.discount.qty ? 0 : item.product.discount.percentage;
@@ -73,10 +73,10 @@ app.engine('hbs', exphbs.create({
 			else return "Adjustment";
 		},
 		getLink: function(adjustment) {
-			if(adjustment.orderNum == null) return "";
-			if(adjustment.orderNum == "-") return "";
-			if(adjustment.orderNum.substring(0,2) == "PO") return ("/viewPO/"+adjustment.orderNum);
-			if(adjustment.orderNum.substring(0,2) == "SO") return ("/viewSO:"+adjustment.orderNum);
+			if (adjustment.orderNum === null) return "";
+			if (adjustment.orderNum === "-") return "";
+			if (adjustment.orderNum.substring(0,2) === "PO") return ("/viewPO/" + adjustment.orderNum);
+			if (adjustment.orderNum.substring(0,2) === "SO") return ("/viewSO/" + adjustment.orderNum);
 		},
 		subtotalOrder: function(order, ord) {
 			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
@@ -98,59 +98,58 @@ app.engine('hbs', exphbs.create({
 			return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
 		},
 		sumPurch: function(product) {
-			var sum=0;
-			for(i=0; i<product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference == null);
-				else if ((product.adjustmentHistory[i].reference).substring(0,3)=="PO-")
+			var sum = 0, i;
+			for(i = 0; i < product.adjustmentHistory.length; i++) {
+				if (product.adjustmentHistory[i].reference === null);
+				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "PO-")
 					sum += product.adjustmentHistory[i].quantity;
 			}
 			return sum;
 		},
 		sumSales: function(product) {
-			var sum=0;
-			for(i=0; i<product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference == null);
-				else if ((product.adjustmentHistory[i].reference).substring(0,3)=="SO-")
+			var sum = 0, i;
+			for(i = 0; i < product.adjustmentHistory.length; i++) {
+				if (product.adjustmentHistory[i].reference === null);
+				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "SO-")
 					sum += product.adjustmentHistory[i].quantity;
 			}
 			return sum;
 		},
 		sumAdj: function(product) {
-			var sum=0;
-			for(i=0; i<product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference == null);
-				else if ((product.adjustmentHistory[i].reference)=='-')
+			let sum = 0, i;
+			for(i = 0; i < product.adjustmentHistory.length; i++) {
+				if (product.adjustmentHistory[i].reference === null);
+				else if ((product.adjustmentHistory[i].reference) === '-')
 					sum += product.adjustmentHistory[i].quantity;
 			}
 			return sum;
 		},
 		cogs: function(product) {
-			beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
-			var purch = 0;
-			for(i=0; i<product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference == null);
-				else if ((product.adjustmentHistory[i].reference).substring(0,3) == "PO-") {
+			let beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+			let purch = 0, i;
+			for(i = 0; i < product.adjustmentHistory.length; i++) {
+				if (product.adjustmentHistory[i].reference === null);
+				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "PO-") {
 					purch += product.adjustmentHistory[i].quantity;
 				}
 			}
-			return (beg+purch-product.quantity)*product.purchasePrice;
+			return (beg + purch - product.quantity) * product.purchasePrice;
 		},
 		invTurnover: function(product) {
-			beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
-			end = product.quantity;
-			var purch = 0;
-			for(i=0; i<product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference == null);
-				else if ((product.adjustmentHistory[i].reference).substring(0,3) == "PO-") {
+			let beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+			let end = product.quantity, purch = 0, i;
+			for(i = 0; i < product.adjustmentHistory.length; i++) {
+				if (product.adjustmentHistory[i].reference === null);
+				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "PO-") {
 					purch += product.adjustmentHistory[i].quantity;
 				}
 			}
-			if (beg+end==0) return 0;
-			invt = (beg+purch-end) * 2 / (beg+end);
-			return +(Math.round(invt+"e+2")+"e-2");
+			if (beg + end === 0) return 0;
+			let invt = (beg+purch-end) * 2 / (beg+end);
+			return +(Math.round(invt + "e+2") + "e-2");
 		},
 		getGroupCode: function(itemCode) {
-			return "g"+itemCode.split("-")[0];
+			return "g" + itemCode.split("-")[0];
 		},
 		statusStyle: function(status) {
 			return 'status-' + status.charAt(0).toLowerCase() + status.split(' ').join('').substr(1);
