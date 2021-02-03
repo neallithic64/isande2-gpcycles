@@ -567,7 +567,7 @@ const gpController = {
 				soOnline: soOnline,
 				soOrders: forceJSON(soOrders),
 				poOrders: forceJSON(poOrders)
-			}
+			};
 			res.status(200).send(item);
 		} catch (e) {
 			console.log(e);
@@ -665,7 +665,7 @@ const gpController = {
 			let user = await db.findOne(User, {username: username});
 			await db.updateOne(User, {username: username}, {lastLogged: new Date()});
 			req.session.user = user;
-			res.redirect('/');
+			res.status(200).send();
 		} catch (e) {
 			res.status(500).send('Server error.');
 		}

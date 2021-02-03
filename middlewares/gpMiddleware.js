@@ -28,11 +28,11 @@ const gpMiddleware = {
 		try {
 			let {username, password} = req.body;
 			let userMatch = await db.findOne(User, {username: username});
-			if (!userMatch) res.status(400).send();
+			if (!userMatch) res.status(400).send('Incorrect credentials!');
 			else {
 				let compare = await bcrypt.compare(password, userMatch.password);
 				if (compare) return next();
-				else res.status(400).send();
+				else res.status(400).send('Incorrect credentials!');
 			}
 		} catch (e) {
 			console.log(e);

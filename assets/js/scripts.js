@@ -63,6 +63,21 @@ $(document).ready(function() {
 	
 	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val()) - Number.parseFloat($("#payTotalDisc").val()));
 	
+	$('button#submitLogin').click(function() {
+		let form = $("form#loginForm").serializeArray();
+		$.ajax({
+			method: 'POST',
+			url: '/login',
+			data: form,
+			success: function() {
+				window.location.href = '/';
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
 	$('button#submitAddUser').click(function() {
 		let addUserForm = $('form#addUser').serializeArray();
 		trimArr(addUserForm);
