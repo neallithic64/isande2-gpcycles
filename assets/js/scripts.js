@@ -5,8 +5,6 @@
 */
 /* global validator */
 
-let isFilter = false;
-
 (function($) {
 	"use strict";
 	// Add active state to sidbar nav links
@@ -52,14 +50,13 @@ let isFilter = false;
 })(jQuery);
 
 
-
 // Non-library scripts below
-
 
 
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
-	$('#dataTable').DataTable();
+	$('#datatable').DataTable();
+
 	
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
@@ -357,7 +354,7 @@ $(document).ready(function() {
 			items: products,
 			conditions: $("#inputPOCons").val(),
 			remarks: $("#inputPORemarks").val(),
-			status: "Paid",
+			status: "To Receive",
 			supplier: $("#inputPOName").val(),
 			dateOrdered: $("#inputPODate").val(),
 			paymentTerms: $("#inputPOTerms").val(),
@@ -390,7 +387,7 @@ $(document).ready(function() {
 			items: products,
 			conditions: $("#inputPOCons").val(),
 			remarks: $("#inputPORemarks").val(),
-			status: "Confirmed",
+			status: "To Pay",
 			supplier: $("#inputPOName").val(),
 			dateOrdered: $("#inputPODate").val(),
 			paymentTerms: $("#inputPOTerms").val(),
@@ -405,14 +402,14 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
 	
 	$('tbody').on("change", ':input[type="number"]', function() {
-		if (window.location.pathname === '/newPO') {
-			try {
+		try {
+			if (window.location.pathname === '/newPO') {
 				let currElem = $(this),
 					qty = Number.parseFloat(currElem.closest('tr').find('.inputPOQty').val()),
 					unit = Number.parseFloat(currElem.closest('tr').find('.inputPOUnit').val().replace(',', '')),
@@ -420,12 +417,7 @@ $(document).ready(function() {
 				if (Number.isNaN(discount)) discount = 0;
 				currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 				updatePOTotals();
-			} catch (e) {
-				console.log(e);
-				alert('error! check console.');
-			}
-		} else {
-			try {
+			} else {
 				let currElem = $(this),
 					qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
 					unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
@@ -433,24 +425,27 @@ $(document).ready(function() {
 				if (Number.isNaN(discount)) discount = 0;
 				currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 				updateSOTotals();
-			} catch (e) {
-				console.log(e);
-				alert('error! check console.');
 			}
+		} catch (e) {
+			console.log(e);
 		}
 	});
 	
 	$('tbody').on("change", '.inputSOQty', function() {
-		let currElem = $(this), qty = currElem.val(), unit, discount;
-		if (qty >= Number.parseInt(currElem.attr('discountPoint')))
-			currElem.closest('td').next().next().find('input').val(currElem.attr('discountPercent') + '.0');
-		else currElem.closest('td').next().next().find('input').val('0.0');
-		// updating totals
-		qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
-			unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
-			discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
-		currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-		updateSOTotals();
+		try {
+			let currElem = $(this), qty = currElem.val(), unit, discount;
+			if (qty >= Number.parseInt(currElem.attr('discountPoint')))
+				currElem.closest('td').next().next().find('input').val(currElem.attr('discountPercent') + '.0');
+			else currElem.closest('td').next().next().find('input').val('0.0');
+			// updating totals
+			qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
+				unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
+				discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
+			currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			updateSOTotals();
+		} catch (e) {
+			console.log(e);
+		}
 	});
 	
 	$('#inputSOAdj').change(function() {
@@ -473,7 +468,7 @@ $(document).ready(function() {
 			conditions: $("#inputSOCons").val(),
 			remarks: $("#inputSORemarks").val(),
 			adjustment: $("#inputSOAdj").val(),
-			status: $("#inputSOMode").val() === "Delivery" ? "To Deliver" : "For Pickup",
+			status: "Pending",
 			customer: $("#inputSOName").val(),
 			dateOrdered: $("#inputSODate").val(),
 			paymentTerms: $("#inputSOTerms").val(),
@@ -525,15 +520,17 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
-	
-	
-	
-	// STATUS UPDATE FUNCTIONS
-	
+});
+
+
+// STATUS UPDATE FUNCTIONS
+
+
+$(document).ready(function() {
 	$("#cancelSOPOSubmitButton").click(function() {
 		let ordNum = window.location.pathname.split('/')[2], reason = $("#inputCancelRemarks").val();
 		$.ajax({
@@ -545,11 +542,11 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
-	
+
 	$("#paySOPOSubmitButton").click(function() {
 		let ordNum = window.location.pathname.split('/')[2],
 			penalty = $("#inputPenalty").val(),
@@ -563,11 +560,71 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
+			}
+		});
+	});
+
+	$("#submitDeliverSOButton").click(function() {
+		let urlParams = new URLSearchParams(window.location.search);
+		let partial = urlParams.get('partial') === "true", partialList = [];
+		let ordNum = window.location.pathname.split('/')[2];
+		if (partial) {
+			$('input[type="checkbox"]').each(function(i, elem) {
+				if (elem.checked) {
+					partialList.push({
+						prodCode: elem.closest('tr').querySelector('.drItem').id,
+						qty: Number.parseInt(elem.closest('tr').querySelector('.drQtyCheck').value)
+					});
+				}
+			});
+		}
+		$.ajax({
+			method: 'POST',
+			url: '/delrecSOPO',
+			data: {orderNum: ordNum, partial: partial, partialList: partialList},
+			success: function() {
+				alert('Order has been paid.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				console.log(str);
+			}
+		});
+	});
+
+	$("#submitReceivePOButton").click(function() {
+		let urlParams = new URLSearchParams(window.location.search);
+		let partial = urlParams.get('partial') === "true", partialList = [];
+		let ordNum = window.location.pathname.split('/')[2];
+		if (partial) {
+			$('input[type="checkbox"]').each(function(i, elem) {
+				if (elem.checked) {
+					partialList.push({
+						prodCode: elem.closest('tr').querySelector('.drItem').id,
+						qty: Number.parseInt(elem.closest('tr').querySelector('.drQtyCheck').value)
+					});
+				}
+			});
+		}
+		$.ajax({
+			method: 'POST',
+			url: '/delrecSOPO',
+			data: {orderNum: ordNum, partial: partial, partialList: partialList},
+			success: function() {
+				alert('Order has been paid.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				console.log(str);
 			}
 		});
 	});
 });
+
+
+// EDITING PRODUCT FUNCTIONS
+
 
 $(document).ready(function() {
 
@@ -612,7 +669,7 @@ $(document).ready(function() {
 				url: "/editproduct/" + window.location.pathname.split('/')[2],
 				data: editProductForm,
 				success: function() {
-					window.location.href = "/viewproduct/" + window.location.pathname.split('/')[2]; 
+					window.location.href = "/viewproduct/" + window.location.pathname.split('/')[2];
 				},
 				error: function(str) {
 					alert(str.responseText);
@@ -651,6 +708,8 @@ $(document).ready(function() {
 
 });
 
+var isFilter = false;
+
 function filter() {
 	console.log(isFilter);
 	if (isFilter) {
@@ -668,7 +727,7 @@ function filter() {
 	isFilter = !isFilter;
 	console.log(isFilter);
 };
-    
+
 function logout() {
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', '/logout');
@@ -716,4 +775,90 @@ function updateSOTotals() {
 
 function trimArr(arr) {
 	arr.forEach(e => e.value = validator.trim(e.value));
+}
+
+var grp = 0;
+$(document).ready(function() {
+	// Call the dataTables jQuery plugin
+	$('#datatable').dataTable();
+	$('#report').dataTable({
+		'iDisplayLength': 100
+	});
+
+	$("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$(".dropdown-menu li").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+		});
+	});
+
+	if (window.location.pathname === "/inventoryreport") {
+		let ulElem = $("#groupnum");
+		let str = "00: Adaptor\n01: Aero Bar\n02: Bar Tape\n04: Bell\n05: Bike Bag\n" +
+				"06: Bike Light\n07: Bike Racks\n08: Bottle\n09: Bottle Cage\n10: B" +
+				"ottom Bracket\n11: Brakes\n12: Cable\n13: Cage Storage\n14: Calipe" +
+				"r Road\n15: Chain\n16: Chain Catcher\n17: Chain Guide\n18: Crankse" +
+				"t\n19: Drop Out\n21: Frame\n22: Free Hub\n23: Front Derailleur\n24" +
+				": Group Set\n25: Handle Bar\n26: Handle Grip\n27: Headset\n28: Hel" +
+				"met\n29: Hub\n30: Lube\n33: Others\n34: Patch\n35: Pedal\n36: Pull" +
+				"ey\n37: Pump\n39: Rebuild Kit\n40: STI\n41: Sealant\n42: Seat Clam" +
+				"p\n43: Seat Post\n45: Shoe Cover\n46: Skewer\n47: Spacer\n48: Spee" +
+				"dometer\n49: Sprocket\n51: Tire\n52: Tools\n53: Tube\n54: Tubeless" +
+				" Valve\n55: Unit\n56: Valve Extender";
+		str.split("\n").forEach(e => ulElem.append("<li onclick='group(\"" + e.split(": ")[0] + "\")'>" + e + "</li>"));
+	}
+});
+
+function group(grp) {
+	$('tbody tr').each(function(i, element) {
+		element.style.display = "";
+		if(grp !== "-1" && !element.classList.contains('g' + grp))
+			element.style.display = "none";
+	});
+}
+
+function downloadCSV(csv, filename) {
+	var csvFile;
+	var downloadLink;
+	// CSV file
+	csvFile = new Blob([csv], {type: "text/csv"});
+	// Download link
+	downloadLink = document.createElement("a");
+	// File name
+	downloadLink.download = filename;
+	// Create a link to the file
+	downloadLink.href = window.URL.createObjectURL(csvFile);
+	// Hide download link
+	downloadLink.style.display = "none";
+	// Add the link to DOM
+	document.body.appendChild(downloadLink);
+	// Click download link
+	downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+	var csv = [];
+	var rows = document.querySelectorAll("table tr");
+	for (var i = 1; i < rows.length; i++) {
+		var row = [], cols = rows[i].querySelectorAll("td, th");
+		for (var j = 0; j < cols.length; j++) 
+			row.push(cols[j].innerText);
+		csv.push(row.join(","));
+	}
+	// Download CSV file
+	downloadCSV(csv.join("\n"), filename);
+}
+
+//function saveDiv(divId, title) {
+//var doc = new jsPDF();
+//doc.fromHTML(`<html><head><title>${title}</title></head><body>` + document.getElementById(divId).innerHTML + `</body></html>`);
+//doc.save('div.pdf');
+//}
+
+function printDiv(div) {
+	var printContents = document.getElementById(div).innerHTML;
+	var original = document.body.innerHTML;
+	document.body.innerHTML = printContents;
+	window.print();
+	document.body.innerHTML = original;
 }

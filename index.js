@@ -120,37 +120,31 @@ app.engine('hbs', exphbs.create({
 		},
 		cogs: function(product) {
 			beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
-			var end = beg;
 			var purch = 0;
 			for(i=0; i<product.adjustmentHistory.length; i++) {
 				if (product.adjustmentHistory[i].reference == null);
-				else if (product.adjustmentHistory[i].reference == "-")
-					end += product.adjustmentHistory[i].quantity;
-				else if ((product.adjustmentHistory[i].reference).substring(0,3) == "SO-")
-					end -= product.adjustmentHistory[i].quantity;
 				else if ((product.adjustmentHistory[i].reference).substring(0,3) == "PO-") {
-					end += product.adjustmentHistory[i].quantity;
 					purch += product.adjustmentHistory[i].quantity;
 				}
 			}
-			return (beg+purch-end)*product.purchasePrice;
+			return (beg+purch-product.quantity)*product.purchasePrice;
 		},
 		invTurnover: function(product) {
 			beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
-			var end = beg;
+			end = product.quantity;
 			var purch = 0;
 			for(i=0; i<product.adjustmentHistory.length; i++) {
 				if (product.adjustmentHistory[i].reference == null);
-				else if (product.adjustmentHistory[i].reference == "-")
-					end += product.adjustmentHistory[i].quantity;
-				else if ((product.adjustmentHistory[i].reference).substring(0,3) == "SO-")
-					end -= product.adjustmentHistory[i].quantity;
 				else if ((product.adjustmentHistory[i].reference).substring(0,3) == "PO-") {
-					end += product.adjustmentHistory[i].quantity;
 					purch += product.adjustmentHistory[i].quantity;
 				}
 			}
-			return (beg+purch-end) * product.purchasePrice * 2 / (beg+end);
+			if (beg+end==0) return 0;
+			invt = (beg+purch-end) * 2 / (beg+end);
+			return +(Math.round(invt+"e+2")+"e-2");
+		},
+		getGroupCode: function(itemCode) {
+			return "g"+itemCode.split("-")[0];
 		},
 		statusStyle: function(status) {
 			return 'status-' + status.charAt(0).toLowerCase() + status.split(' ').join('').substr(1);
@@ -165,4 +159,4 @@ app.use(bodyParser.json());
 const router = require('./router/gpRouter');
 app.use('/', router);
 
-app.listen(PORT, () => console.log(`Listening to localhost on port ${PORT}.`));
+app.listen(PORT, () => console.log(`Listening to localhost:${PORT}.`));

@@ -6,7 +6,8 @@
                 <h1 class="mt-4" style="padding:0px 20px">Inventory Report</h1>
 
                 <div class="card mb-4">
-                    <div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
+                    <div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center; sep" >
+                        
                         <div style="width: 50%; vertical-align: middle; ">
                             <i class="fas fa-table mr-1"></i>
                             
@@ -39,22 +40,35 @@
                             </label> 
                         </div>
 
+                        <div style="width:40%; justify-content:end; align-content:end; text-align:right;display: flex;">
+                            <div style="margin: 0px 5px;">
+                                <button type="button" data-toggle="dropdown">Product Group
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="groupnum" value="0">
+                                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                                    <li onclick="group('-1')"> ALL</li>
+                                    
+                                </ul>
+                            </div>
+                            <button type="button" onclick="exportTableToCSV('report.csv')" style="margin: 0px 5px;">  CSV </button>
+                            <button type="button" onclick="printDiv('print')" style="margin: 0px 5px;">  PDF </button>
+                        </div>
 
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <div class="table-responsive" id='print'>
+                            <table class="table table-bordered" id="report" width="100%" cellspacing="0">
                                 <thead style="background-color: rgba(0, 0, 0, 0.03);">
                                     <tr style="font-size:12">
-                                        <th style="width: 10%;">Code</th>
-                                        <th style="width: 20%;">Product Name</th>
-                                        <th style="width: 10%;">Beginning Inventory</th>
-                                        <th style="width: 10%;">Purchases</th>
-                                        <th style="width: 10%;">Sales</th>
-                                        <th style="width: 10%;">Adjustment</th>
-                                        <th style="width: 10%;">Ending Inventory</th>
+                                        <th style="width: 20%;">Code</th>
+                                        <th style="width: 25%;">Product Name</th>
+                                        <th style="width: 10%;">Beginning Inv.</th>
+                                        <th style="width: 5%;">Purchases</th>
+                                        <th style="width: 5%;">Sales</th>
+                                        <th style="width: 5%;">Adjust</th>
+                                        <th style="width: 10%;">Ending Inv.</th>
                                         <th style="width: 10%;">COGS</th>
-                                        <th style="width: 10%;">Inventory Turnover</th>
+                                        <th style="width: 10%;">Inv. Turnover</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -72,7 +86,7 @@
                                 </tfoot>
                                 <tbody>
                                     {{#each products}}
-                                    <tr>
+                                    <tr id="row" class="{{{getGroupCode this.itemCode}}}">
                                         <td>{{this.itemCode}}</td>
                                         <td>{{this.prodName}}</td>
                                         <td>{{begInv this}}</td>
