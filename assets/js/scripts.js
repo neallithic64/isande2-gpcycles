@@ -826,7 +826,7 @@ $(document).ready(function() {
 	});
 
 	if (window.location.pathname === "/inventoryreport") {
-		let ulElem = $("#groupnum");
+		let elem = $("#groupnum");
 		let str = "00: Adaptor\n01: Aero Bar\n02: Bar Tape\n04: Bell\n05: Bike Bag\n" +
 				"06: Bike Light\n07: Bike Racks\n08: Bottle\n09: Bottle Cage\n10: B" +
 				"ottom Bracket\n11: Brakes\n12: Cable\n13: Cage Storage\n14: Calipe" +
@@ -838,8 +838,13 @@ $(document).ready(function() {
 				"p\n43: Seat Post\n45: Shoe Cover\n46: Skewer\n47: Spacer\n48: Spee" +
 				"dometer\n49: Sprocket\n51: Tire\n52: Tools\n53: Tube\n54: Tubeless" +
 				" Valve\n55: Unit\n56: Valve Extender";
-		str.split("\n").forEach(e => ulElem.append("<li onclick='group(\"" + e.split(": ")[0] + "\")'>" + e + "</li>"));
+		str.split("\n").forEach(e => elem.append("<option value=\"" + e.split(": ")[0] + "\">" + e + "</option>"));
 	}
+	
+	$("select#groupnum").change(function() {
+		console.log($(this).val());
+		group($(this).val());
+	});
 });
 
 function group(grp) {
