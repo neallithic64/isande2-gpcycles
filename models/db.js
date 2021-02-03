@@ -110,6 +110,7 @@ const database = {
 			let result = await model.aggregate(pipelines);
 			return result;
 		} catch (e) {
+			console.log(e);
 			return false;
 		}
 	}

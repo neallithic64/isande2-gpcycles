@@ -12,14 +12,14 @@ $(document).ready(function() {
 			let dataLabels = [];
 			let physicalDataSet = [];
 			let onlineDataSet = [];
-			let i, j, k, physicalSales, onlineSales;
+			let i, j, k, l, m, physicalSales, onlineSales;
 			// Physical Sales
 			for (i = 0; i < item.soDates.length; i++) {
 				physicalSales = 0;
 				for (j= 0; j < item.soPhysical.length; j++) {
 					if ((new Date(item.soPhysical[j].dateOrdered)).toISOString().substr(0, 10) === (new Date(item.soDates[i])).toISOString().substr(0, 10)) {
-						for (k = 0; k < item.soPhysical[i].items.length; k++) {
-							physicalSales += (item.soPhysical[j].items[k].unitPrice * item.soPhysical[j].items[k].qty);
+						for (k = 0; k < item.soPhysical[j].items.length; k++) {
+							physicalSales += item.soPhysical[j].items[k].netPrice;
 						}
 					}
 				}
@@ -29,16 +29,34 @@ $(document).ready(function() {
 			// Online Sales
 			for (i = 0; i < item.soDates.length; i++) {
 				onlineSales = 0;
-				for (j= 0; j < item.soOnline.length; j++) {
-					if ((new Date(item.soOnline[j].dateOrdered)).toISOString().substr(0, 10) === (new Date(item.soDates[i])).toISOString().substr(0, 10)) {
-						for (k = 0; k < item.soOnline[i].items.length; k++) {
-							onlineSales += (item.soOnline[j].items[k].unitPrice * item.soOnline[j].items[k].qty);
+				for (j= 0; j < item.soOnlineBank.length; j++) {
+					if (((new Date(item.soOnlineBank[j].dateOrdered)).toISOString().substr(0, 10) === (new Date(item.soDates[i])).toISOString().substr(0, 10)) && ((item.soOnlineBank[j].status === "For Pickup") || (item.soOnlineBank[j].status === "To Deliver") || (item.soOnlineBank[j].status === "Fulfilled"))) {
+						for (k = 0; k < item.soOnlineBank[j].items.length; k++) {
+							onlineSales += item.soOnlineBank[j].items[k].netPrice;
+						}
+					}
+				}
+				for (l = 0; l < item.soOnlineCOD.length; l++) {
+					if (((new Date(item.soOnlineCOD[l].dateOrdered)).toISOString().substr(0, 10) === (new Date(item.soDates[i])).toISOString().substr(0, 10)) && (item.soOnlineCOD[l].status === "Fulfilled")) {
+						for (m = 0; m < item.soOnlineCOD[l].items.length; m++) {
+							onlineSales += item.soOnlineCOD[l].items[m].netPrice;
 						}
 					}
 				}
 				dataLabels.push((new Date(item.soDates[i])).toISOString().substr(0, 10));
 				onlineDataSet.push(onlineSales);
 			}
+
+			if ([...new Set(dataLabels)].length > 7) {
+				let excess = [...new Set(dataLabels)].length - 7;
+				let i;
+				for (i = 0; i < excess; i++) {
+					dataLabels.shift();
+					physicalDataSet.shift();
+					onlineDataSet.shift();
+				}
+			}
+
 			// Chart
 			var ctx = document.getElementById("dbDailySales");
 			var myLineChart = new Chart(ctx, {

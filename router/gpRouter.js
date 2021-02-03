@@ -44,7 +44,7 @@ router.get('/viewallsopo*', gpController.getViewAllSOPO);
 
 router.get('/getItemAJAX', gpController.getItemAJAX);
 router.get('/getSalesOrderAJAX', gpController.getSalesOrderAJAX);
-
+router.get('/getDashboardCards', gpController.getDashboardCards);
 
 
 // NO LONGER IMPLEMENTED

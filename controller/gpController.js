@@ -428,7 +428,8 @@ const gpController = {
 					title: 'New SO',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
-					isSecretary: true,
+					isSecretary: req.session.user.usertype === "Secretary",
+					isSales: req.session.user.usertype === "Sales",
 					customers: customers,
 					products: products,
 					SOnum: SOnum.toString().padStart(6, '0')
@@ -452,16 +453,45 @@ const gpController = {
 	getSalesOrderAJAX: async function(req, res) {
 		try {
 			let soPhysical = await db.findMany(SalesOrder, {paymentTerms: "Physical"});
-			let soOnline = await db.findMany(SalesOrder, {'$not': {paymentTerms: "Physical"}});
+			let soOnlineBank = await db.findMany(SalesOrder, {paymentTerms: "Bank"});
+			let soOnlineCOD = await db.findMany(SalesOrder, {paymentTerms: "COD"});
+			let soOrders = await db.findMany(SalesOrder, {});
 			let soDates = await SalesOrder.distinct('dateOrdered');
+			let poDates = await PurchaseOrder.distinct('dateOrdered');
+			let poOrders = await db.findMany(PurchaseOrder, {});
 			let item = {
 				soPhysical: forceJSON(soPhysical),
-				soOnline: forceJSON(soOnline),
-				soDates: forceJSON(soDates).sort()
+				soOnlineBank: forceJSON(soOnlineBank),
+				soOnlineCOD: forceJSON(soOnlineCOD),
+				soOrders: forceJSON(soOrders),
+				soDates: forceJSON(soDates).sort(),
+				poDates: forceJSON(poDates).sort(),
+				poOrders: forceJSON(poOrders)
 			}
 			res.status(200).send(item);
 		} catch (e) {
 			res.status(500).send(e);
+		}
+	},
+
+	getDashboardCards: async function(req, res) {
+		try {
+			let soPhysical = (await db.findMany(SalesOrder, {paymentTerms: "Physical"})).length;
+			let soOnlineBank = await db.findMany(SalesOrder, {paymentTerms: "Bank"});
+			let soOnlineCOD = await db.findMany(SalesOrder, {paymentTerms: "COD"});
+			let soOnline = soOnlineBank.length + soOnlineCOD.length;
+			let soOrders = await db.findMany(SalesOrder, {});
+			let poOrders = await db.findMany(PurchaseOrder, {});
+			let item = {
+				soPhysical: soPhysical,
+				soOnline: soOnline,
+				soOrders: forceJSON(soOrders),
+				poOrders: forceJSON(poOrders)
+			}
+			res.status(200).send(item);
+		} catch (e) {
+			console.log(e);
+			res.render('error');
 		}
 	},
 	
@@ -540,7 +570,7 @@ const gpController = {
 
 
 
-	
+
 
 	postLogin: async function(req, res) {
 		let {username} = req.body;
