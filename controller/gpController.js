@@ -75,14 +75,49 @@ const gpController = {
 	getAllSuppliers: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let suppliers = await db.findMany(Supplier, {});
+			// let suppliers = await db.findMany(Supplier, {});
+			let suppliers = await db.aggregate(Supplier, [
+				{"$lookup": {
+					from: "PurchaseOrder",
+					localField: "_id",
+					foreignField: "supplier",
+					as: "PurchOrders"
+				}}
+			]), modSuppliers = [], lastTrxDate, i, k, total, sortedPurchOrders;
+
+			console.log(suppliers);
+
+			suppliers.forEach(e => {
+				total = 0;
+				if (e.PurchOrders.length > 0) {
+					sortedPurchOrders = e.PurchOrders.sort((a, b) => (new Date(b.dateOrdered)) - (new Date(a.dateOrdered)));
+					lastTrxDate = (new Date(sortedPurchOrders[0].dateOrdered)).toISOString().substr(0, 10);
+
+					for (i = 0; i < sortedPurchOrders.length; i++) {
+						for (k = 0; k < sortedPurchOrders[i].items.length; k++) {
+							total += ((sortedPurchOrders[i].items[k].qty * sortedPurchOrders[i].items[k].unitPrice) * (1 - (sortedPurchOrders[i].items[k].discount / 100)));
+						}
+					}
+				}
+				else {
+					lastTrxDate = '';
+					total = 0;
+				}
+				modSuppliers.push({
+					name: e.name,
+					contactPerson: e.contactPerson,
+					email: e.email,
+					lastTrx: lastTrxDate,
+					totalPurchase: total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				});
+			});
 			res.render('allsuppliers', {
 				topNav: true,
 				sideNav: true,
 				title: 'All Suppliers',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				suppliers: forceJSON(suppliers)
+				suppliers: forceJSON(modSuppliers)
 			});
 		}
 	},
