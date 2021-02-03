@@ -152,10 +152,10 @@
 									</tr>
 								</tfoot>
 								<tbody>
-									{{#each product.adjustmentHistory}}
+									{{#each adjustments}}
 									<tr>
 										<td>{{this.date}}</td>
-										<td><a href="">{{orderNum}}</a></td>
+										<td><a href="{{getLink this}}">{{this.orderNum}}</a></td>
 										<td>{{this.before}}</td>
 										<td>{{this.quantity}}</td>
 										<td><b>{{this.after}}</b></td>
