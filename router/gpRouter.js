@@ -8,7 +8,7 @@ const gpMiddleware = require('../middlewares/gpMiddleware');
 
 // Testing Routes; SANDBOXING PURPOSES ONLY
 router.get('/test', test.getHome);
-router.get('/ADD_STUFF', test.checkProducts);
+router.get('/ADD_STUFF', test.getItemGroups);
 
 
 
@@ -44,7 +44,7 @@ router.get('/viewallsopo*', gpController.getViewAllSOPO);
 
 router.get('/getItemAJAX', gpController.getItemAJAX);
 router.get('/getSalesOrderAJAX', gpController.getSalesOrderAJAX);
-
+router.get('/getDashboardCards', gpController.getDashboardCards);
 
 
 // NO LONGER IMPLEMENTED
@@ -67,6 +67,7 @@ router.post('/adjustproduct/:code', gpController.postAdjustProduct);
 
 router.post('/cancelSOPO', gpController.postCancelOrder);
 router.post('/paySOPO', gpController.postPayOrder);
+router.post('/delrecSOPO', gpController.postDelRecOrder);
 
 
 

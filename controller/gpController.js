@@ -429,7 +429,8 @@ const gpController = {
 					title: 'New SO',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
-					isSecretary: true,
+					isSecretary: req.session.user.usertype === "Secretary",
+					isSales: req.session.user.usertype === "Sales",
 					customers: customers,
 					products: products,
 					SOnum: SOnum.toString().padStart(6, '0')
@@ -453,16 +454,45 @@ const gpController = {
 	getSalesOrderAJAX: async function(req, res) {
 		try {
 			let soPhysical = await db.findMany(SalesOrder, {paymentTerms: "Physical"});
-			let soOnline = await db.findMany(SalesOrder, {'$not': {paymentTerms: "Physical"}});
+			let soOnlineBank = await db.findMany(SalesOrder, {paymentTerms: "Bank"});
+			let soOnlineCOD = await db.findMany(SalesOrder, {paymentTerms: "COD"});
+			let soOrders = await db.findMany(SalesOrder, {});
 			let soDates = await SalesOrder.distinct('dateOrdered');
+			let poDates = await PurchaseOrder.distinct('dateOrdered');
+			let poOrders = await db.findMany(PurchaseOrder, {});
 			let item = {
 				soPhysical: forceJSON(soPhysical),
-				soOnline: forceJSON(soOnline),
-				soDates: forceJSON(soDates).sort()
+				soOnlineBank: forceJSON(soOnlineBank),
+				soOnlineCOD: forceJSON(soOnlineCOD),
+				soOrders: forceJSON(soOrders),
+				soDates: forceJSON(soDates).sort(),
+				poDates: forceJSON(poDates).sort(),
+				poOrders: forceJSON(poOrders)
 			}
 			res.status(200).send(item);
 		} catch (e) {
 			res.status(500).send(e);
+		}
+	},
+
+	getDashboardCards: async function(req, res) {
+		try {
+			let soPhysical = (await db.findMany(SalesOrder, {paymentTerms: "Physical"})).length;
+			let soOnlineBank = await db.findMany(SalesOrder, {paymentTerms: "Bank"});
+			let soOnlineCOD = await db.findMany(SalesOrder, {paymentTerms: "COD"});
+			let soOnline = soOnlineBank.length + soOnlineCOD.length;
+			let soOrders = await db.findMany(SalesOrder, {});
+			let poOrders = await db.findMany(PurchaseOrder, {});
+			let item = {
+				soPhysical: soPhysical,
+				soOnline: soOnline,
+				soOrders: forceJSON(soOrders),
+				poOrders: forceJSON(poOrders)
+			}
+			res.status(200).send(item);
+		} catch (e) {
+			console.log(e);
+			res.render('error');
 		}
 	},
 	
@@ -521,21 +551,25 @@ const gpController = {
 	},
 	
 	getDelRecSOPO: async function(req, res) {
-		let orderNum = req.params.ordNum, partial = (req.query.partial === 'true');
-		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
-				.findOne({orderNum: orderNum})
-				.populate('items.product');
-		console.log(order);
-		res.render('drsopo', {
-			topNav: true,
-			sideNav: true,
-			title: orderNum.substr(0, 2) === "SO" ? 'Deliver SO' : 'Receive PO',
-			name: req.session.user.name,
-			isSecretary: req.session.user.usertype === "Secretary",
-			isSO: orderNum.substr(0, 2) === "SO",
-			isPartial: partial,
-			order: forceJSON(order)
-		});
+		try {
+			let orderNum = req.params.ordNum, partial = (req.query.partial === 'true');
+			let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
+					.findOne({orderNum: orderNum})
+					.populate('items.product');
+			// console.log(order);
+			res.render('drsopo', {
+				topNav: true,
+				sideNav: true,
+				title: orderNum.substr(0, 2) === "SO" ? 'Deliver SO' : 'Receive PO',
+				name: req.session.user.name,
+				isSecretary: req.session.user.usertype === "Secretary",
+				isSO: orderNum.substr(0, 2) === "SO",
+				isPartial: partial,
+				order: forceJSON(order)
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	},
 	
 
@@ -544,7 +578,7 @@ const gpController = {
 
 
 
-	
+
 
 	postLogin: async function(req, res) {
 		let {username} = req.body;
@@ -777,20 +811,28 @@ const gpController = {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
 			console.log(orderNum);
-			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
-					{orderNum: orderNum},
-					{status: "To Receive", penalty: penalty, remarks: remarks});
-			return res.status(200).send();
+			if (orderNum.substr(0, 2) === "SO") {
+				await db.updateOne(PurchaseOrder,
+						{orderNum: orderNum},
+						{status: "To Receive", penalty: penalty, remarks: remarks});
+				return res.status(200).send();
+			} else {
+				let saleOrd = await db.findOne(SalesOrder, {orderNum: orderNum});
+				await db.updateOne(SalesOrder,
+						{orderNum: orderNum},
+						{status: saleOrd.deliveryMode === "Delivery" ? "To Deliver" : "For Pickup", penalty: penalty, remarks: remarks});
+				return res.status(200).send();
+			}
 		} catch (e) {
 			console.log(e);
 			return res.status(500).send();
 		}
 	},
 	
-	postReceiveOrder: async function(req, res) {
+	postDelRecOrder: async function(req, res) {
 		try {
 			let {orderNum, partial, partialItems} = req.body;
-			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i;
+			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i, addsub = oType === "SO" ? -1 : 1;
 			// update status
 			await db.updateOne(oType === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
@@ -799,16 +841,16 @@ const gpController = {
 			if (partial) {
 				// update qty's from partialItems
 				// partialItems is an array that contains objects
-				// {prodCode, qty}
+				// {itemCode, qty}
 				for (i = 0; i < partialItems.length; i++) {
-					await db.updateOne(Product, {prodCode: partialItems[i].prodCode}, {'$inc': {quantity: -1*partialItems[i].qty}});
+					await db.updateOne(Product, {itemCode: partialItems[i].itemCode}, {'$inc': {quantity: addsub * partialItems[i].qty}});
 					// not sure if there's anything else
 				}
 			} else {
 				// update qty's from SOPO
 				let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
 				for (i = 0; i < SOPO.items.length; i++) {
-					await db.updateOne(Product, {prodCode: SOPO.items[i].product.prodCode}, {'$inc': {quantity: -1*SOPO.items[i].qty}});
+					await db.updateOne(Product, {itemCode: SOPO.items[i].product.itemCode}, {'$inc': {quantity: addsub * SOPO.items[i].qty}});
 				}
 			}
 			return res.status(200).send();
@@ -817,8 +859,6 @@ const gpController = {
 			return res.status(500).send();
 		}
 	}
-	
-	
 };
 
 module.exports = gpController;

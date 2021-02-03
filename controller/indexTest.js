@@ -83,6 +83,12 @@ const indexTest = {
 		res.send('done');
 	},
 	
+	getItemGroups: async function(req, res) {
+		let grps = await db.findMany(ItemGroup, {}), str = '';
+		grps.forEach(e => str += (e.itemGroup + ": " + e.index + "\n"));
+		res.send(str);
+	},
+	
 	populateCollection: async function(req, res) {
 		try {
 			let array = [], objGroup, i;
