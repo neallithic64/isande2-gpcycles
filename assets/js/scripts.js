@@ -298,6 +298,7 @@ $(document).ready(function() {
 				currElem.closest('td').next().next().find('input').val(res.sellingPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 				currElem.closest('td').next().find('input').attr('discountPoint', res.discount.qty);
 				currElem.closest('td').next().find('input').attr('discountPercent', res.discount.percentage);
+				currElem.closest('td').find('.currentQtySpan').text(res.quantity + " stocks left.");
 			},
 			error: function(str) {
 				alert(str.responseText);
