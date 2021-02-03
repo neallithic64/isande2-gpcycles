@@ -187,7 +187,7 @@ const gpController = {
 	getEditProduct: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let product = await db.findOne(Product, {itemCode: req.params.code});
+			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
 			// additional joining from SO and PO collections
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
@@ -208,7 +208,8 @@ const gpController = {
 	getAdjustProduct: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let product = await db.findOne(Product, {itemCode: req.params.code});
+			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
+			// db.findOne(Product, {itemCode: req.params.code});
 			// additional joining from SO and PO collections
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
