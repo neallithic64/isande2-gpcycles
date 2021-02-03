@@ -50,14 +50,14 @@
                                     <tr>
                                         {{#if ../isPartial}}
                                             <td style="text-align: center;">
-                                                <input type="checkbox" name="item" id="{{{value}}}" value="{{{value}}}">
+                                                <input type="checkbox" name="item" id="{{{value}}}">
                                             </td>
                                         {{/if}}
                                         <td style="text-align: center;">
                                             <span id="drItemNum"> {{getNaturalIndex @index}} </span>
                                         </td>
                                         <td style="text-align: center;">
-                                            <span id="drItem"> {{this.product.prodName}} </span>
+                                            <span class="drItem" id="{{{this.product.itemCode}}}"> {{this.product.prodName}} </span>
                                         </td>
                                         <td style="text-align: end;">
                                             {{#if ../isPartial}} <input class="form-control drQtyCheck" type="number" value="{{{this.qty}}}" />

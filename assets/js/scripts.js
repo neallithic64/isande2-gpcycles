@@ -372,7 +372,7 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
@@ -389,7 +389,6 @@ $(document).ready(function() {
 				updatePOTotals();
 			} catch (e) {
 				console.log(e);
-				alert('error! check console.');
 			}
 		} else {
 			try {
@@ -402,7 +401,6 @@ $(document).ready(function() {
 				updateSOTotals();
 			} catch (e) {
 				console.log(e);
-				alert('error! check console.');
 			}
 		}
 	});
@@ -492,7 +490,7 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
@@ -512,7 +510,7 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
@@ -530,13 +528,66 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str.responseText);
 			}
 		});
 	});
 	
-	$("#submitDeliverSOButton").click();
-	$("#submitReceivePOButton").click();
+	$("#submitDeliverSOButton").click(function() {
+		let urlParams = new URLSearchParams(window.location.search);
+		let partial = urlParams.get('partial') === "true", partialList = [];
+		let ordNum = window.location.pathname.split('/')[2];
+		if (partial) {
+			$('input[type="checkbox"]').each(function(i, elem) {
+				if (elem.checked) {
+					partialList.push({
+						prodCode: elem.closest('tr').querySelector('.drItem').id,
+						qty: Number.parseInt(elem.closest('tr').querySelector('.drQtyCheck').value)
+					});
+				}
+			});
+		}
+		$.ajax({
+			method: 'POST',
+			url: '/delrecSOPO',
+			data: {orderNum: ordNum, partial: partial, partialList: partialList},
+			success: function() {
+				alert('Order has been paid.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				console.log(str);
+			}
+		});
+	});
+	
+	$("#submitReceivePOButton").click(function() {
+		let urlParams = new URLSearchParams(window.location.search);
+		let partial = urlParams.get('partial') === "true", partialList = [];
+		let ordNum = window.location.pathname.split('/')[2];
+		if (partial) {
+			$('input[type="checkbox"]').each(function(i, elem) {
+				if (elem.checked) {
+					partialList.push({
+						prodCode: elem.closest('tr').querySelector('.drItem').id,
+						qty: Number.parseInt(elem.closest('tr').querySelector('.drQtyCheck').value)
+					});
+				}
+			});
+		}
+		$.ajax({
+			method: 'POST',
+			url: '/delrecSOPO',
+			data: {orderNum: ordNum, partial: partial, partialList: partialList},
+			success: function() {
+				alert('Order has been paid.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				console.log(str);
+			}
+		});
+	});
 });
 
 $(document).ready(function() {
