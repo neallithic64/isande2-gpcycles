@@ -95,7 +95,7 @@ $(document).ready(function() {
 					window.location.href = '/';
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
@@ -132,7 +132,7 @@ $(document).ready(function() {
 					window.location.href = '/';
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
@@ -170,7 +170,7 @@ $(document).ready(function() {
 					window.location.href = '/';
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
@@ -284,7 +284,7 @@ $(document).ready(function() {
 				currElem.closest('td').next().next().find('input').val(res.purchasePrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str);
 			}
 		});
 	});
@@ -302,7 +302,7 @@ $(document).ready(function() {
 				currElem.closest('td').find('.currentQtySpan').text(res.quantity + " stocks left.");
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str);
 			}
 		});
 	});
@@ -354,7 +354,7 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str);
 			}
 		});
 	});
@@ -387,7 +387,7 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=PO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str);
 			}
 		});
 	});
@@ -502,7 +502,7 @@ $(document).ready(function() {
 				window.location.href = '/viewallsopo?ordertype=SO';
 			},
 			error: function(str) {
-				alert(str.responseText);
+				console.log(str);
 			}
 		});
 	});
@@ -690,7 +690,7 @@ $(document).ready(function() {
 					window.location.href = "/viewproduct/" + window.location.pathname.split('/')[2];
 				},
 				error: function(str) {
-					alert(str.responseText);
+					alert(str);
 				}
 			});
 		}
@@ -718,7 +718,7 @@ $(document).ready(function() {
 					window.location.href = "/viewproduct/" + window.location.pathname.split('/')[2];
 				},
 				error: function(str) {
-					alert(str.responseText);
+					console.log(str);
 				}
 			});
 		}
@@ -866,12 +866,6 @@ function exportTableToCSV(filename) {
 	// Download CSV file
 	downloadCSV(csv.join("\n"), filename);
 }
-
-//function saveDiv(divId, title) {
-//var doc = new jsPDF();
-//doc.fromHTML(`<html><head><title>${title}</title></head><body>` + document.getElementById(divId).innerHTML + `</body></html>`);
-//doc.save('div.pdf');
-//}
 
 function printDiv(div) {
 	var printContents = document.getElementById(div).innerHTML;

@@ -15,7 +15,7 @@
 								<span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
 								<input id="orderType" name="orderType" type="hidden" value="SO"></input>
 							{{else}} 
-							   <span class="mt-4" style="font-size: 18px;"> Payable to: </span>
+								<span class="mt-4" style="font-size: 18px;"> Payable to: </span>
 								<span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
 								<input id="orderType" name="orderType" type="hidden" value="PO"></input> 
 							{{/if}}
@@ -68,7 +68,7 @@
 										<td style="text-align: end;">
 											<span id="payNetPrice">
 												{{#if isSO}} {{netPriceDisc this.product.sellingPrice this.qty (getDiscountSO this this.qty)}}
-												{{else}}  {{netPriceDisc this.product.purchasePrice this.qty this.discount}}
+												{{else}} {{netPriceDisc this.product.purchasePrice this.qty this.discount}}
 												{{/if}}
 											</span>
 										</td>

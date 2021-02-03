@@ -547,7 +547,7 @@ const gpController = {
 				soDates: forceJSON(soDates).sort(),
 				poDates: forceJSON(poDates).sort(),
 				poOrders: forceJSON(poOrders)
-			}
+			};
 			res.status(200).send(item);
 		} catch (e) {
 			res.status(500).send(e);
