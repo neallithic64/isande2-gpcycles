@@ -72,14 +72,14 @@ const gpController = {
 			console.log(customers);
 
 			customers.forEach(e => {
-				total = 0;
+				total = 0.0;
 				if (e.SalesOrders.length > 0) {
 					sortedSalesOrders = e.SalesOrders.sort((a, b) => (new Date(b.dateOrdered)) - (new Date(a.dateOrdered)));
 					lastTrxDate = (new Date(sortedSalesOrders[0].dateOrdered)).toISOString().substr(0, 10);
 
 					for (i = 0; i < sortedSalesOrders.length; i++) {
 						for (k = 0; k < sortedSalesOrders[i].items.length; k++) {
-							total += sortedSalesOrders[i].items[k].netPrice;
+							total += Number.parseFloat(sortedSalesOrders[i].items[k].netPrice);
 						}
 					}
 				}
@@ -92,7 +92,7 @@ const gpController = {
 					contactNum: e.contactNum,
 					city: e.city,
 					lastTrx: lastTrxDate,
-					totalSales: parseFloat(total).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+					totalSales: total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 				});
 			});
 			res.render('allcustomers', {
