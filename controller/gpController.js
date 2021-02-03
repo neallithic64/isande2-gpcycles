@@ -60,14 +60,48 @@ const gpController = {
 	getAllCustomers: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			let customers = await db.findMany(Customer, {});
+			let customers = await db.aggregate(Customer, [
+				{"$lookup": {
+					from: "SalesOrder",
+					localField: "_id",
+					foreignField: "customer",
+					as: "SalesOrders"
+				}}
+			]), modCustomers = [], lastTrxDate, i, k, total, sortedSalesOrders;
+
+			console.log(customers);
+
+			customers.forEach(e => {
+				total = 0;
+				if (e.SalesOrders.length > 0) {
+					sortedSalesOrders = e.SalesOrders.sort((a, b) => (new Date(b.dateOrdered)) - (new Date(a.dateOrdered)));
+					lastTrxDate = (new Date(sortedSalesOrders[0].dateOrdered)).toISOString().substr(0, 10);
+
+					for (i = 0; i < sortedSalesOrders.length; i++) {
+						for (k = 0; k < sortedSalesOrders[i].items.length; k++) {
+							total += sortedSalesOrders[i].items[k].netPrice;
+						}
+					}
+				}
+				else {
+					lastTrxDate = '';
+					total = 0;
+				}
+				modCustomers.push({
+					name: e.name,
+					contactNum: e.contactNum,
+					city: e.city,
+					lastTrx: lastTrxDate,
+					totalSales: parseFloat(total).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				});
+			});
 			res.render('allcustomers', {
 				topNav: true,
 				sideNav: true,
 				title: 'All Customers',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				customers: forceJSON(customers)
+				customers: forceJSON(modCustomers)
 			});
 		}
 	},
@@ -75,7 +109,6 @@ const gpController = {
 	getAllSuppliers: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
-			// let suppliers = await db.findMany(Supplier, {});
 			let suppliers = await db.aggregate(Supplier, [
 				{"$lookup": {
 					from: "PurchaseOrder",
