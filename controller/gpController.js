@@ -241,13 +241,17 @@ const gpController = {
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
 			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
+			let adjustments = product.adjustmentHistory.sort( function(a,b) {
+				return b.date - a.date;
+			});
 			res.render('viewproduct', {
 				topNav: true,
 				sideNav: true,
 				title: 'Inventory',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				product: forceJSON(product)
+				product: forceJSON(product),
+				adjustments: forceJSON(adjustments)
 			});
 		}
 	},

@@ -72,6 +72,12 @@ app.engine('hbs', exphbs.create({
 			else if (adj.length === 9 && adj.subsubstr(0,3) === "PO-") return "Purchase";
 			else return "Adjustment";
 		},
+		getLink: function(adjustment) {
+			if(adjustment.orderNum == null) return "";
+			if(adjustment.orderNum == "-") return "";
+			if(adjustment.orderNum.substring(0,2) == "PO") return ("/viewPO/"+adjustment.orderNum);
+			if(adjustment.orderNum.substring(0,2) == "SO") return ("/viewSO:"+adjustment.orderNum);
+		},
 		subtotalOrder: function(order, ord) {
 			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
 		},
