@@ -780,10 +780,18 @@ const gpController = {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
 			console.log(orderNum);
-			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
-					{orderNum: orderNum},
-					{status: "To Receive", penalty: penalty, remarks: remarks});
-			return res.status(200).send();
+			if (orderNum.substr(0, 2) === "SO") {
+				await db.updateOne(PurchaseOrder,
+						{orderNum: orderNum},
+						{status: "To Receive", penalty: penalty, remarks: remarks});
+				return res.status(200).send();
+			} else {
+				let saleOrd = await db.findOne(SalesOrder, {orderNum: orderNum});
+				await db.updateOne(SalesOrder,
+						{orderNum: orderNum},
+						{status: saleOrd.deliveryMode === "Delivery" ? "To Deliver" : "For Pickup", penalty: penalty, remarks: remarks});
+				return res.status(200).send();
+			}
 		} catch (e) {
 			console.log(e);
 			return res.status(500).send();

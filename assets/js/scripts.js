@@ -375,8 +375,8 @@ $(document).ready(function() {
 	});
 	
 	$('tbody').on("change", ':input[type="number"]', function() {
-		if (window.location.pathname === '/newPO') {
-			try {
+		try {
+			if (window.location.pathname === '/newPO') {
 				let currElem = $(this),
 					qty = Number.parseFloat(currElem.closest('tr').find('.inputPOQty').val()),
 					unit = Number.parseFloat(currElem.closest('tr').find('.inputPOUnit').val().replace(',', '')),
@@ -384,11 +384,7 @@ $(document).ready(function() {
 				if (Number.isNaN(discount)) discount = 0;
 				currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 				updatePOTotals();
-			} catch (e) {
-				console.log(e);
-			}
-		} else {
-			try {
+			} else {
 				let currElem = $(this),
 					qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
 					unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
@@ -396,23 +392,27 @@ $(document).ready(function() {
 				if (Number.isNaN(discount)) discount = 0;
 				currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 				updateSOTotals();
-			} catch (e) {
-				console.log(e);
 			}
+		} catch (e) {
+			console.log(e);
 		}
 	});
 	
 	$('tbody').on("change", '.inputSOQty', function() {
-		let currElem = $(this), qty = currElem.val(), unit, discount;
-		if (qty >= Number.parseInt(currElem.attr('discountPoint')))
-			currElem.closest('td').next().next().find('input').val(currElem.attr('discountPercent') + '.0');
-		else currElem.closest('td').next().next().find('input').val('0.0');
-		// updating totals
-		qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
-			unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
-			discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
-		currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-		updateSOTotals();
+		try {
+			let currElem = $(this), qty = currElem.val(), unit, discount;
+			if (qty >= Number.parseInt(currElem.attr('discountPoint')))
+				currElem.closest('td').next().next().find('input').val(currElem.attr('discountPercent') + '.0');
+			else currElem.closest('td').next().next().find('input').val('0.0');
+			// updating totals
+			qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
+				unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
+				discount = Number.parseFloat(currElem.closest('tr').find('.inputSODiscount').val());
+			currElem.closest('tr').find('.inputSOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			updateSOTotals();
+		} catch (e) {
+			console.log(e);
+		}
 	});
 	
 	$('#inputSOAdj').change(function() {
@@ -435,7 +435,7 @@ $(document).ready(function() {
 			conditions: $("#inputSOCons").val(),
 			remarks: $("#inputSORemarks").val(),
 			adjustment: $("#inputSOAdj").val(),
-			status: $("#inputSOMode").val() === "Delivery" ? "To Deliver" : "For Pickup",
+			status: "Pending",
 			customer: $("#inputSOName").val(),
 			dateOrdered: $("#inputSODate").val(),
 			paymentTerms: $("#inputSOTerms").val(),
