@@ -50,7 +50,6 @@
 })(jQuery);
 
 
-
 // Non-library scripts below
 
 
@@ -322,7 +321,7 @@ $(document).ready(function() {
 			items: products,
 			conditions: $("#inputPOCons").val(),
 			remarks: $("#inputPORemarks").val(),
-			status: "Paid",
+			status: "To Receive",
 			supplier: $("#inputPOName").val(),
 			dateOrdered: $("#inputPODate").val(),
 			paymentTerms: $("#inputPOTerms").val(),
@@ -355,7 +354,7 @@ $(document).ready(function() {
 			items: products,
 			conditions: $("#inputPOCons").val(),
 			remarks: $("#inputPORemarks").val(),
-			status: "Confirmed",
+			status: "To Pay",
 			supplier: $("#inputPOName").val(),
 			dateOrdered: $("#inputPODate").val(),
 			paymentTerms: $("#inputPOTerms").val(),
