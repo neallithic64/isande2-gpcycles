@@ -33,6 +33,9 @@ app.engine('hbs', exphbs.create({
 	partialsDir: 'views/partials',
 	layoutsDir: 'views/layouts',
 	helpers: {
+		getNaturalIndex: function(index) {
+			return index+1;
+		},
 		getArrIndex: function(arr, index) {
 			return arr[index];
 		},
@@ -72,6 +75,8 @@ app.engine('hbs', exphbs.create({
 		subtotalOrder: function(order, ord) {
 			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
 		},
+		// Ord: 0 === PO
+		// Ord: 1 === SO
 		discountOrder: function(order, ord) {
 			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
 			if (ord === 1) return order.items.reduce((acc, e) => acc + (e.qty >= e.product.discount.qty ? e.qty * e.unitPrice * e.product.discount.percentage / 100 : 0), 0);

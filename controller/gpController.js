@@ -376,7 +376,9 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let orders;
-			orders = req.query.ordertype === "SO" ? await SalesOrder.find({}).populate('items.product customer') : await PurchaseOrder.find({}).populate('items.product supplier');
+			orders = req.query.ordertype === "SO"
+					? await SalesOrder.find({}).populate('items.product customer')
+					: await PurchaseOrder.find({}).populate('items.product supplier');
 			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
@@ -446,6 +448,22 @@ const gpController = {
 			res.status(500).send(e);
 		}
 	},
+
+	getSalesOrderAJAX: async function(req, res) {
+		try {
+			let soPhysical = await db.findMany(SalesOrder, {paymentTerms: "Physical"});
+			let soOnline = await db.findMany(SalesOrder, {'$not': {paymentTerms: "Physical"}});
+			let soDates = await SalesOrder.distinct('dateOrdered');
+			let item = {
+				soPhysical: forceJSON(soPhysical),
+				soOnline: forceJSON(soOnline),
+				soDates: forceJSON(soDates).sort()
+			}
+			res.status(200).send(item);
+		} catch (e) {
+			res.status(500).send(e);
+		}
+	},
 	
 	getConfirmPO: async function(req, res) {
 		// DO NOT IMPLEMENT
@@ -486,32 +504,47 @@ const gpController = {
 	},
 	
 	getPaySOPO: async function(req, res) {
-		// 
+		let orderNum = req.params.ordNum;
+		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
+				.findOne({orderNum: orderNum})
+				.populate('items.product');
+		res.render('paysopo', {
+			topNav: true,
+			sideNav: true,
+			title: 'Receive ' + orderNum.substr(0, 2),
+			name: req.session.user.name,
+			isSO: orderNum.substr(0, 2) === "SO",
+			isOverdue: Date.parse(order.paymentDue) <= Date.now(),
+			order: forceJSON(order)
+		});
 	},
 	
 	getDelRecSOPO: async function(req, res) {
 		let orderNum = req.params.ordNum, partial = (req.query.partial === 'true');
-		// let order = await (orderNum.substr(0, 2) === "SO" ? : ).findOne().populate();
+		let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
+				.findOne({orderNum: orderNum})
+				.populate('items.product');
+		console.log(order);
 		res.render('drsopo', {
 			topNav: true,
 			sideNav: true,
-			title: 'Receive SO',
+			title: orderNum.substr(0, 2) === "SO" ? 'Deliver SO' : 'Receive PO',
 			name: req.session.user.name,
 			isSecretary: req.session.user.usertype === "Secretary",
 			isSO: orderNum.substr(0, 2) === "SO",
-			isPartial: partial
+			isPartial: partial,
+			order: forceJSON(order)
 		});
 	},
 	
-	
-	
-	
-	postHome: async function(req, res) {
-		
 
-	},
+
+
+
+
+
 	
-	
+
 	postLogin: async function(req, res) {
 		let {username} = req.body;
 		try {
@@ -548,6 +581,7 @@ const gpController = {
 	},
 	
 	postAddItemGroup: async function(req, res) {
+		// DO NOT IMPLEMENT
 		let {itemgrp} = req.body;
 		try {
 			await db.insertOne(ItemGroup, {itemGroup: itemgrp});
@@ -600,7 +634,7 @@ const gpController = {
 				percentage } = req.body;
 		let product = {
 			prodName: prodName,
-			itemCode: String,
+			itemCode: genItemCode(itemGroup),
 			itemGroup: db.toObjId(itemGroup),
 			unit: unit,
 			supplier: db.toObjId(supplier),
@@ -727,13 +761,63 @@ const gpController = {
 	postCancelOrder: async function(req, res) {
 		try {
 			let {orderNum, reason} = req.body;
-			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder, {orderNum: orderNum}, {status: "Cancelled"});
+			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: "Cancelled", remarks: reason});
+			return res.status(200).send();
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	
+	postPayOrder: async function(req, res) {
+		try {
+			let {orderNum, penalty, remarks} = req.body;
+			console.log(orderNum);
+			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: "To Receive", penalty: penalty, remarks: remarks});
+			return res.status(200).send();
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	postReceiveOrder: async function(req, res) {
+		try {
+			let {orderNum, partial, partialItems} = req.body;
+			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i;
+			// update status
+			await db.updateOne(oType === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: oType === "SO" ? "Fulfilled" : "Received"});
+			// update qty's
+			if (partial) {
+				// update qty's from partialItems
+				// partialItems is an array that contains objects
+				// {prodCode, qty}
+				for (i = 0; i < partialItems.length; i++) {
+					await db.updateOne(Product, {prodCode: partialItems[i].prodCode}, {'$inc': {quantity: -1*partialItems[i].qty}});
+					// not sure if there's anything else
+				}
+			} else {
+				// update qty's from SOPO
+				let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
+				for (i = 0; i < SOPO.items.length; i++) {
+					await db.updateOne(Product, {prodCode: SOPO.items[i].product.prodCode}, {'$inc': {quantity: -1*SOPO.items[i].qty}});
+				}
+			}
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
 			return res.status(500).send();
 		}
 	}
+	
+	
 };
 
 module.exports = gpController;

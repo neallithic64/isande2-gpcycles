@@ -64,6 +64,8 @@ $(document).ready(function() {
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
 	
+	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val()) - Number.parseFloat($("#payTotalDisc").val()));
+	
 	$('button#submitAddUser').click(function() {
 		let addUserForm = $('form#addUser').serializeArray();
 		trimArr(addUserForm);
@@ -429,7 +431,8 @@ $(document).ready(function() {
 				product: e.children[0].children[0].children[0].value,
 				qty: e.children[1].children[0].children[0].value,
 				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
-				discount: e.children[3].children[0].children[0].value
+				discount: e.children[3].children[0].children[0].value,
+				netPrice: e.children[4].children[0].children[0].value
 			});
 		});
 		let data = {
@@ -464,7 +467,8 @@ $(document).ready(function() {
 				product: e.children[0].children[0].children[0].value,
 				qty: e.children[1].children[0].children[0].value,
 				unitPrice: e.children[2].children[0].children[0].value.replace(',', ''),
-				discount: e.children[3].children[0].children[0].value
+				discount: e.children[3].children[0].children[0].value,
+				netPrice: e.children[4].children[0].children[0].value
 			});
 		});
 		let data = {
@@ -505,6 +509,24 @@ $(document).ready(function() {
 			data: {orderNum: ordNum, reason: reason},
 			success: function() {
 				alert('Order has been cancelled.');
+				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
+			},
+			error: function(str) {
+				alert(str.responseText);
+			}
+		});
+	});
+	
+	$("#paySOPOSubmitButton").click(function() {
+		let ordNum = window.location.pathname.split('/')[2],
+			penalty = $("#inputPenalty").val(),
+			remarks = $("#inputPenaltyRemarks").val();
+		$.ajax({
+			method: 'POST',
+			url: '/paySOPO',
+			data: {orderNum: ordNum, penalty: penalty, remarks: remarks},
+			success: function() {
+				alert('Order has been paid.');
 				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
