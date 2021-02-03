@@ -267,6 +267,7 @@ $(document).ready(function() {
 	
 	$('button#POaddItem').click(function() {
 		$('table#POItems tbody').append("<tr>" + $('tbody tr')[0].innerHTML + "</tr>");
+		$('tbody tr')[$('tbody tr').length-1].querySelector('.currentQtySpan').textContent = '';
 	});
 	
 	$('button#SOaddItem').click(function() {
