@@ -396,7 +396,6 @@ const gpController = {
 		else {
 			try {
 				let suppliers = await db.findMany(Supplier, {}, 'name');
-				let products = await db.findMany(Product, {}, 'prodName');
 				let POnum = (await db.findMany(PurchaseOrder, {})).length;
 				res.render('newPO', {
 					topNav: true,
@@ -405,7 +404,6 @@ const gpController = {
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
 					suppliers: suppliers,
-					products: products,
 					POnum: POnum.toString().padStart(6, '0')
 				});
 			} catch (e) {
@@ -445,6 +443,15 @@ const gpController = {
 		try {
 			let item = await db.findOne(Product, {_id: req.query.code});
 			res.status(200).send(forceJSON(item));
+		} catch (e) {
+			res.status(500).send(e);
+		}
+	},
+	
+	getSupplOrds: async function(req, res) {
+		try {
+			let items = await db.findMany(Product, {supplier: req.query.supplier}, 'prodName');
+			res.status(200).send(forceJSON(items));
 		} catch (e) {
 			res.status(500).send(e);
 		}

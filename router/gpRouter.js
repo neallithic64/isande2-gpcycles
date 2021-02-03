@@ -9,6 +9,7 @@ const gpMiddleware = require('../middlewares/gpMiddleware');
 // Testing Routes; SANDBOXING PURPOSES ONLY
 router.get('/test', test.getHome);
 router.get('/ADD_STUFF', test.getItemGroups);
+router.get('/check_suppl', test.getJoinedSuppliers);
 
 
 
@@ -23,15 +24,18 @@ router.get('/allgroups', gpController.getGroups);
 router.get('/allgroupproducts/:index', gpController.getGroupInventory);
 router.get('/inventoryreport', gpController.getInventoryReport);
 
+	// Add Routes
 router.get('/addUser', gpController.getAddUser);
 router.get('/addProduct', gpController.getAddProduct);
 router.get('/addCustomer', gpController.getAddCustomer);
 router.get('/addSupplier', gpController.getAddSupplier);
 
+	// Product Routes
 router.get('/viewproduct/:code', gpController.getProductPage);
 router.get('/adjustproduct/:code', gpController.getAdjustProduct);
 router.get('/editproduct/:code', gpController.getEditProduct);
 
+	// SOPO Routes
 router.get('/newPO', gpController.getNewPO);
 router.get('/newSO', gpController.getNewSO);
 router.get('/salesorders', gpController.getAllSalesOrders);
@@ -42,7 +46,9 @@ router.get('/paysopo/:ordNum*', gpController.getPaySOPO);
 router.get('/drsopo/:ordNum*', gpController.getDelRecSOPO);
 router.get('/viewallsopo*', gpController.getViewAllSOPO);
 
+	// AJAX Routes
 router.get('/getItemAJAX', gpController.getItemAJAX);
+router.get('/getSupplProds', gpController.getSupplOrds);
 router.get('/getSalesOrderAJAX', gpController.getSalesOrderAJAX);
 router.get('/getDashboardCards', gpController.getDashboardCards);
 

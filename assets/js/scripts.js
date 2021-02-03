@@ -307,7 +307,20 @@ $(document).ready(function() {
 	
 	$("#inputPOName").change(function() {
 		let supplier = $(this).val();
-		console.log(supplier);
+		$.ajax({
+			method: 'GET',
+			url: '/getSupplProds',
+			data: {supplier: supplier},
+			success: function(res) {
+				$(".inputPOItem").each(function(i, elem) {
+					$(elem).find('option:not(:first)').remove();
+					res.forEach(e => $(elem).append("<option value='" + e._id + "'> " + e.prodName + " </option>"));
+				});
+			},
+			error: function(str) {
+				console.log(str);
+			}
+		});
 	});
 	
 	$("#POSubmitDraft").click(function() {

@@ -89,6 +89,28 @@ const indexTest = {
 		res.send(str);
 	},
 	
+	getJoinedSuppliers: async function(req, res) {
+		let suppl = await db.aggregate(Supplier, [
+			{"$lookup": {
+				from: "PurchaseOrder",
+				localField: "_id",
+				foreignField: "supplier",
+				as: "PurchOrders"
+			}}
+		]);
+		let groups = await db.aggregate(ItemGroup, [
+			{"$lookup": {
+				from: "Product",
+				localField: "_id",
+				foreignField: "itemGroup",
+				as: "Products"
+			}}
+		]);
+		console.log(groups);
+		console.log(suppl);
+		res.send(suppl);
+	},
+	
 	populateCollection: async function(req, res) {
 		try {
 			let array = [], objGroup, i;
