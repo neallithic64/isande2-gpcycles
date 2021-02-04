@@ -660,7 +660,6 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-
 	$('button#submitEditProduct').click(function() {
 		let editProductForm = $('form#editProduct').serializeArray();
 		trimArr(editProductForm);
@@ -738,28 +737,7 @@ $(document).ready(function() {
 			});
 		}
 	});
-
 });
-
-var isFilter = false;
-
-function filter() {
-	console.log(isFilter);
-	if (isFilter) {
-		console.log(document.getElementById("filtered"));
-		document.getElementById("filterbutton").style.color = "background-color: #F50506; color: white";
-		document.getElementById("filtered").style.visibility = "visible";
-		document.getElementById("unfiltered").style.display = "none";
-	}
-	else {
-		console.log(document.getElementById("unfiltered"));
-		document.getElementById("filterbutton").style.color = "background-color: #white; color: black;";
-		document.getElementById("unfiltered").style.visibility = "visible";
-		document.getElementById("filtered").style.display = "none";
-	}
-	isFilter = !isFilter;
-	console.log(isFilter);
-};
 
 function logout() {
 	let xhr = new XMLHttpRequest();
@@ -810,7 +788,9 @@ function trimArr(arr) {
 	arr.forEach(e => e.value = validator.trim(e.value));
 }
 
-var grp = 0;
+
+let isFilter = false, grp = 0;
+
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
 	$('#datatable').dataTable();
@@ -844,6 +824,25 @@ $(document).ready(function() {
 	$("select#groupnum").change(function() {
 		console.log($(this).val());
 		group($(this).val());
+	});
+	
+	$("button#filterbutton").click(function() {
+		console.log(isFilter);
+		if (isFilter) {
+			$(this).css("background-color", "#F50506");
+			$(this).css("color", "white");
+			$(".notLowQty").each(function(i, elem) {
+				$(elem).css("display", "");
+			});
+		}
+		else {
+			$(this).css("background-color", "#white");
+			$(this).css("color", "black");
+			$(".notLowQty").each(function(i, elem) {
+				$(elem).css("display", "none");
+			});
+		}
+		isFilter = !isFilter;
 	});
 });
 
