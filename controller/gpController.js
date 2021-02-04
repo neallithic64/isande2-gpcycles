@@ -922,14 +922,38 @@ const gpController = {
 				// partialItems is an array that contains objects
 				// {itemCode, qty}
 				for (i = 0; i < partialItems.length; i++) {
-					await db.updateOne(Product, {itemCode: partialItems[i].itemCode}, {'$inc': {quantity: addsub * partialItems[i].qty}});
-					// not sure if there's anything else
+					// need to get the original quantity
+					let prod = await db.findOne(Product, {itemCode: partialItems[i].itemCode});
+					// push to the adjustment history
+					let adjustment = {
+						date: new Date(),
+						before: prod.quantity,
+						reference: orderNum,
+						quantity: partialItems[i].qty,
+						after: prod.quantity + (addsub * Number.parseInt(partialItems[i].qty)),
+						remarks: "not sure what to put here"
+					};
+					await db.updateOne(Product, {itemCode: partialItems[i].itemCode},
+							{'$inc': {quantity: addsub * partialItems[i].qty},
+							'$push': {adjustmentHistory: adjustment}});
 				}
 			} else {
 				// update qty's from SOPO
 				let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
 				for (i = 0; i < SOPO.items.length; i++) {
-					await db.updateOne(Product, {itemCode: SOPO.items[i].product.itemCode}, {'$inc': {quantity: addsub * SOPO.items[i].qty}});
+					// need to get the original quantity
+					let prod = await db.findOne(Product, {itemCode: SOPO.items[i].product.itemCode});
+					// push to the adjustment history
+					let adjustment = {
+						date: new Date(),
+						before: prod.quantity,
+						reference: orderNum,
+						quantity: SOPO.items[i].qty,
+						after: prod.quantity + (addsub * Number.parseInt(SOPO.items[i].qty)),
+						remarks: "not sure what to put here"
+					};
+					await db.updateOne(Product, {itemCode: SOPO.items[i].product.itemCode},
+							{'$inc': {quantity: addsub * SOPO.items[i].qty}});
 				}
 			}
 			return res.status(200).send();

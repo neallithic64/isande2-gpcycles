@@ -73,10 +73,10 @@ app.engine('hbs', exphbs.create({
 			else return "Adjustment";
 		},
 		getLink: function(adjustment) {
-			if (adjustment.orderNum === null) return "";
-			if (adjustment.orderNum === "-") return "";
-			if (adjustment.orderNum.substring(0,2) === "PO") return ("/viewPO/" + adjustment.orderNum);
-			if (adjustment.orderNum.substring(0,2) === "SO") return ("/viewSO/" + adjustment.orderNum);
+			if (adjustment.reference === null) return "";
+			if (adjustment.reference === "-") return "";
+			if (adjustment.reference.substr(0,2) === "PO") return ("/viewPO/" + adjustment.reference);
+			if (adjustment.reference.substr(0,2) === "SO") return ("/viewSO/" + adjustment.reference);
 		},
 		subtotalOrder: function(order, ord) {
 			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
