@@ -501,7 +501,7 @@ $(document).ready(function() {
 			conditions: $("#inputSOCons").val(),
 			remarks: $("#inputSORemarks").val(),
 			adjustment: $("#inputSOAdj").val(),
-			status: "Pending",
+			status: $("#inputSOTerms").val() === "Physical" ? "Fulfilled" : "Pending",
 			customer: $("#inputSOName").val(),
 			dateOrdered: $("#inputSODate").val(),
 			paymentTerms: $("#inputSOTerms").val(),

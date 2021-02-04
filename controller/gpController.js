@@ -234,24 +234,33 @@ const gpController = {
 	},
 	
 	getProductPage: async function(req, res) {
-		if (!req.session.user) res.redirect('/login');
-		else {
-			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
-			// additional joining from SO and PO collections
-			// unsure about this:
-			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
-			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
-			let adjustments = product.adjustmentHistory.sort( function(a,b) {
-				return b.date - a.date;
-			});
-			res.render('viewproduct', {
-				topNav: true,
-				sideNav: true,
-				title: 'Inventory',
-				name: req.session.user.name,
-				isAdmin: req.session.user.usertype === "Admin",
-				product: forceJSON(product),
-				adjustments: forceJSON(adjustments)
+		try {
+			if (!req.session.user) res.redirect('/login');
+			else {
+				let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
+				// additional joining from SO and PO collections
+				// unsure about this:
+				let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
+				let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
+				let adjustments = product.adjustmentHistory.sort( function(a,b) {
+					return b.date - a.date;
+				});
+				res.render('viewproduct', {
+					topNav: true,
+					sideNav: true,
+					title: 'Inventory',
+					name: req.session.user.name,
+					isAdmin: req.session.user.usertype === "Admin",
+					product: forceJSON(product),
+					adjustments: forceJSON(adjustments)
+				});
+			}
+		} catch (e) {
+			console.log(e);
+			res.render('error', {
+				title: "Error",
+				code: 500,
+				message: "Server error. Please try again later."
 			});
 		}
 	},
@@ -439,9 +448,13 @@ const gpController = {
 					suppliers: forceJSON(suppliers)
 				});
 			} catch (e) {
-				res.send('error!');
+				console.log(e);
+				res.render('error', {
+					title: "Error",
+					code: 500,
+					message: "Server error. Please try again later."
+				});
 			}
-
 		}
 	},
 	
@@ -816,6 +829,7 @@ const gpController = {
 			await db.updateOne(Product, {itemCode: req.params.code}, adjustedProduct);
 			return res.status(200).send();
 		} catch (e) {
+			console.log(e);
 			return res.status(500).send();
 		}
 	},
@@ -823,7 +837,7 @@ const gpController = {
 	postNewPO: async function(req, res) {
 		try {
 			let {items, conditions, remarks, status, supplier, dateOrdered, paymentTerms, paymentDue, expectedDelivery} = req.body;
-			let ordNum = await genOrderCode("PO");
+			let ordNum = await genOrderCode("PO"), i;
 			let newPO = {
 				orderNum: ordNum,
 				items: items,
@@ -839,6 +853,11 @@ const gpController = {
 			};
 			console.log(newPO);
 			await db.insertOne(PurchaseOrder, newPO);
+			
+			// update incoming qty of products
+			for (i = 0; i < items.length; i++) {
+				await db.updateOne(Product, {_id: items[i].product}, {'$inc': {incomingQty: Number.parseInt(items[i].qty)}});
+			}
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
@@ -849,7 +868,7 @@ const gpController = {
 	postNewSO: async function(req, res) {
 		try {
 			let {items, adjustment, remarks, status, customer, dateOrdered, paymentTerms, paymentDue, deliveryMode, expectedDelivery} = req.body;
-			let ordNum = await genOrderCode("SO");
+			let ordNum = await genOrderCode("SO"), i;
 			let newSO = {
 				orderNum: ordNum,
 				items: items,
@@ -865,6 +884,14 @@ const gpController = {
 				expectedDelivery: new Date(expectedDelivery)
 			};
 			await db.insertOne(SalesOrder, newSO);
+			if (paymentTerms === "Physical") {
+				// update outgoing and adjhist of product
+				for (i = 0; i < items.length; i++) {
+					// MISSING: ADJHIST
+					await db.updateOne(Product, {_id: items[i].product},
+							{'$inc': {outgoingQty: Number.parseInt(items[i].qty)}});
+				}
+			}
 			return res.status(200).send();
 		} catch (e) {
 			console.log(e);
@@ -890,16 +917,16 @@ const gpController = {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
 			console.log(orderNum);
-			if (orderNum.substr(0, 2) === "SO") {
+			if (orderNum.substr(0, 2) === "PO") {
 				await db.updateOne(PurchaseOrder,
 						{orderNum: orderNum},
 						{status: "To Receive", penalty: penalty, remarks: remarks});
 				return res.status(200).send();
 			} else {
 				let saleOrd = await db.findOne(SalesOrder, {orderNum: orderNum});
-				await db.updateOne(SalesOrder,
-						{orderNum: orderNum},
-						{status: saleOrd.deliveryMode === "Delivery" ? "To Deliver" : "For Pickup", penalty: penalty, remarks: remarks});
+				await db.updateOne(SalesOrder, {orderNum: orderNum},
+						{status: saleOrd.deliveryMode === "Delivery" ? "To Deliver" : "For Pickup",
+								penalty: penalty, remarks: remarks});
 				return res.status(200).send();
 			}
 		} catch (e) {
@@ -931,11 +958,13 @@ const gpController = {
 						reference: orderNum,
 						quantity: partialItems[i].qty,
 						after: prod.quantity + (addsub * Number.parseInt(partialItems[i].qty)),
-						remarks: "not sure what to put here"
+						remarks: "Partial adjustment from " + orderNum
 					};
+					let update = {quantity: addsub * partialItems[i].qty};
+					if (oType === "SO") update.outgoingQty = -Number.parseInt(partialItems[i].qty);
+					else update.incomingQty = -Number.parseInt(partialItems[i].qty);
 					await db.updateOne(Product, {itemCode: partialItems[i].itemCode},
-							{'$inc': {quantity: addsub * partialItems[i].qty},
-							'$push': {adjustmentHistory: adjustment}});
+							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			} else {
 				// update qty's from SOPO
@@ -950,10 +979,13 @@ const gpController = {
 						reference: orderNum,
 						quantity: SOPO.items[i].qty,
 						after: prod.quantity + (addsub * Number.parseInt(SOPO.items[i].qty)),
-						remarks: "not sure what to put here"
+						remarks: "Fulfillment adjustment from " + orderNum
 					};
+					let update = {quantity: addsub * SOPO.items[i].qty};
+					if (oType === "SO") update.outgoingQty = -Number.parseInt(SOPO.items[i].qty);
+					else update.incomingQty = -Number.parseInt(SOPO.items[i].qty);
 					await db.updateOne(Product, {itemCode: SOPO.items[i].product.itemCode},
-							{'$inc': {quantity: addsub * SOPO.items[i].qty}});
+							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			}
 			return res.status(200).send();
