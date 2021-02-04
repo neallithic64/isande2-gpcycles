@@ -789,7 +789,7 @@ function trimArr(arr) {
 }
 
 
-let isFilter = false, grp = 0;
+let isFilter = true, grp = 0;
 
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
@@ -827,22 +827,22 @@ $(document).ready(function() {
 	});
 	
 	$("button#filterbutton").click(function() {
+		isFilter = !isFilter;
 		console.log(isFilter);
 		if (isFilter) {
-			$(this).css("background-color", "#F50506");
-			$(this).css("color", "white");
+			$(this).css("background-color", "white");
+			$(this).css("color", "black");
 			$(".notLowQty").each(function(i, elem) {
 				$(elem).css("display", "");
 			});
 		}
 		else {
-			$(this).css("background-color", "#white");
-			$(this).css("color", "black");
+			$(this).css("background-color", "#F50506");
+			$(this).css("color", "white");
 			$(".notLowQty").each(function(i, elem) {
 				$(elem).css("display", "none");
 			});
 		}
-		isFilter = !isFilter;
 	});
 });
 

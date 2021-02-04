@@ -15,6 +15,11 @@
 							<div style="width: 50%; vertical-align: middle; ">
 								<div><a href="javascript:history.back()"><p style="margin: 0px;"> &#60; Back</p></a></div>
 							</div>
+							<div style="width:50%; text-align: right; justify-content: flex-end; vertical-align: middle; align-items: center;">
+								<button id="filterbutton" type="button" style="padding: 0px 10px 0px 5px; align-content: center; border-radius: 15px; border-width: 0px;">
+									<b style="font-size: .85rem;align-items: center;"> &nbsp; <i class="fas fa-filter" style="height:12px"></i> Filter </b>
+								</button>
+							</div>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -47,19 +52,21 @@
 									</tfoot>
 									<tbody>
 										{{#each products}}
-										{{#if (getProdLowCount this)}} <tr style="background-color: #FFB0AB;">
-										{{else}} <tr>
-										{{/if}}
-											<td>{{this.itemGroup.itemGroup}}</td>
-											<td><a href="/viewproduct/{{{this.itemCode}}}">{{this.prodName}}</a></td>
-											<td>{{this.unit}}</td>
-											<td>{{this.reorderPoint}}</td>
-											<td>{{this.quantity}}</td>
-											<td>{{this.incomingQty}}</td>
-											<td>{{this.outgoingQty}}</td>
-											<td style="text-align: right;">{{this.purchasePrice}}</td>
-											<td style="text-align: right;">{{this.sellingPrice}}</td>
-										</tr>
+											{{#if (getProdLowCount this)}}
+												<tr style="background-color: #FFB0AB;">
+											{{else}}
+												<tr class="notLowQty">
+											{{/if}}
+												<td>{{this.itemGroup.itemGroup}}</td>
+												<td><a href="/viewproduct/{{{this.itemCode}}}">{{this.prodName}}</a></td>
+												<td>{{this.unit}}</td>
+												<td>{{this.reorderPoint}}</td>
+												<td>{{this.quantity}}</td>
+												<td>{{this.incomingQty}}</td>
+												<td>{{this.outgoingQty}}</td>
+												<td style="text-align: right;">{{this.purchasePrice}}</td>
+												<td style="text-align: right;">{{this.sellingPrice}}</td>
+											</tr>
 										{{/each}}
 									</tbody>
 								</table>
