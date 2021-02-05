@@ -33,6 +33,43 @@ async function genOrderCode(ordType) {
 	}
 }
 
+async function autoDraftPO(itemCode) {
+	try {
+		let prod = await db.findOne(Product, {itemCode: itemCode});
+		let nextWeek = twoWeeks = new Date();
+		nextWeek.setDate(new Date().getDate() + 7);
+		twoWeeks.setDate(new Date().getDate() + 14);
+		if (prod.quantity < prod.reorderPoint) {
+			let ordNum = await genOrderCode("PO");
+			let newPO = {
+				orderNum: ordNum,
+				items: [{
+					product: prod._id,
+					qty: prod.reorderQty,
+					unitPrice: prod.purchasePrice,
+					discount: 0,
+					netPrice: prod.reorderQty * prod.purchasePrice
+				}],
+				penalty: 0,
+				conditions: "N/A",
+				remarks: "Automatic PO",
+				status: "Draft",
+				supplier: db.toObjId(prod.supplier),
+				dateOrdered: new Date(),
+				paymentTerms: "Bank", // unsure
+				paymentDue: nextWeek, // 1 week later?
+				expectedDelivery: twoWeeks // 2 weeks later?
+			};
+			await db.insertOne(PurchaseOrder, newPO);
+			
+			// update incoming qty of products
+			await db.updateOne(Product, {_id: prod._id}, {'$inc': {incomingQty: (prod.reorderQty)}});
+		}
+	} catch (e) {
+		console.log(e);
+	}
+}
+
 /* Index Functions
  */
 const gpController = {
