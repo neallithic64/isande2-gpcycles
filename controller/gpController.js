@@ -56,13 +56,12 @@ async function autoDraftPO(itemCode) {
 				status: "Draft",
 				supplier: db.toObjId(prod.supplier),
 				dateOrdered: new Date(),
-				paymentTerms: "Bank", // unsure
-				paymentDue: nextWeek, // 1 week later?
-				expectedDelivery: twoWeeks // 2 weeks later?
+				paymentTerms: "Bank",
+				paymentDue: nextWeek,
+				expectedDelivery: twoWeeks
 			};
 			await db.insertOne(PurchaseOrder, newPO);
-			
-			// update incoming qty of products
+			// update incoming qty of product
 			await db.updateOne(Product, {_id: prod._id}, {'$inc': {incomingQty: (prod.reorderQty)}});
 		}
 	} catch (e) {
