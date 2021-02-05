@@ -6,9 +6,9 @@
 				<h1 class="mt-4" style="padding:0px 20px">Inventory Report</h1>
 
 				<div class="card mb-4">
-					<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center; sep" >
+					<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
 
-						<div style="width: 50%; vertical-align: middle; ">
+						<div style="width: 60%; vertical-align: middle; ">
 							<i class="fas fa-table mr-1"></i>
 
 							<!-- select month -->
@@ -40,15 +40,15 @@
 							</label> 
 						</div>
 
-						<div style="width:40%; justify-content:end; align-content:end; text-align:right;display: flex;">
+						<div style="width:40%; justify-content:end; align-content:end; text-align:right;display: flex; justify-content:flex-end">
 							<!--div style="margin: 0px 5px;">
 								<button type="button" data-toggle="dropdown">Product Group<span class="caret"></span></button>
 							</div>
 							<input class="form-control" id="myInput" type="text" placeholder="Search..."-->
-							<select id="groupnum">
+							<select id="groupnum" style="margin: 0 7px;">
 								<option value="-1">ALL</option>
 							</select>
-							<button type="button" onclick="exportTableToCSV('report.csv')" style="margin: 0px 5px;"> CSV </button>
+							<button type="button" onclick="exportTableToCSV('InventoryReport.csv')" style="margin: 0px 5px;"> CSV </button>
 							<button type="button" onclick="printDiv('print')" style="margin: 0px 5px;"> PDF </button>
 						</div>
 

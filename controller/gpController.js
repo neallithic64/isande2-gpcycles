@@ -429,6 +429,21 @@ const gpController = {
 			});
 		}
 	},
+
+	getSalesReport: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let products = await Product.find({}).populate("itemGroup");
+			res.render('salesreport', {
+				topNav: true,
+				sideNav: true,
+				title: 'Sales Report',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				products: forceJSON(products)
+			});
+		}
+	},
 	
 	getAddUser: function(req, res) {
 		if (!req.session.user) res.redirect('/login');

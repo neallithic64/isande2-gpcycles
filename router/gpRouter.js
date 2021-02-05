@@ -23,6 +23,7 @@ router.get('/allproducts', gpController.getInventory);
 router.get('/allgroups', gpController.getGroups);
 router.get('/allgroupproducts/:index', gpController.getGroupInventory);
 router.get('/inventoryreport', gpController.getInventoryReport);
+router.get('/salesreport', gpController.getSalesReport);
 
 	// Add Routes
 router.get('/addUser', gpController.getAddUser);
