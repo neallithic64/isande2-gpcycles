@@ -65,17 +65,19 @@ $(document).ready(function() {
 	
 	$('button#submitLogin').click(function() {
 		let form = $("form#loginForm").serializeArray();
-		$.ajax({
-			method: 'POST',
-			url: '/login',
-			data: form,
-			success: function() {
-				window.location.href = '/';
-			},
-			error: function(str) {
-				alert(str.responseText);
-			}
-		});
+		if (form.every(e => !validator.isEmpty(e.value))) {
+			$.ajax({
+				method: 'POST',
+				url: '/login',
+				data: form,
+				success: function() {
+					window.location.href = '/';
+				},
+				error: function(str) {
+					console.log(str.responseText);
+				}
+			});
+		} else alert('Incomplete fields, please accomplish them all.');
 	});
 	
 	$('button#submitAddUser').click(function() {

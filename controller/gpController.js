@@ -862,9 +862,9 @@ const gpController = {
 		};
 		try {
 			await db.updateOne(Product, {itemCode: req.params.code}, editedProduct);
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 
@@ -885,10 +885,10 @@ const gpController = {
 		};
 		try {
 			await db.updateOne(Product, {itemCode: req.params.code}, adjustedProduct);
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -916,10 +916,10 @@ const gpController = {
 			for (i = 0; i < items.length; i++) {
 				await db.updateOne(Product, {_id: items[i].product}, {'$inc': {incomingQty: Number.parseInt(items[i].qty)}});
 			}
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -958,10 +958,10 @@ const gpController = {
 							{'$push': {adjustmentHistory: adjustment}});
 				}
 			}
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -971,10 +971,10 @@ const gpController = {
 			await db.updateOne(orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder,
 					{orderNum: orderNum},
 					{status: "Cancelled", remarks: reason});
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -983,10 +983,10 @@ const gpController = {
 		try {
 			let {orderNum} = req.body;
 			await db.updateOne(PurchaseOrder, {orderNum: orderNum}, {status: "To Pay"});
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -1005,7 +1005,7 @@ const gpController = {
 					await db.updateOne(Product, {_id: order.items[i].product},
 							{'$inc': {incomingQty: order.items[i].qty}});
 				}
-				return res.status(200).send();
+				res.status(200).send();
 			} else {
 				let order = await db.findOne(SalesOrder, {orderNum: orderNum});
 				await db.updateOne(SalesOrder, {orderNum: orderNum},
@@ -1015,11 +1015,11 @@ const gpController = {
 					await db.updateOne(Product, {_id: order.items[i].product},
 							{'$inc': {outgoingQty: order.items[i].qty}});
 				}
-				return res.status(200).send();
+				res.status(200).send();
 			}
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -1076,10 +1076,10 @@ const gpController = {
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			}
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	}
 };
