@@ -140,15 +140,21 @@
 							</div>
 						</div>
 
-						<div class="form-row">
+						<div class="form-row" {{#if isSales}} style="display:none;" {{/if}}>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="small mb-1" for="inputSOTerms">Terms</label> <span style="color: red"> * </span>
+									{{#if isSales}}
+									<select class="form-control" id="inputSOTerms" disabled required>
+										<option value="Physical"> Physical </option>
+									</select>
+									{{else}}
 									<select class="form-control" id="inputSOTerms" required>
 										<option value="Physical"> Physical </option>
 										<option value="Bank"> Bank </option>
 										<option value="COD"> COD </option>
 									</select>
+									{{/if}}
 								</div>
 							</div>
 
@@ -160,15 +166,21 @@
 							</div>
 						</div>
 
-						<div class="form-row">
+						<div class="form-row" {{#if isSales}} style="display:none;" {{/if}}>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="small mb-1" for="inputSOMode">Mode</label> <span style="color: red"> * </span>
+									{{#if isSales}}
+									<select class="form-control" id="inputSOMode" disabled required>
+										<option value="Physical"> Physical </option>
+									</select>
+									{{else}}
 									<select class="form-control" id="inputSOMode" required>
 										<option value="Physical"> Physical </option>
 										<option value="Pickup"> Pickup </option>
 										<option value="Delivery"> Delivery </option>
 									</select>
+									{{/if}}
 								</div>
 							</div>
 							<div class="col-md-6">

@@ -465,7 +465,6 @@ const gpController = {
 		});
 	},
 	
-	
 	getAddCustomer: function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else res.render('addcustomer', {
