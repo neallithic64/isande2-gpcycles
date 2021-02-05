@@ -234,6 +234,7 @@ const gpController = {
 				title: 'Sales Order',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
+				isSales: req.session.user.usertype === "Sales",
 				salesorder: salesorder[0]
 			});
 		}

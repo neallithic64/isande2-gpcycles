@@ -8,6 +8,8 @@
 						<div style="margin-bottom: 15px;">
 							<h1 id="viewSONum" class="mt-4">{{salesorder.orderNum}}</h1>
 						</div>
+						{{#if isSales}}
+						{{else}}
 						<div style="margin-top:30px; display: flex; flex-direction: row;">
 							<a class="nav-link" style="color: #d32327" href="/paysopo"> <button id="paySOButton" class="btn">Pay</button> </a>
 							<a class="nav-link" style="color: #d32327"> <button id="pickupSOButton" class="btn" onclick="window.location.href='/viewallsopo'">Pickup</button> </a> <!-- redirect to viewallso, change status to fulfilled -->
@@ -24,6 +26,7 @@
 							<a class="nav-link" style="color: #d32327"> <button id="cancelSOPOButton" class="btn">Cancel</button> </a>
 							<a class="nav-link" style="color: #d32327"> <button class="btn" onclick="printDiv('print')"> <i class="fa fa-print"></i></button> </a>
 						</div>
+						{{/if}}
 					</div>
 					<div id="cancelModal" class="modal">
 						<div class="modal-content" style="width: 800px;">
