@@ -769,9 +769,9 @@ const gpController = {
 		let {itemgrp} = req.body;
 		try {
 			await db.insertOne(ItemGroup, {itemGroup: itemgrp});
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -788,9 +788,9 @@ const gpController = {
 		};
 		try {
 			await db.insertOne(Customer, customer);
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -806,9 +806,9 @@ const gpController = {
 		};
 		try {
 			await db.insertOne(Supplier, supplier);
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
-			return res.status(500).send();
+			res.status(500).send();
 		}
 	},
 	
@@ -838,10 +838,10 @@ const gpController = {
 		};
 		try {
 			await db.insertOne(Product, product);
-			return res.status(200).send();
+			res.status(200).send();
 		} catch (e) {
 			console.log(e);
-			return res.status(500).send(e);
+			res.status(500).send(e);
 		}
 	},
 

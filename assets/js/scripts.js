@@ -144,7 +144,7 @@ $(document).ready(function() {
 				url: '/addCustomer',
 				data: addCustomerForm,
 				success: function() {
-					window.location.href = '/';
+					window.location.href = '/customers';
 				},
 				error: function(str) {
 					console.log(str);
@@ -182,7 +182,7 @@ $(document).ready(function() {
 				url: '/addSupplier',
 				data: addSupplierForm,
 				success: function() {
-					window.location.href = '/';
+					window.location.href = '/suppliers';
 				},
 				error: function(str) {
 					console.log(str);
