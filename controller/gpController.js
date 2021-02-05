@@ -702,7 +702,7 @@ const gpController = {
 			let orderNum = req.params.ordNum, partial = (req.query.partial === 'true');
 			let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
 					.findOne({orderNum: orderNum})
-					.populate('items.product');
+					.populate('items.product supplier customer');
 			// console.log(order);
 			res.render('drsopo', {
 				topNav: true,
@@ -710,7 +710,7 @@ const gpController = {
 				title: orderNum.substr(0, 2) === "SO" ? 'Deliver SO' : 'Receive PO',
 				name: req.session.user.name,
 				isSecretary: req.session.user.usertype === "Secretary",
-				isSO: orderNum.substr(0, 2) === "SO",
+				isPO: orderNum.substr(0, 2) === "PO",
 				isPartial: partial,
 				order: forceJSON(order)
 			});

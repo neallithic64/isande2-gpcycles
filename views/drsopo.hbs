@@ -5,18 +5,18 @@
 				<div class="container-fluid">
 					<form>
 						<div style="margin-bottom: 15px;">
-							{{#if isSO}} <h1 class="mt-4">Deliver Sales Order</h1>
-							{{else}} <h1 class="mt-4">Receive Purchase Order</h1> {{/if}}
+							{{#if isPO}} <h1 class="mt-4">Receive Purchase Order</h1>
+							{{else}} <h1 class="mt-4">Deliver Sales Order</h1> {{/if}}
 						</div>
 
 						<div style="margin-bottom: 5px;">
 							{{#if isPO}}
 								<span class="mt-4" style="font-size: 18px;"> Receive from: </span>
-								<span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+								<span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> {{order.supplier.name}} </span>
 								<input id="orderType" name="orderType" type="hidden" value="PO"></input>
 							{{else}} 
 								<span class="mt-4" style="font-size: 18px;"> Deliver to: </span>
-								<span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> Lipa Bikes </span>
+								<span id="custSupp" class="mt-4" style="font-size: 18px; font-weight: 600;"> {{order.customer.name}} </span>
 								<input id="orderType" name="orderType" type="hidden" value="SO"></input>
 							{{/if}}
 						</div>
