@@ -72,15 +72,17 @@ async function autoDraftPO(itemCode) {
 /* Index Functions
  */
 const gpController = {
-	getHome: function(req, res) {
+	getHome: async function(req, res) {
 		if (req.session.user) {
+			let products = await db.findMany(Product, {});
 			if (req.session.user.usertype === "Admin" || req.session.user.usertype === "Secretary") {
 				res.render('dashboard', {
 					topNav: true,
 					sideNav: true,
 					title: 'Dashboard',
 					name: req.session.user.name,
-					isAdmin: req.session.user.usertype === "Admin"
+					isAdmin: req.session.user.usertype === "Admin",
+					products: products
 				});
 			} else res.redirect('/newSO');
 		} else res.redirect('/login');
@@ -560,7 +562,7 @@ const gpController = {
 			}
 		}
 	},
-	
+
 	getItemAJAX: async function(req, res) {
 		try {
 			let item = await db.findOne(Product, {_id: req.query.code});

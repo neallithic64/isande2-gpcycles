@@ -100,7 +100,7 @@ app.engine('hbs', exphbs.create({
 		sumPurch: function(product) {
 			var sum = 0, i;
 			for(i = 0; i < product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference === null);
+				if (!product.adjustmentHistory[i].reference);
 				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "PO-")
 					sum += product.adjustmentHistory[i].quantity;
 			}
@@ -109,7 +109,7 @@ app.engine('hbs', exphbs.create({
 		sumSales: function(product) {
 			var sum = 0, i;
 			for(i = 0; i < product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference === null);
+				if (!product.adjustmentHistory[i].reference);
 				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "SO-")
 					sum += product.adjustmentHistory[i].quantity;
 			}
@@ -118,7 +118,7 @@ app.engine('hbs', exphbs.create({
 		sumAdj: function(product) {
 			let sum = 0, i;
 			for(i = 0; i < product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference === null);
+				if (!product.adjustmentHistory[i].reference);
 				else if ((product.adjustmentHistory[i].reference) === '-')
 					sum += product.adjustmentHistory[i].quantity;
 			}
@@ -128,7 +128,7 @@ app.engine('hbs', exphbs.create({
 			let beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
 			let purch = 0, i;
 			for(i = 0; i < product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference === null);
+				if (!product.adjustmentHistory[i].reference);
 				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "PO-") {
 					purch += product.adjustmentHistory[i].quantity;
 				}
@@ -139,7 +139,7 @@ app.engine('hbs', exphbs.create({
 			let beg = product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
 			let end = product.quantity, purch = 0, i;
 			for(i = 0; i < product.adjustmentHistory.length; i++) {
-				if (product.adjustmentHistory[i].reference === null);
+				if (!product.adjustmentHistory[i].reference);
 				else if ((product.adjustmentHistory[i].reference).substring(0,3) === "PO-") {
 					purch += product.adjustmentHistory[i].quantity;
 				}

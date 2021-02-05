@@ -76,34 +76,6 @@
 								<div class="card-header">
 									<i class="fas fa-table mr-1"></i>
 									<span style="font-weight: 700;">Fast and Slow Items</span>
-
-									<!-- select month -->
-									<label> for the Month of: 
-										<select id="fsMonth">
-											<option value="1">Jan</option>
-											<option value="2">Feb</option>
-											<option value="3">Mar</option>
-											<option value="4">Apr</option>
-											<option value="5">May</option>
-											<option value="6">Jun</option>
-											<option value="7">Jul</option>
-											<option value="8">Aug</option>
-											<option value="9">Sep</option>
-											<option value="10">Oct</option>
-											<option value="11">Nov</option>
-											<option value="12">Dec</option>
-										</select>
-									</label>
-
-									<!-- select year -->
-									<label>Year: 
-										<select id="fsYear">
-											<option value="2020">2021</option>
-											<option value="2020">2020</option>
-											<option value="2019">2019</option>
-											<option value="2018">2018</option>
-										</select>
-									</label> 
 								</div>
 
 								<!-- table -->
@@ -129,26 +101,23 @@
 												</tr>
 											</tfoot>
 											<tbody>
+												{{#each products}}
+												{{#if (invTurnover this)}}
 												<tr>
-													<td>190mm Tube </td>
-													<td>10198</td>
-													<td>10432</td>
-													<td>234</td>
-													<td>1.91</td>
+													<td>{{this.prodName}}</td>
+													<td>{{cogs this}}</td>
+													<td>{{begInv this}}</td>
+													<td>{{this.quantity}}</td>
+													<td>{{invTurnover this}}</td>
 												</tr>
-												<tr>
-													<td>10mm Tube</td>
-													<td>0</td>
-													<td>25123</td>
-													<td>25123</td>
-													<td>0.00</td>
-												</tr>
+												{{/if}}
+												{{/each}}
 											</tbody>
 										</table>
 									</div>
 								</div>
 								<div class="card-footer" style="display: flex; flex-direction: row; justify-content: flex-end;">
-									<a href="#">Go to Inventory <i class="fas fa-angle-right"></i></a>
+									<a href="/inventoryReport">Go to Inventory Report <i class="fas fa-angle-right"></i></a>
 								</div>
 							</div>
 						</div>
@@ -184,26 +153,23 @@
 												</tr>
 											</tfoot>
 											<tbody>
+												{{#each products}}
+												{{#if (getProdLowCount this)}}
 												<tr>
-													<td>190mm Tube </td>
-													<td>20</td>
-													<td>0</td>
-													<td>10</td>
-													<td>9</td>
+													<td>{{this.prodName}}</td>
+													<td>{{this.quantity}}</td>
+													<td>{{this.incomingQty}}</td>
+													<td>{{this.outgoingQty}}</td>
+													<td>{{this.reorderPoint}}</td>
 												</tr>
-												<tr>
-													<td>Arm Protection</td>
-													<td>14</td>
-													<td>0</td>
-													<td>0</td>
-													<td>11</td>
-												</tr>
+												{{/if}}
+												{{/each}}
 											</tbody>
 										</table>
 									</div>
 								</div>
 								<div class="card-footer" style="display: flex; flex-direction: row; justify-content: flex-end;">
-									<a href="#">Go to Inventory <i class="fas fa-angle-right"></i></a>
+									<a href="/allproducts">Go to Inventory <i class="fas fa-angle-right"></i></a>
 								</div>
 							</div>
 						</div>

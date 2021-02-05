@@ -52,7 +52,6 @@ router.get('/getSupplProds', gpController.getSupplOrds);
 router.get('/getSalesOrderAJAX', gpController.getSalesOrderAJAX);
 router.get('/getDashboardCards', gpController.getDashboardCards);
 
-
 // NO LONGER IMPLEMENTED
 // router.get('/confirmpo', gpController.getConfirmPO);
 // router.get('/confirmso', gpController.getConfirmSO);
