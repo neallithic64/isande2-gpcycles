@@ -1,7 +1,7 @@
 <div class="sb-nav-fixed">
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_content">
-		<main>
+		<main id="print">
 			<div class="container-fluid" style="padding: 0.75rem;">
 				<h1 class="mt-4" style="padding:0px 20px">Inventory Report</h1>
 
@@ -34,8 +34,6 @@
 								<select id="fsYear">
 									<option value="2020">2021</option>
 									<option value="2020">2020</option>
-									<option value="2019">2019</option>
-									<option value="2018">2018</option>
 								</select>
 							</label> 
 						</div>
@@ -51,15 +49,15 @@
 							<button type="button" onclick="exportTableToCSV('InventoryReport.csv')" style="margin: 0px 5px;"> CSV </button>
 							<button type="button" onclick="printDiv('print')" style="margin: 0px 5px;"> PDF </button>
 						</div>
-
 					</div>
+
 					<div class="card-body">
 						<div class="table-responsive" id="print">
 							<table class="table table-bordered" id="report" width="100%" cellspacing="0">
 								<thead style="background-color: rgba(0, 0, 0, 0.03);">
 									<tr style="font-size:12">
 										<th style="width: 20%;">Code</th>
-										<th style="width: 25%;">Product Name</th>
+										<th style="width: 25%;">Product</th>
 										<th style="width: 10%;">Beginning Inv.</th>
 										<th style="width: 5%;">Purchases</th>
 										<th style="width: 5%;">Sales</th>
@@ -72,7 +70,7 @@
 								<tfoot>
 									<tr>
 										<th>Code</th>
-										<th>Product Name</th>
+										<th>Product</th>
 										<th>Beginning Inventory</th>
 										<th>Purchases</th>
 										<th>Sales</th>

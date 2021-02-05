@@ -434,13 +434,15 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let products = await Product.find({}).populate("itemGroup");
+			let sales = await db.findMany(SalesOrder, {});
 			res.render('salesreport', {
 				topNav: true,
 				sideNav: true,
 				title: 'Sales Report',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				products: forceJSON(products)
+				products: forceJSON(products),
+				sales : forceJSON(sales)
 			});
 		}
 	},
@@ -536,7 +538,7 @@ const gpController = {
 			try {
 				let suppliers = await db.findMany(Supplier, {}, 'name');
 				let POnum = (await db.findMany(PurchaseOrder, {})).length;
-				res.render('newPO', {
+				res.render('newpo', {
 					topNav: true,
 					sideNav: true,
 					title: 'New PO',
@@ -559,7 +561,7 @@ const gpController = {
 				let customers = await db.findMany(Customer, {}, 'name');
 				let products = await db.findMany(Product, {}, 'prodName');
 				let SOnum = (await db.findMany(SalesOrder, {})).length;
-				res.render('newSO', {
+				res.render('newso', {
 					topNav: true,
 					sideNav: true,
 					title: 'New SO',

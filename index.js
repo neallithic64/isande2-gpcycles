@@ -148,6 +148,68 @@ app.engine('hbs', exphbs.create({
 			let invt = (beg+purch-end) * 2 / (beg+end);
 			return +(Math.round(invt + "e+2") + "e-2");
 		},
+		itemSold: function(product, salesorders) {
+			var sum = 0, i,j;
+			for(i = 0; i < salesorders.length; i++)
+				for(j = 0; j < salesorders[i].items.length; j++)
+					if (salesorders[i].items[j].product === product._id)
+						sum += salesorders[i].items[j].qty;
+			return sum;
+		},
+		totalSales: function(product, salesorders) {
+			var sum = 0, i,j, price;
+			for(i = 0; i < salesorders.length; i++)
+				for(j = 0; j < salesorders[i].items.length; j++)
+					if (salesorders[i].items[j].product === product._id)
+						sum += salesorders[i].items[j].qty;
+			return sum*product.sellingPrice;
+		},
+		totalSalesCost: function(product, salesorders) {
+			var sum = 0, i,j;
+			for(i = 0; i < salesorders.length; i++)
+				for(j = 0; j < salesorders[i].items.length; j++)
+					if (salesorders[i].items[j].product === product._id)
+						sum += salesorders[i].items[j].qty;
+			return sum * product.purchasePrice;
+		},
+		totalSalesDisc: function(product, salesorders) {
+			var sum = 0, i,j, dis;
+			for(i = 0; i < salesorders.length; i++)
+				for(j = 0; j < salesorders[i].items.length; j++)
+					if (salesorders[i].items[j].product === product._id) {
+						dis = salesorders[i].items[j].discount;
+						if (dis) sum+= dis;
+					}
+			return sum;
+		},
+		totalNetProfit: function(product, salesorders) {
+			var sum = 0, i,j, dis;
+			var disc = 0;
+			for(i = 0; i < salesorders.length; i++)
+				for(j = 0; j < salesorders[i].items.length; j++)
+					if (salesorders[i].items[j].product === product._id) {
+						sum += salesorders[i].items[j].qty;
+						dis = salesorders[i].items[j].discount;
+						if (dis) disc+= dis;
+					}
+			return (sum * (product.sellingPrice - product.purchasePrice)) - disc;
+		},
+		percentProfit: function(product, salesorders) {
+			var sum = 0, i,j, dis, price;
+			var disc = 0;
+			for(i = 0; i < salesorders.length; i++) {
+				for(j = 0; j < salesorders[i].items.length; j++) {
+					if (salesorders[i].items[j].product === product._id) {
+						sum += salesorders[i].items[j].qty;
+						dis = salesorders[i].items[j].discount;
+						if (dis) disc+= dis;
+					}
+				}
+			}
+			var netprof = sum * (product.sellingPrice - product.purchasePrice) - disc;
+			var percent = (netprof / sum) / product.purchasePrice;
+			return (percent * 100).toFixed(2);
+		},
 		getGroupCode: function(itemCode) {
 			return "g" + itemCode.split("-")[0];
 		},
