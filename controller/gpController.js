@@ -926,17 +926,27 @@ const gpController = {
 	postPayOrder: async function(req, res) {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
+			let i;
 			console.log(orderNum);
 			if (orderNum.substr(0, 2) === "PO") {
+				let order = await db.findOne(PurchaseOrder, {orderNum: orderNum});
 				await db.updateOne(PurchaseOrder,
 						{orderNum: orderNum},
 						{status: "To Receive", penalty: penalty, remarks: remarks});
+				for (i = 0; i < order.items.length; i++) {
+					await db.updateOne(Product, {_id: order.items[i].product},
+							{'$inc': {incomingQty: order.items[i].qty}});
+				}
 				return res.status(200).send();
 			} else {
-				let saleOrd = await db.findOne(SalesOrder, {orderNum: orderNum});
+				let order = await db.findOne(SalesOrder, {orderNum: orderNum});
 				await db.updateOne(SalesOrder, {orderNum: orderNum},
-						{status: saleOrd.deliveryMode === "Delivery" ? "To Deliver" : "For Pickup",
+						{status: order.deliveryMode === "Delivery" ? "To Deliver" : "For Pickup",
 								penalty: penalty, remarks: remarks});
+				for (i = 0; i < order.items.length; i++) {
+					await db.updateOne(Product, {_id: order.items[i].product},
+							{'$inc': {outgoingQty: order.items[i].qty}});
+				}
 				return res.status(200).send();
 			}
 		} catch (e) {
