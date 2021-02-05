@@ -818,7 +818,7 @@ const gpController = {
 				percentage } = req.body;
 		let product = {
 			prodName: prodName,
-			itemCode: genItemCode(itemGroup),
+			itemCode: await genItemCode(itemGroup),
 			itemGroup: db.toObjId(itemGroup),
 			unit: unit,
 			supplier: db.toObjId(supplier),
