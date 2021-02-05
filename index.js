@@ -156,7 +156,7 @@ app.engine('hbs', exphbs.create({
 						sum += salesorders[i].items[j].qty;
 			return sum;
 		},
-		totalSales: function(product, salesorders) {
+		totalSalesPrice: function(product, salesorders) {
 			var sum = 0, i,j, price;
 			for(i = 0; i < salesorders.length; i++)
 				for(j = 0; j < salesorders[i].items.length; j++)
