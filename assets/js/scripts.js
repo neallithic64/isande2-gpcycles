@@ -625,7 +625,22 @@ $(document).ready(function() {
 			}
 		});
 	});
-
+	
+	$("#confPOButton").click(function() {
+		let ordNum = window.location.pathname.split('/')[2];
+		$.ajax({
+			method: 'POST',
+			url: '/confPO',
+			data: {orderNum: ordNum},
+			success: function() {
+				window.location.href = '/viewallsopo?ordertype=PO';
+			},
+			error: function(str) {
+				console.log(str.responseText);
+			}
+		});
+	});
+	
 	$("#submitReceivePOButton").click(function() {
 		let urlParams = new URLSearchParams(window.location.search);
 		let partial = urlParams.get('partial') === "true", partialList = [];

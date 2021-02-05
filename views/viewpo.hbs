@@ -8,6 +8,9 @@
 							<h1 id="viewPONum" class="mt-4">{{purchaseorder.orderNum}}</h1>
 						</div>
 						<div style="margin-top:30px; display: flex; flex-direction: row;">
+							{{#if isAdmin}}
+							<a class="nav-link" style="color: #d32327" > <button id="confPOButton" class="btn">Confirm</button> </a>
+							{{/if}}
 							<a class="nav-link" style="color: #d32327" href="/paysopo/{{{purchaseorder.orderNum}}}"> <button id="payPOButton" class="btn">Pay</button> </a>
 							<ul class="navbar-nav ml-auto ml-md-0">
 								<li class="nav-item dropdown">

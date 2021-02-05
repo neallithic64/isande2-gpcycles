@@ -979,6 +979,18 @@ const gpController = {
 	},
 	
 	
+	postConfOrder: async function(req, res) {
+		try {
+			let {orderNum} = req.body;
+			await db.updateOne(PurchaseOrder, {orderNum: orderNum}, {status: "To Pay"});
+			return res.status(200).send();
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send();
+		}
+	},
+	
+	
 	postPayOrder: async function(req, res) {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
