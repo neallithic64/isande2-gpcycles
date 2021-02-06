@@ -901,7 +901,7 @@ function validateOrder(order, type) {
 	// check if all req fields have content
 	let vals = Object.values(order), checks = Array(8).fill(true), err = "";
 	for (let i = vals.length-1; i > vals.length-7; i--)
-		if (validator.isEmpty(vals[i])) checks[0] = false;
+		if (vals[i] === null || validator.isEmpty(vals[i])) checks[0] = false;
 	if (!checks[0]) err += "Please fill in all required fields.\n";
 	
 	// check contents of items
@@ -935,11 +935,12 @@ function validateOrder(order, type) {
 		}
 		
 		// checking quantity doesn't exceed stocks
-		// not sure if i want to put this here or as a separate function
-		if (false) {
-			checks[7] = false;
-			err += "Quantity of products must not exceed available stocks.\n";
-		}
+		$(".currentQtySpan").each(function(i, elem) {
+			if (order.items[i].qty > Number.parseInt(elem.textContent.split(' ')[0])) {
+				checks[7] = false;
+			}
+		});
+		if (!checks[7]) err += "Quantity of products must not exceed available stocks.\n";
 	}
 	
 	// returning
