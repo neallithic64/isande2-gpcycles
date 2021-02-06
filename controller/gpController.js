@@ -834,7 +834,11 @@ const gpController = {
 			outgoingQty: 0,
 			reorderPoint: reorderPoint,
 			reorderQty: reorderQty,
-			adjustmentHistory: []
+			adjustmentHistory: [{
+				reference: "-",
+				before: quantity,
+				remarks: "Starting quantity"
+			}]
 		};
 		try {
 			await db.insertOne(Product, product);
