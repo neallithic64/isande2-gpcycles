@@ -1058,7 +1058,7 @@ const gpController = {
 	
 	postDelRecOrder: async function(req, res) {
 		try {
-			let {orderNum, partial, partialItems} = req.body;
+			let {orderNum, partial, partialList} = req.body;
 			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i, addsub = oType === "SO" ? -1 : 1;
 			// update status
 			await db.updateOne(oType === "SO" ? SalesOrder : PurchaseOrder,
@@ -1069,22 +1069,22 @@ const gpController = {
 				// update qty's from partialItems
 				// partialItems is an array that contains objects
 				// {itemCode, qty}
-				for (i = 0; i < partialItems.length; i++) {
+				for (i = 0; i < partialList.length; i++) {
 					// need to get the original quantity
-					let prod = await db.findOne(Product, {itemCode: partialItems[i].itemCode});
+					let prod = await db.findOne(Product, {itemCode: partialList[i].prodCode});
 					// push to the adjustment history
 					let adjustment = {
 						date: new Date(),
 						before: prod.quantity,
 						reference: orderNum,
-						quantity: partialItems[i].qty,
-						after: prod.quantity + (addsub * Number.parseInt(partialItems[i].qty)),
+						quantity: partialList[i].qty,
+						after: prod.quantity + (addsub * Number.parseInt(partialList[i].qty)),
 						remarks: "Partial adjustment from " + orderNum
 					};
-					let update = {quantity: addsub * partialItems[i].qty};
-					if (oType === "SO") update.outgoingQty = -Number.parseInt(partialItems[i].qty);
-					else update.incomingQty = -Number.parseInt(partialItems[i].qty);
-					await db.updateOne(Product, {itemCode: partialItems[i].itemCode},
+					let update = {quantity: addsub * partialList[i].qty};
+					if (oType === "SO") update.outgoingQty = -Number.parseInt(partialList[i].qty);
+					else update.incomingQty = -Number.parseInt(partialList[i].qty);
+					await db.updateOne(Product, {itemCode: partialList[i].itemCode},
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			} else {

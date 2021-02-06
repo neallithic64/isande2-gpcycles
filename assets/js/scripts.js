@@ -466,7 +466,7 @@ $(document).ready(function() {
 				if (Number.isNaN(discount)) discount = 0;
 				currElem.closest('tr').find('.inputPOTotal').val((qty * unit * (1 - (discount / 100))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 				updatePOTotals();
-			} else {
+			} else if (window.location.pathname === '/newSO') {
 				let currElem = $(this),
 					qty = Number.parseFloat(currElem.closest('tr').find('.inputSOQty').val()),
 					unit = Number.parseFloat(currElem.closest('tr').find('.inputSOUnit').val().replace(',', '')),
@@ -906,11 +906,12 @@ function validateOrder(order, type) {
 	
 	// check contents of items
 	order.items.forEach(e => {
+		console.log(e);
 		if (validator.isEmpty(e.product))
 			checks[1] = false;
-		if (validator.isEmpty(e.discount) || validator.isFloat(e.discount))
+		if (validator.isEmpty(e.discount) || !validator.isFloat(e.discount))
 			checks[2] = false;
-		if (validator.isEmpty(e.qty) || validator.isInt(e.qty, {min: 1}))
+		if (validator.isEmpty(e.qty) || !validator.isInt(e.qty, {min: 1}))
 			checks[3] = false;
 	});
 	if (!checks[1]) err += "Please fill in all product rows.\n";
