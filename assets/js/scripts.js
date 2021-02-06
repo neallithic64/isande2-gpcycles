@@ -258,6 +258,7 @@ $(document).ready(function() {
 		} else alert(errStr);
 	});
 	
+	// DASHBOARD
 	if (window.location.pathname === "/") {
 		$.ajax({
 			method: 'GET',
@@ -869,6 +870,56 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function validateOrder(order, type) {
+	// check if all req fields have content
+	let vals = Object.values(order), checks = Array(8).fill(true), err = "";
+	for (let i = vals.length-1; i > vals.length-7; i--)
+		if (validator.isEmpty(vals[i])) checks[0] = false;
+	if (!checks[0]) err += "Please fill in all required fields.\n";
+	
+	// check contents of items
+	order.items.forEach(e => {
+		if (validator.isEmpty(e.product))
+			checks[1] = false;
+		if (validator.isEmpty(e.discount) || validator.isFloat(e.discount))
+			checks[2] = false;
+		if (validator.isEmpty(e.qty) || validator.isInt(e.qty, {min: 1}))
+			checks[3] = false;
+	});
+	if (!checks[1]) err += "Please fill in all product rows.\n";
+	if (!checks[2]) err += "Please fill discounts with valid numbers.\n";
+	if (!checks[3]) err += "Please fill quantities with valid numbers.\n";
+	
+	// check if expectedDelivery is after paymentDue and dateOrdered
+	if (Date.parse(order.paymentDue) - Date.parse(order.dateOrdered) < 0) {
+		checks[4] = false;
+		err += "Payment due date must be after date ordered.\n";
+	}
+	if (Date.parse(order.expectedDelivery) - Date.parse(order.paymentDue) < 0) {
+		checks[5] = false;
+		err += "Expected delivery date must be after payment due date.\n";
+	}
+	
+	if (type === "SO") {
+		// must be numbers: adjustment (SO)
+		if (!validator.isEmpty(order.adjustment) && !validator.isInt(order.adjustment)) {
+			checks[6] = false;
+			err += "Adjustment must be a valid number.\n";
+		}
+		
+		// checking quantity doesn't exceed stocks
+		// not sure if i want to put this here or as a separate function
+		if (false) {
+			checks[7] = false;
+			err += "Quantity of products must not exceed available stocks.\n";
+		}
+	}
+	
+	// returning
+	if (!checks.every(Boolean)) alert(err);
+	return checks.every(Boolean);
+}
 
 function group(grp) {
 	$('tbody tr').each(function(i, element) {
