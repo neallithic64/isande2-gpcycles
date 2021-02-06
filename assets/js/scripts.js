@@ -194,53 +194,60 @@ $(document).ready(function() {
 	});
 	
 	$('button#submitAddProduct').click(function() {
-		let addProductForm = $('form#addProduct').serializeArray();
-		trimArr(addProductForm);
-		var checks = Array(8).fill(true);
+		let addProd = $('form#addProduct').serializeArray();
+		trimArr(addProd);
+		var checks = Array(9).fill(true), errStr = "";
 		
-		checks[0] = addProductForm.some(e => validator.isEmpty(e.value)) ? false : true;
-		if (!checks[0]) alert('Please fill in all fields.');
+		for (let i = 0; i < addProd.length-2 && checks[0]; i++)
+			if (validator.isEmpty(addProd[i].value))
+				checks[0] = false;
+		if (!checks[0]) errStr += 'Please fill in all fields.\n';
 
-		if (Number.parseFloat(addProductForm[4].value.replace(',', '')) < 0) {
+		if (Number.parseFloat(addProd[4].value.replace(',', '')) < 0) {
 			checks[1] = false;
-			alert('Price should be a valid amount.');
+			errStr += 'Price should be a valid amount.\n';
 		}
 		
-		if (Number.parseFloat(addProductForm[5].value.replace(',', '')) < 0) {
+		if (Number.parseFloat(addProd[5].value.replace(',', '')) < 0) {
 			checks[2] = false;
-			alert('Price should be a valid amount.');
+			errStr += 'Price should be a valid amount.\n';
 		}
 
-		if (!validator.isInt(addProductForm[7].value, {min: 0})) {
+		if (!validator.isInt(addProd[7].value, {min: 0})) {
 			checks[3] = false;
-			alert('Starting quantity should be a whole positive number.');
+			errStr += 'Starting quantity should be a whole positive number.\n';
 		}
 
-		if (!validator.isInt(addProductForm[8].value, {min: 0})) {
+		if (!validator.isInt(addProd[8].value, {min: 0})) {
 			checks[4] = false;
-			alert('Reorder point should be a whole positive number.');
+			errStr += 'Reorder point should be a whole positive number.\n';
 		}
 
-		if (!validator.isInt(addProductForm[9].value, {min: 1})) {
+		if (!validator.isInt(addProd[9].value, {min: 1})) {
 			checks[5] = false;
-			alert('Reorder quantity should be a whole positive number.');
+			errStr += 'Reorder quantity should be a whole positive number.\n';
 		}
 
-		if (!validator.isInt(addProductForm[10].value, {min: 1})) {
+		if (!validator.isEmpty(addProd[10].value) && !validator.isInt(addProd[10].value, {min: 1})) {
 			checks[6] = false;
-			alert('Minimum discount quantity should be a whole positive number.');
+			errStr += 'Minimum discount quantity should be a whole positive number.\n';
 		}
 
-		if (!validator.isInt(addProductForm[11].value, {min: 0, max: 100})) {
+		if (!validator.isEmpty(addProd[11].value) && !validator.isInt(addProd[11].value, {min: 0, max: 100})) {
 			checks[7] = false;
-			alert('Percentage discount should be from 0 to 100.');
+			errStr += 'Percentage discount should be from 0 to 100.\n';
+		}
+		
+		if (validator.isEmpty(addProd[11].value) ? !validator.isEmpty(addProd[10].value) : validator.isEmpty(addProd[10].value)) {
+			checks[8] = false;
+			errStr += 'Discount fields must be complete.';
 		}
 		
 		if (checks.every(Boolean)) {
 			$.ajax({
 				method: 'POST',
 				url: '/addProduct',
-				data: addProductForm,
+				data: addProd,
 				success: function() {
 					window.location.href = '/allproducts';
 				},
@@ -248,7 +255,7 @@ $(document).ready(function() {
 					console.log(str);
 				}
 			});
-		}
+		} else alert(errStr);
 	});
 	
 	if (window.location.pathname === "/") {
