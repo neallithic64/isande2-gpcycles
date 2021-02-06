@@ -1027,6 +1027,35 @@ const gpController = {
 		}
 	},
 	
+	postPickupOrder: async function(req, res) {
+		try {
+			let {orderNum} = req.body;
+			let i;
+			let order = await db.findOne(SalesOrder, {orderNum: orderNum});
+			await db.updateOne(SalesOrder, {orderNum: orderNum}, {status: "Fulfilled"});
+			for (i = 0; i < order.items.length; i++) {
+				// need to get the original quantity
+				let prod = await db.findOne(Product, {itemCode: order[i].itemCode});
+				// push to the adjustment history
+				let adjustment = {
+					date: new Date(),
+					before: prod.quantity,
+					reference: orderNum,
+					quantity: order[i].qty,
+					after: prod.quantity - Number.parseInt(order[i].qty),
+					remarks: "Order pickup from " + orderNum
+				};
+				let update = {quantity: -order.items[i].qty, outgoingQty: -Number.parseInt(order.items[i].qty)};
+				await db.updateOne(Product, {itemCode: order.items[i].product.itemCode},
+						{'$inc': update, '$push': {adjustmentHistory: adjustment}});
+			}
+			res.status(200).send();
+		} catch (e) {
+			console.log(e);
+			res.status(500).send();
+		}
+	},
+	
 	postDelRecOrder: async function(req, res) {
 		try {
 			let {orderNum, partial, partialItems} = req.body;

@@ -51,6 +51,18 @@ app.engine('hbs', exphbs.create({
 		getFormatISODate: function(date) {
 			return date.toISOString().substr(0, 10);
 		},
+		statusShowButton:	function(status, button) {
+			switch (button) {
+				case 1: return status === "Draft"; // 1: PO Confirm
+				case 2: return status === "To Pay"; // 2: PO Pay
+				case 3: return status === "To Receive"; // 3: PO Receive
+				case 4: return status === "Draft" || status === "To Pay"; // 4: PO Cancel
+				case 5: return status === "Pending"; // 5: SO Pay
+				case 6: return status === "To Deliver"; // 6: SO Deliver
+				case 7: return status === "To Pickup"; // 7: SO Pickup
+				case 8: return status === "Pending"; // 8: SO Cancel
+			}
+		},
 		getProdLowCount: function(product) {
 			return product.reorderPoint > product.quantity;
 		},

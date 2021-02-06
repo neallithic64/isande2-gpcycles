@@ -618,6 +618,22 @@ $(document).ready(function() {
 		});
 	});
 
+	$("#pickupSOButton").click(function() {
+		// redirect to '/viewallsopo', change status to fulfilled
+		let ordNum = window.location.pathname.split('/')[2];
+		$.ajax({
+			method: 'POST',
+			url: '/pickupSO',
+			data: {orderNum: ordNum},
+			success: function() {
+				alert('Order has been picked up.');
+				window.location.href = '/viewallsopo?ordertype=SO';
+			},
+			error: function(str) {
+				console.log(str);
+			}
+		});
+	});
 	$("#submitDeliverSOButton").click(function() {
 		let urlParams = new URLSearchParams(window.location.search);
 		let partial = urlParams.get('partial') === "true", partialList = [];

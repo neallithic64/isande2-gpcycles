@@ -75,6 +75,7 @@ router.post('/cancelSOPO', gpController.postCancelOrder);
 router.post('/paySOPO', gpController.postPayOrder);
 router.post('/confPO', gpController.postConfOrder);
 router.post('/delrecSOPO', gpController.postDelRecOrder);
+router.post('/pickupSO', gpController.postPickupOrder);
 
 
 
