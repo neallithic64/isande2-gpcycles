@@ -371,17 +371,19 @@ $(document).ready(function() {
 			paymentDue: $("#inputPOPayDue").val(),
 			expectedDelivery: $("#inputPODelDate").val()
 		};
-		$.ajax({
-			method: 'POST',
-			url: '/newPO',
-			data: data,
-			success: function() {
-				window.location.href = '/viewallsopo?ordertype=PO';
-			},
-			error: function(str) {
-				console.log(str);
-			}
-		});
+		if (validateOrder(data, "PO")) {
+			$.ajax({
+				method: 'POST',
+				url: '/newPO',
+				data: data,
+				success: function() {
+					window.location.href = '/viewallsopo?ordertype=PO';
+				},
+				error: function(str) {
+					console.log(str);
+				}
+			});
+		}
 	});
 	$("#POSubmitConfPay").click(function() {
 		let products = [];
@@ -404,17 +406,19 @@ $(document).ready(function() {
 			paymentDue: $("#inputPOPayDue").val(),
 			expectedDelivery: $("#inputPODelDate").val()
 		};
-		$.ajax({
-			method: 'POST',
-			url: '/newPO',
-			data: data,
-			success: function() {
-				window.location.href = '/viewallsopo?ordertype=PO';
-			},
-			error: function(str) {
-				console.log(str);
-			}
-		});
+		if (validateOrder(data, "PO")) {
+			$.ajax({
+				method: 'POST',
+				url: '/newPO',
+				data: data,
+				success: function() {
+					window.location.href = '/viewallsopo?ordertype=PO';
+				},
+				error: function(str) {
+					console.log(str);
+				}
+			});
+		}
 	});
 	$("#POSubmitConf").click(function() {
 		let products = [];
@@ -437,17 +441,19 @@ $(document).ready(function() {
 			paymentDue: $("#inputPOPayDue").val(),
 			expectedDelivery: $("#inputPODelDate").val()
 		};
-		$.ajax({
-			method: 'POST',
-			url: '/newPO',
-			data: data,
-			success: function() {
-				window.location.href = '/viewallsopo?ordertype=PO';
-			},
-			error: function(str) {
-				console.log(str.responseText);
-			}
-		});
+		if (validateOrder(data, "PO")) {
+			$.ajax({
+				method: 'POST',
+				url: '/newPO',
+				data: data,
+				success: function() {
+					window.location.href = '/viewallsopo?ordertype=PO';
+				},
+				error: function(str) {
+					console.log(str.responseText);
+				}
+			});
+		}
 	});
 	
 	$('tbody').on("change", ':input[type="number"]', function() {
@@ -519,17 +525,19 @@ $(document).ready(function() {
 			deliveryMode: $("#inputSOMode").val(),
 			expectedDelivery: $("#inputSODelDate").val()
 		};
-		$.ajax({
-			method: 'POST',
-			url: '/newSO',
-			data: data,
-			success: function() {
-				window.location.href = '/viewallsopo?ordertype=SO';
-			},
-			error: function(str) {
-				console.log(str);
-			}
-		});
+		if (validateOrder(data, "SO")) {
+			$.ajax({
+				method: 'POST',
+				url: '/newSO',
+				data: data,
+				success: function() {
+					window.location.href = '/viewallsopo?ordertype=SO';
+				},
+				error: function(str) {
+					console.log(str);
+				}
+			});
+		}
 	});
 	$("#SOSubmitConfPay").click(function() {
 		let products = [];
@@ -555,17 +563,19 @@ $(document).ready(function() {
 			deliveryMode: $("#inputSOMode").val(),
 			expectedDelivery: $("#inputSODelDate").val()
 		};
-		$.ajax({
-			method: 'POST',
-			url: '/newSO',
-			data: data,
-			success: function() {
-				window.location.href = '/viewallsopo?ordertype=SO';
-			},
-			error: function(str) {
-				console.log(str.responseText);
-			}
-		});
+		if (validateOrder(data, "SO")) {
+			$.ajax({
+				method: 'POST',
+				url: '/newSO',
+				data: data,
+				success: function() {
+					window.location.href = '/viewallsopo?ordertype=SO';
+				},
+				error: function(str) {
+					console.log(str.responseText);
+				}
+			});
+		}
 	});
 });
 
