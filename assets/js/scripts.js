@@ -60,7 +60,8 @@ $(document).ready(function() {
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
 	
-	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val().replace(",", "")) - Number.parseFloat($("#payTotalDisc").val()));
+	if (window.location.pathname.match(new RegExp('/paySOPO/', 'gi')))
+		$("#PayNetTotal").val(Number.parseFloat($("#paySub").val().replace(",", "")) - Number.parseFloat($("#payTotalDisc").val()));
 	
 	$('button#submitLogin').click(function() {
 		let form = $("form#loginForm").serializeArray();

@@ -72,6 +72,8 @@ app.engine('hbs', exphbs.create({
 			return product.reorderPoint > product.quantity;
 		},
 		getDiscountSO: function(item, qty) {
+			console.log(item);
+			console.log(qty);
 			return qty < item.product.discount.qty ? 0 : item.product.discount.percentage;
 		},
 		getOrderTotal: function(items, isSO) {
@@ -124,6 +126,8 @@ app.engine('hbs', exphbs.create({
 					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		netPriceDisc: function(price, qty, discount) {
+			console.log(price);
+			console.log(qty);
 			return price * qty * (100 - discount) / 100;
 		},
 		begInv: function(product, month) {
