@@ -75,7 +75,7 @@ $(document).ready(function() {
 							pointHoverBackgroundColor: "rgba(236,170,105,1)",
 							pointHitRadius: 50,
 							pointBorderWidth: 2,
-							data: physicalDataSet,
+							data: physicalDataSet
 						}, {
 							label: "Online Sales",
 							lineTension: 0.3,
@@ -107,7 +107,7 @@ $(document).ready(function() {
 							yAxes: [{
 								ticks: {
 									min: 0,
-									max: 60000,
+									max: 1000000,
 									maxTicksLimit: 10
 								},
 								gridLines: {
