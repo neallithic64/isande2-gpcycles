@@ -63,8 +63,8 @@
 												<td>{{this.quantity}}</td>
 												<td>{{this.incomingQty}}</td>
 												<td>{{this.outgoingQty}}</td>
-												<td style="text-align: right;">{{this.purchasePrice}}</td>
-												<td style="text-align: right;">{{this.sellingPrice}}</td>
+												<td style="text-align: right;">{{getFormatPrice this.purchasePrice}}</td>
+												<td style="text-align: right;">{{getFormatPrice this.sellingPrice}}</td>
 											</tr>
 										{{/each}}
 									</tbody>

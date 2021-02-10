@@ -51,6 +51,11 @@ app.engine('hbs', exphbs.create({
 		getFormatISODate: function(date) {
 			return date.toISOString().substr(0, 10);
 		},
+		getFormatPrice: function(price) {
+			return Number.parseFloat(price)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		},
 		statusShowButton:	function(status, button) {
 			switch (button) {
 				case 1: return status === "Draft"; // 1: PO Confirm
