@@ -107,12 +107,12 @@ $(document).ready(function() {
 							label: "Revenue",
 							backgroundColor: "green",
 							borderColor: "green",
-							data: revenueDataSet,
+							data: revenueDataSet
 						}, {
 							label: "Purchases",
 							backgroundColor: "red",
 							borderColor: "red",
-							data: purchaseDataSet,
+							data: purchaseDataSet
 						} ]
 					},
 					options: {
@@ -131,7 +131,7 @@ $(document).ready(function() {
 							yAxes: [{
 								ticks: {
 									min: 0,
-									max: 500000,
+									max: 1000000,
 									maxTicksLimit: 10
 								},
 								gridLines: {
