@@ -46,7 +46,7 @@
 							<button id="filterbutton" type="button" style=" margin: 0px 10px; padding: 0px 10px 0px 5px; align-content: center; border-radius: 15px; border-width: 0px;">
 								<b style="font-size: .85rem;align-items: center;"> &nbsp; <i class="fas fa-filter" style="height:12px"></i> Filter </b>
 							</button>
-							<button type="button" onclick="exportTableToCSV('SalesReport.csv')" style="margin: 0px 5px;"> CSV </button>
+							{{!-- <button type="button" onclick="exportTableToCSV('SalesReport.csv')" style="margin: 0px 5px;"> CSV </button> --}}
 							<button type="button" onclick="printDiv('print')" style="margin: 0px 5px;"> PDF </button>
 						</div>
 					</div>
@@ -66,7 +66,7 @@
 										<th>Percent Profit</th>
 									</tr>
 								</thead>
-								<tfoot>
+								{{!-- <tfoot>
 									<tr>
 										<td>Code</td>
 										<td>Product</td>
@@ -77,7 +77,7 @@
 										<td>Net Profit</td>
 										<td>Percent Profit</td>
 									</tr>
-								</tfoot>
+								</tfoot> --}}
 								<tbody>
 									{{#each products}}
 									{{#if (percentProfit this ../sales 2)}}

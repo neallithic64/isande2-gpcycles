@@ -46,7 +46,7 @@
 							<select id="groupnum" style="margin: 0 7px;">
 								<option value="-1">ALL</option>
 							</select>
-							<button type="button" onclick="exportTableToCSV('InventoryReport.csv')" style="margin: 0px 5px;"> CSV </button>
+							{{!-- <button type="button" onclick="exportTableToCSV('InventoryReport.csv')" style="margin: 0px 5px;"> CSV </button> --}}
 							<button type="button" onclick="printDiv('print')" style="margin: 0px 5px;"> PDF </button>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 										<th style="width: 10%;">Inv. Turnover</th>
 									</tr>
 								</thead>
-								<tfoot>
+								{{!-- <tfoot>
 									<tr>
 										<th>Code</th>
 										<th>Product</th>
@@ -79,7 +79,7 @@
 										<th>COGS</th>
 										<th>Inventory Turnover</th>
 									</tr>
-								</tfoot>
+								</tfoot> --}}
 								<tbody>
 									{{#each products}}
 									<tr id="row" class="{{{getGroupCode this.itemCode}}}">

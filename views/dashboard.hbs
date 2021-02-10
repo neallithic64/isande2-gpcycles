@@ -91,7 +91,7 @@
 													<th>Inv. Turnover</th>
 												</tr>
 											</thead>
-											<tfoot>
+											{{!-- <tfoot>
 												<tr>
 													<th>Item</th>
 													<th>COGS</th>
@@ -99,7 +99,7 @@
 													<th>End. Inv.</th>
 													<th>Inv. Turnover</th>
 												</tr>
-											</tfoot>
+											</tfoot> --}}
 											<tbody>
 												{{#each products}}
 												{{#if (invTurnover this 2)}}
@@ -143,7 +143,7 @@
 													<th>Reorder Point</th>
 												</tr>
 											</thead>
-											<tfoot>
+											{{!-- <tfoot>
 												<tr>
 													<th>Item</th>
 													<th>On Hand</th>
@@ -151,7 +151,7 @@
 													<th>Outgoing</th>
 													<th>Reorder Point</th>
 												</tr>
-											</tfoot>
+											</tfoot> --}}
 											<tbody>
 												{{#each products}}
 												{{#if (getProdLowCount this)}}
