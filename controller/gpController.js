@@ -954,19 +954,21 @@ const gpController = {
 			};
 			await db.insertOne(SalesOrder, newSO);
 			if (paymentTerms === "Physical") {
-				// update adjhist of product
+				// update adjustment of product
 				for (i = 0; i < items.length; i++) {
 					let prod = await db.findOne(Product, {_id: items[i].product});
 					let adjustment = {
 						date: new Date(),
 						before: prod.quantity,
 						reference: ordNum,
-						quantity: items[i].qty,
+						quantity: -Number.parseInt(items[i].qty),
 						after: prod.quantity + (-Number.parseInt(items[i].qty)),
 						remarks: "Physical sale adjustment from " + ordNum
 					};
+					// also update quantity
+					let update = {quantity: -items[i].qty};
 					await db.updateOne(Product, {_id: items[i].product},
-							{'$push': {adjustmentHistory: adjustment}});
+							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			}
 			res.status(200).send();
