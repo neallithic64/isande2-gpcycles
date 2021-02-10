@@ -86,6 +86,40 @@ app.engine('hbs', exphbs.create({
 					.toFixed(2)
 					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
+		getincoming: function(product, purchaseorders) {
+			var sum = 0, i,j, have=false;
+			for(i = 0; i < purchaseorders.length; i++) {
+				for(j = 0; j < purchaseorders[i].items.length; j++)
+					if (purchaseorders[i].items[j].product === product._id) {
+						if(!have) {
+							var day = new Date(purchaseorders[i].expectedDelivery);
+							have = true;
+						}
+						else{
+							var newday = new Date(purchaseorders[i].expectedDelivery);
+							if(newday-day) day = newday;
+						}
+					}
+			}
+			return day;
+		},
+		getoutgoing: function(product, salesorders) {
+			var sum = 0, i,j, have=false;
+			for(i = 0; i < salesorders.length; i++) {
+				for(j = 0; j < salesorders[i].items.length; j++)
+					if (salesorders[i].items[j].product === product._id) {
+						if(!have) {
+							var day = new Date(salesorders[i].expectedDelivery);
+							have = true;
+						}
+						else{
+							var newday = new Date(salesorders[i].expectedDelivery);
+							if(newday-day) day = newday;
+						}
+					}
+			}
+			return day;
+		},
 		adjustmentType: function(adj) {
 			if (adj.length === 9 && adj.subsubstr(0,3) === "SO-") return "Sale";
 			else if (adj.length === 9 && adj.subsubstr(0,3) === "PO-") return "Purchase";

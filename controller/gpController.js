@@ -285,6 +285,8 @@ const gpController = {
 				let adjustments = product.adjustmentHistory.sort( function(a,b) {
 					return b.date - a.date;
 				});
+				let salesorders = await db.findMany(SalesOrder, {});
+				let purchaseorders = await db.findMany(PurchaseOrder, {});
 				res.render('viewproduct', {
 					topNav: true,
 					sideNav: true,
@@ -293,7 +295,9 @@ const gpController = {
 					isAdmin: req.session.user.usertype === "Admin",
 					salesNav: req.session.user.usertype === "Sales",
 					product: forceJSON(product),
-					adjustments: forceJSON(adjustments)
+					adjustments: forceJSON(adjustments),
+					salesorders: forceJSON(salesorders),
+					purchaseorders: forceJSON(purchaseorders)
 				});
 			}
 		} catch (e) {
