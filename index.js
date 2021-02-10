@@ -75,7 +75,7 @@ app.engine('hbs', exphbs.create({
 					.toFixed(2)
 					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			else return items
-					.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (100 - elem.discount), 0)
+					.reduce((acc, elem) => acc + elem.qty * elem.unitPrice * (100 - elem.discount) / 100, 0)
 					.toFixed(2)
 					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
