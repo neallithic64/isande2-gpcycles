@@ -43,7 +43,7 @@
 											<th>Terms</th>
 											{{#if isSO}} <th>Mode</th> {{/if}}
 											<th>Deliver By</th>
-											<th>Amount</th>
+											<th>Amount (₱)</th>
 										</tr>
 									</thead>
 									{{!-- <tfoot>
@@ -75,7 +75,7 @@
 											<td>{{this.paymentTerms}}</td>
 											{{#if ../isSO}} <td>{{this.deliveryMode}}</td> {{/if}}
 											<td>{{getFormatDate this.expectedDelivery}}</th>
-											<td>{{getOrderTotal this.items ../isSO}}</th>
+											<td style="text-align: right;">{{getOrderTotal this.items ../isSO}}</th>
 										</tr>
 										{{/each}}
 									</tbody>

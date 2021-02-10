@@ -85,7 +85,7 @@
 											<thead>
 												<tr>
 													<th>Item</th>
-													<th>COGS</th>
+													<th>COGS (₱)</th>
 													<th>Beg. Inv.</th>
 													<th>End. Inv.</th>
 													<th>Inv. Turnover</th>
@@ -105,7 +105,7 @@
 												{{#if (invTurnover this 2)}}
 												<tr>
 													<td>{{this.prodName}}</td>
-													<td>{{cogs this 2}}</td>
+													<td style="text-align: right;">{{cogs this 2}}</td>
 													<td>{{begInv this 2}}</td>
 													<td>{{this.quantity}}</td>
 													<td>{{invTurnover this 2}}</td>

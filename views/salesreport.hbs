@@ -87,10 +87,10 @@
 										<td>{{this.itemCode}}</td>
 										<td>{{this.prodName}}</td>
 										<td>{{itemSold this ../sales 2}}</td>
-										<td>{{totalSalesPrice this ../sales 2}}</td>
-										<td>{{totalSalesCost this ../sales 2}}</td>
-										<td>{{totalSalesDisc this ../sales 2}}</td>
-										<td>{{totalNetProfit this ../sales 2}}</td>
+										<td style="text-align: right;">{{totalSalesPrice this ../sales 2}}</td>
+										<td style="text-align: right;">{{totalSalesCost this ../sales 2}}</td>
+										<td style="text-align: right;">{{totalSalesDisc this ../sales 2}}</td>
+										<td style="text-align: right;">{{totalNetProfit this ../sales 2}}</td>
 									{{#if (percentProfit this ../sales 2)}}
 										<td style="color: green;"> {{percentProfit this ../sales 2}}%</td>
 									{{else}} <td></td>
