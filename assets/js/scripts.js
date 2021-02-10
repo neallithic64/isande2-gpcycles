@@ -168,10 +168,12 @@ $(document).ready(function() {
 			alert('Please input a valid email.');
 		}
 
-		if (!validator.isLength(addSupplierForm[2].value, {min: 30})) {
-			checks[2] = false;
-			alert('Address must be at least 30 characters long.');
-		}
+		// if (!validator.isLength(addSupplierForm[2].value, {min: 30})) {
+		// 	checks[2] = false;
+		// 	alert('Address must be at least 30 characters long.');
+		// }
+
+		
 
 		if (!/^09[0-9]{2}( |-)?[0-9]{3}( |-)?[0-9]{4}$/.test(addSupplierForm[4].value)) {
 			checks[3] = false;
