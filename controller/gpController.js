@@ -552,6 +552,7 @@ const gpController = {
 			orders = req.query.ordertype === "SO"
 					? await SalesOrder.find({}).populate('items.product customer')
 					: await PurchaseOrder.find({}).populate('items.product supplier');
+			orders.sort((a, b) => Date.parse(b.dateOrdered) - Date.parse(a.dateOrdered));
 			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
@@ -754,9 +755,11 @@ const gpController = {
 
 
 
-/****************************************************************************************
+/*
+ ****************************************************************************************
  * GET above, POST below
- ***************************************************************************************/
+ ****************************************************************************************
+ */
 
 
 
@@ -1092,12 +1095,8 @@ const gpController = {
 		try {
 			let {orderNum, partial, partialList} = req.body;
 			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i, addsub = oType === "SO" ? -1 : 1;
-			// update status
-			await db.updateOne(oType === "SO" ? SalesOrder : PurchaseOrder,
-					{orderNum: orderNum},
-					{status: oType === "SO" ? "Fulfilled" : "Received"});
 			// update qty's
-			if (partial) {
+			if (partial === "true") {
 				// update qty's from partialItems
 				// partialItems is an array that contains objects
 				// {itemCode, qty}
@@ -1116,7 +1115,7 @@ const gpController = {
 					let update = {quantity: addsub * partialList[i].qty};
 					if (oType === "SO") update.outgoingQty = -Number.parseInt(partialList[i].qty);
 					else update.incomingQty = -Number.parseInt(partialList[i].qty);
-					await db.updateOne(Product, {itemCode: partialList[i].itemCode},
+					await db.updateOne(Product, {itemCode: partialList[i].prodCode},
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			} else {
@@ -1141,6 +1140,10 @@ const gpController = {
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
 				}
 			}
+			// update status
+			await db.updateOne(oType === "SO" ? SalesOrder : PurchaseOrder,
+					{orderNum: orderNum},
+					{status: oType === "SO" ? "Fulfilled" : "Received"});
 			res.status(200).send();
 		} catch (e) {
 			console.log(e);

@@ -2,6 +2,21 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
+const monthNames = {
+	"Jan": 1,
+	"Feb": 2,
+	"Mar": 3,
+	"Apr": 4,
+	"May": 5,
+	"Jun": 6,
+	"Jul": 7,
+	"Aug": 8,
+	"Sep": 9,
+	"Oct": 10,
+	"Nov": 11,
+	"Dec": 12
+};
+
 $(document).ready(function() {
 	if (window.location.pathname === "/") {
 		$.ajax({
@@ -94,9 +109,12 @@ $(document).ready(function() {
 						purchaseDataSet.shift();
 					}
 				}
-
-
-
+				
+				dataLabels.sort(function(a, b) {
+					return monthNames[a.split(' ')[0]] - monthNames[b.split(' ')[0]];
+				});
+				// console.log([...new Set(revenueDataSet)]);
+				
 				// Chart
 				var ctx = document.getElementById("dbRevAndPurch");
 				var myBarChart = new Chart(ctx, {
