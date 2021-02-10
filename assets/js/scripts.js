@@ -696,7 +696,7 @@ $(document).ready(function() {
 			url: '/delrecSOPO',
 			data: {orderNum: ordNum, partial: partial, partialList: partialList},
 			success: function() {
-				alert('Order has been paid.');
+				alert('Order has been received.');
 				window.location.href = '/viewallsopo?ordertype=' + ordNum.substr(0, 2);
 			},
 			error: function(str) {
