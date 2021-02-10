@@ -7,9 +7,11 @@
 						<div style="margin-bottom: 0px;">
 							<h1 class="mt-4">Inventory</h1>
 						</div>
+						{{#if salesNav}} {{else}}
 						<div class="form-group mt-4 mb-0" >
 							<a href="/addproduct"><button style="margin-right: 10px;" class="btn btn-primary"> + New </button></a>
 						</div>
+						{{/if}}
 					</div>
 
 					<ol class="breadcrumb" style="margin:-10px 20px; margin-bottom: 20px; padding: 0px; background-color: transparent;">
@@ -61,8 +63,8 @@
 												<td>{{this.quantity}}</td>
 												<td>{{this.incomingQty}}</td>
 												<td>{{this.outgoingQty}}</td>
-												<td style="text-align: right;">{{this.purchasePrice}}</td>
-												<td style="text-align: right;">{{this.sellingPrice}}</td>
+												<td style="text-align: right;">{{getFormatPrice this.purchasePrice}}</td>
+												<td style="text-align: right;">{{getFormatPrice this.sellingPrice}}</td>
 											</tr>
 										{{/each}}
 									</tbody>

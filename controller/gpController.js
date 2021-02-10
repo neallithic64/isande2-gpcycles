@@ -82,6 +82,7 @@ const gpController = {
 					title: 'Dashboard',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
+					salesNav: req.session.user.usertype === "Sales",
 					products: products
 				});
 			} else res.redirect('/newSO');
@@ -290,6 +291,7 @@ const gpController = {
 					title: 'Inventory',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
+					salesNav: req.session.user.usertype === "Sales",
 					product: forceJSON(product),
 					adjustments: forceJSON(adjustments)
 				});
@@ -357,6 +359,7 @@ const gpController = {
 				title: 'Inventory',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
+				salesNav: req.session.user.usertype === "Sales",
 				products: products
 			});
 		}
@@ -602,6 +605,7 @@ const gpController = {
 					isAdmin: req.session.user.usertype === "Admin",
 					isSecretary: req.session.user.usertype === "Secretary",
 					isSales: req.session.user.usertype === "Sales",
+					salesNav: req.session.user.usertype === "Sales",
 					customers: customers,
 					products: products,
 					SOnum: SOnum.toString().padStart(6, '0')
@@ -982,19 +986,22 @@ const gpController = {
 			};
 			await db.insertOne(SalesOrder, newSO);
 			if (paymentTerms === "Physical") {
-				// update adjhist of product
+				// update adjustment of product
 				for (i = 0; i < items.length; i++) {
 					let prod = await db.findOne(Product, {_id: items[i].product});
 					let adjustment = {
-						date: new Date(),
+						date: new Date(dateOrdered),
 						before: prod.quantity,
 						reference: ordNum,
-						quantity: items[i].qty,
+						quantity: -Number.parseInt(items[i].qty),
 						after: prod.quantity + (-Number.parseInt(items[i].qty)),
 						remarks: "Physical sale adjustment from " + ordNum
 					};
+					// also update quantity
+					let update = {quantity: -items[i].qty};
 					await db.updateOne(Product, {_id: items[i].product},
-							{'$push': {adjustmentHistory: adjustment}});
+							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
+					if (prod.quantity + (-Number.parseInt(items[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
 				}
 			}
 			res.status(200).send();
@@ -1073,7 +1080,7 @@ const gpController = {
 				let prod = await db.findOne(Product, {itemCode: order[i].itemCode});
 				// push to the adjustment history
 				let adjustment = {
-					date: new Date(),
+					date: new Date(order.dateOrdered),
 					before: prod.quantity,
 					reference: orderNum,
 					quantity: order[i].qty,
@@ -1095,6 +1102,7 @@ const gpController = {
 		try {
 			let {orderNum, partial, partialList} = req.body;
 			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i, addsub = oType === "SO" ? -1 : 1;
+			let order = await db.findOne(oType === "SO" ? SalesOrder : PurchaseOrder, {orderNum: orderNum});
 			// update qty's
 			if (partial === "true") {
 				// update qty's from partialItems
@@ -1105,7 +1113,7 @@ const gpController = {
 					let prod = await db.findOne(Product, {itemCode: partialList[i].prodCode});
 					// push to the adjustment history
 					let adjustment = {
-						date: new Date(),
+						date: new Date(order.dateOrdered),
 						before: prod.quantity,
 						reference: orderNum,
 						quantity: partialList[i].qty,
@@ -1117,6 +1125,7 @@ const gpController = {
 					else update.incomingQty = -Number.parseInt(partialList[i].qty);
 					await db.updateOne(Product, {itemCode: partialList[i].prodCode},
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
+					if (prod.quantity + (-Number.parseInt(SOPO[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
 				}
 			} else {
 				// update qty's from SOPO
@@ -1126,7 +1135,7 @@ const gpController = {
 					let prod = await db.findOne(Product, {itemCode: SOPO.items[i].product.itemCode});
 					// push to the adjustment history
 					let adjustment = {
-						date: new Date(),
+						date: new Date(order.dateOrdered),
 						before: prod.quantity,
 						reference: orderNum,
 						quantity: SOPO.items[i].qty,
@@ -1138,6 +1147,7 @@ const gpController = {
 					else update.incomingQty = -Number.parseInt(SOPO.items[i].qty);
 					await db.updateOne(Product, {itemCode: SOPO.items[i].product.itemCode},
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
+					if (prod.quantity + (-Number.parseInt(SOPO[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
 				}
 			}
 			// update status
