@@ -318,6 +318,8 @@ const gpController = {
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
 			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
+			let salesorders = await db.findMany(SalesOrder, {});
+			let purchaseorders = await db.findMany(PurchaseOrder, {});
 			console.log(sales);
 			console.log(purch);
 			res.render('editproduct', {
@@ -326,7 +328,9 @@ const gpController = {
 				title: 'Edit Product',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				product: forceJSON(product)
+				product: forceJSON(product),
+				salesorders: forceJSON(salesorders),
+				purchaseorders: forceJSON(purchaseorders)
 			});
 		}
 	},
@@ -340,6 +344,8 @@ const gpController = {
 			// unsure about this:
 			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
 			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
+			let salesorders = await db.findMany(SalesOrder, {});
+			let purchaseorders = await db.findMany(PurchaseOrder, {});
 			console.log(sales);
 			console.log(purch);
 			res.render('adjustproduct', {
@@ -348,7 +354,9 @@ const gpController = {
 				title: 'Adjust Product',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
-				product: forceJSON(product)
+				product: forceJSON(product),
+				salesorders: forceJSON(salesorders),
+				purchaseorders: forceJSON(purchaseorders)
 			});
 		}
 	},

@@ -57,13 +57,13 @@
 										<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">30</p>
 									</div>
 									<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-										<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
-										<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.incomingQty}} (February 31, 2021)</p>
-									</div>
-									<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
-										<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
-										<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.outgoingQty}}</p>
-									</div>
+									<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Incoming: </p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.incomingQty}} {{#if product.incomingQty}} ({{getincoming product purchaseorders}}) {{/if}}</p>
+								</div>
+								<div class="form-group" style="display: flex;flex-wrap: wrap; margin-bottom: 0%;">
+									<p style="width: 50%; margin-bottom: 0%;font-size: 16px;">Outgoing: </p> 
+									<p style="margin-bottom: 0%;font-size: 16px;color: black; font-weight: 900;">{{product.outgoingQty}} {{#if product.outgoingQty}}({{getoutgoing product salesorders}}){{/if}}</p>
+								</div>
 								</div>
 							</div>
 						</div>
