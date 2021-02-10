@@ -122,7 +122,33 @@ app.engine('hbs', exphbs.create({
 			return price * qty * (100 - discount) / 100;
 		},
 		begInv: function(product) {
-			return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+			var month = 1;
+			if (product.adjustmentHistory.length <= 0) return product.quantity;
+			else {
+				for (var i=0; i<product.adjustmentHistory.length; i++)
+					if (product.adjustmentHistory[i].date.month === month)
+						return product.adjustmentHistory[i].before;
+
+				return product.adjustmentHistory[0].before;
+			}
+			// return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
+		},
+		endInv: function(product) {
+			/*var month = 1;
+			if (product.adjustmentHistory.length <= 0) return product.quantity;
+			if ((product.adjustmentHistory[product.adjustmentHistory.length-1]).date.month === month)
+				return product.adjustmentHistory[product.adjustmentHistory.length].after;
+			else {
+				for (var i=0; i<product.adjustmentHistory.length; i++)
+					if (product.adjustmentHistory[i].date.month < month)
+						if (product.adjustmentHistory[i-1]) {
+							if(product.adjustmentHistory[i-1].date.month === month)
+								return product.adjustmentHistory[i-1].after; }
+						else return product.adjustmentHistory[i].before;
+				return product.adjustmentHistory[0].after;
+			}*/
+			// return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].after : product.quantity;
+			return product.quantity;
 		},
 		sumPurch: function(product) {
 			var sum = 0, i;

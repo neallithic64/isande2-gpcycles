@@ -15,17 +15,17 @@
 							<label> For the Month of:
 								<select id="fsMonth">
 									<option value="1">Jan</option>
-									<option value="2">Feb</option>
-									<option value="3">Mar</option>
-									<option value="4">Apr</option>
-									<option value="5">May</option>
-									<option value="6">Jun</option>
-									<option value="7">Jul</option>
-									<option value="8">Aug</option>
-									<option value="9">Sep</option>
-									<option value="10">Oct</option>
-									<option value="11">Nov</option>
-									<option value="12">Dec</option>
+									<option value="2" disabled>Feb</option>
+									<option value="3" disabled>Mar</option>
+									<option value="4" disabled>Apr</option>
+									<option value="5" disabled>May</option>
+									<option value="6" disabled>Jun</option>
+									<option value="7" disabled>Jul</option>
+									<option value="8" disabled>Aug</option>
+									<option value="9" disabled>Sep</option>
+									<option value="10" disabled>Oct</option>
+									<option value="11" disabled>Nov</option>
+									<option value="12" disabled>Dec</option>
 								</select>
 							</label>
 
@@ -33,7 +33,7 @@
 							<label>Year: 
 								<select id="fsYear">
 									<option value="2020">2021</option>
-									<option value="2020">2020</option>
+									<option value="2020" disabled>2020</option>
 								</select>
 							</label> 
 						</div>
@@ -89,7 +89,7 @@
 										<td>{{sumPurch this}}</td>
 										<td>{{sumSales this}}</td>
 										<td>{{sumAdj this}}</td>
-										<td>{{this.quantity}}</td>
+										<td>{{endInv this}}</td>
 										<td>{{cogs this}}</td>
 										<td>{{invTurnover this}}</td>
 									</tr>
