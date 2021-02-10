@@ -46,9 +46,10 @@ $(document).ready(function() {
 					dataLabels.push((new Date(item.soDates[i])).toISOString().substr(0, 10));
 					onlineDataSet.push(onlineSales);
 				}
-
-				if ([...new Set(dataLabels)].length > 7) {
-					let excess = [...new Set(dataLabels)].length - 7;
+				
+				dataLabels = [...new Set(dataLabels)];
+				if (dataLabels.length > 7) {
+					let excess = dataLabels.length - 7;
 					let i;
 					for (i = 0; i < excess; i++) {
 						dataLabels.shift();
@@ -56,6 +57,10 @@ $(document).ready(function() {
 						onlineDataSet.shift();
 					}
 				}
+				
+				dataLabels.sort(function(a, b) {
+					return Date.parse(a) - Date.parse(b);
+				});
 
 				// Chart
 				var ctx = document.getElementById("dbDailySales");
