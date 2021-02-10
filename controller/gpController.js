@@ -520,6 +520,7 @@ const gpController = {
 			orders = req.query.ordertype === "SO"
 					? await SalesOrder.find({}).populate('items.product customer')
 					: await PurchaseOrder.find({}).populate('items.product supplier');
+			orders.sort((a, b) => Date.parse(b.dateOrdered) - Date.parse(a.dateOrdered));
 			res.render('viewallsopo', {
 				topNav: true,
 				sideNav: true,
@@ -722,9 +723,11 @@ const gpController = {
 
 
 
-/****************************************************************************************
+/*
+ ****************************************************************************************
  * GET above, POST below
- ***************************************************************************************/
+ ****************************************************************************************
+ */
 
 
 
