@@ -431,12 +431,44 @@ const gpController = {
 		}
 	},
 
+	getInventoryReport1: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let products = await Product.find({}).populate("itemGroup");
+			res.render('inventoryreport1', {
+				topNav: true,
+				sideNav: true,
+				title: 'Inventory Report',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				products: forceJSON(products)
+			});
+		}
+	},
+
 	getSalesReport: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let products = await Product.find({}).populate("itemGroup");
 			let sales = await db.findMany(SalesOrder, {});
 			res.render('salesreport', {
+				topNav: true,
+				sideNav: true,
+				title: 'Sales Report',
+				name: req.session.user.name,
+				isAdmin: req.session.user.usertype === "Admin",
+				products: forceJSON(products),
+				sales : forceJSON(sales)
+			});
+		}
+	},
+
+	getSalesReport1: async function(req, res) {
+		if (!req.session.user) res.redirect('/login');
+		else {
+			let products = await Product.find({}).populate("itemGroup");
+			let sales = await db.findMany(SalesOrder, {});
+			res.render('salesreport1', {
 				topNav: true,
 				sideNav: true,
 				title: 'Sales Report',

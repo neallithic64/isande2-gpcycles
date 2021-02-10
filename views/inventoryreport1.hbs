@@ -14,8 +14,8 @@
 							<!-- select month -->
 							<label> For the Month of:
 								<select id="fsMonth" onChange="window.document.location.href = this.options[this.selectedIndex].value;">
-									<option value="/inventoryreport1">Jan</option>
-									<option value="/inventoryreport" selected>Feb</option>
+									<option value="/inventoryreport1" selected>Jan</option>
+									<option value="/inventoryreport">Feb</a></option>
 									<option value="3" disabled>Mar</option>
 									<option value="4" disabled>Apr</option>
 									<option value="5" disabled>May</option>
@@ -85,13 +85,13 @@
 									<tr id="row" class="{{{getGroupCode this.itemCode}}}">
 										<td>{{this.itemCode}}</td>
 										<td>{{this.prodName}}</td>
-										<td>{{begInv this 2}}</td>
-										<td>{{sumPurch this 2}}</td>
-										<td>{{sumSales this 2}}</td>
-										<td>{{sumAdj this 2}}</td>
-										<td>{{endInv this 2}}</td>
-										<td>{{cogs this 2}}</td>
-										<td>{{invTurnover this 2}}</td>
+										<td>{{begInv this 1}}</td>
+										<td>{{sumPurch this 1}}</td>
+										<td>{{sumSales this 1}}</td>
+										<td>{{sumAdj this 1}}</td>
+										<td>{{endInv this 1}}</td>
+										<td>{{cogs this 1}}</td>
+										<td>{{invTurnover this 1}}</td>
 									</tr>
 									{{/each}}
 								</tbody>
