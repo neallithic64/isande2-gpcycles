@@ -80,7 +80,7 @@
 								</tfoot>
 								<tbody>
 									{{#each products}}
-									{{#if (totalNetProfit this ../sales)}}
+									{{#if (totalNetProfit this ../sales 1)}}
 										<tr>
 									{{else}} <tr class="notLowQty">
 									{{/if}}
