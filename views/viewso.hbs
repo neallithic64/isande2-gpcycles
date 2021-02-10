@@ -190,8 +190,8 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
-										<span style="width:250px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOSub"> {{subtotalOrder salesorder 1}} </span>
+										<span style="width:290px; font-size:16px; font-weight: 700;">SUBTOTAL </span>
+										<span style="width:110px; font-size:16px; text-align: end;" id="viewSOSub"> {{subtotalOrder salesorder 1}} </span>
 									</div>
 								</div>
 							</div>
@@ -204,20 +204,20 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group" style="display: flex; flex-direction: row; justify-content: flex-end;">
-										<span style="width:250px; font-size:16px; font-weight: 700;">Total Discount </span>
-										<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountOrder salesorder 1}} </span>
+										<span style="width:290px; font-size:16px; font-weight: 700;">Total Discount </span>
+										<span style="width:110px; font-size:16px; text-align: end;" id="viewSOTotalDisc"> {{discountOrder salesorder 1}} </span>
 									</div>
 								</div>
 							</div>
 							{{#if isOverdue}} <!-- if with penalty only -->
 								<div class="form-group" style="display:flex; justify-content: flex-end;">
-									<span style="width:250px; font-size:16px; font-weight: 700;">Penalty </span>
-									<span style="width: 80px; font-size:16px; text-align: end;" id="viewSOPenalty"> {{salesorder.penalty}} </span>
+									<span style="width:290px; font-size:16px; font-weight: 700;">Penalty </span>
+									<span style="width:110px; font-size:16px; text-align: end;" id="viewSOPenalty"> {{salesorder.penalty}} </span>
 								</div>
 							{{/if}}
 							<div class="form-group" style="display:flex; justify-content: flex-end;">
-								<span style="width:250px; font-size:16px; font-weight: 700;">NET TOTAL </span>
-								<span style="width: 80px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalOrder salesorder 1}} </span>
+								<span style="width:290px; font-size:16px; font-weight: 700;">NET TOTAL </span>
+								<span style="width:110px; font-size:16px; text-align: end; font-weight: 700;" id="viewSONetTotal"> P {{netotalOrder salesorder 1}} </span>
 							</div>
 						</div>
 					</div>

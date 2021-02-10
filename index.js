@@ -71,7 +71,7 @@ app.engine('hbs', exphbs.create({
 		},
 		getOrderTotal: function(items, isSO) {
 			if (isSO) return items
-					.reduce((acc, elem) => acc + (elem.qty >= elem.product.discount.qty ? elem.qty * elem.unitPrice * (100 - elem.product.discount.percentage) : elem.qty * elem.unitPrice), 0)
+					.reduce((acc, elem) => acc + (elem.qty >= elem.product.discount.qty ? elem.qty * elem.unitPrice * (100 - elem.product.discount.percentage) / 100 : elem.qty * elem.unitPrice), 0)
 					.toFixed(2)
 					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			else return items
@@ -91,17 +91,32 @@ app.engine('hbs', exphbs.create({
 			if (adjustment.reference.substr(0,2) === "SO") return ("/viewSO/" + adjustment.reference);
 		},
 		subtotalOrder: function(order, ord) {
-			return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
+			return order.items
+					.reduce((acc, e) => acc + e.qty * e.unitPrice, 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		// Ord: 0 === PO
 		// Ord: 1 === SO
 		discountOrder: function(order, ord) {
-			if (ord === 0) return order.items.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0);
-			if (ord === 1) return order.items.reduce((acc, e) => acc + (e.qty >= e.product.discount.qty ? e.qty * e.unitPrice * e.product.discount.percentage / 100 : 0), 0);
+			if (ord === 0) return order.items
+					.reduce((acc, e) => acc + e.unitPrice * e.qty * (e.discount/100), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			if (ord === 1) return order.items
+					.reduce((acc, e) => acc + (e.qty >= e.product.discount.qty ? e.qty * e.unitPrice * e.product.discount.percentage / 100 : 0), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		netotalOrder: function(order, ord) {
-			if (ord === 0) return order.items.reduce((acc, e) => acc + (e.unitPrice * e.qty * (100 - e.discount) / 100), 0);
-			if (ord === 1) return order.items.reduce((acc, e) => acc + e.qty * e.unitPrice, 0);
+			if (ord === 0) return order.items
+					.reduce((acc, e) => acc + (e.unitPrice * e.qty * (100 - e.discount) / 100), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			if (ord === 1) return order.items
+					.reduce((acc, e) => acc + (e.qty >= e.product.discount.qty ? e.qty * e.unitPrice * (100 - e.product.discount.percentage) / 100 : e.qty * e.unitPrice), 0)
+					.toFixed(2)
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		netPriceDisc: function(price, qty, discount) {
 			return price * qty * (100 - discount) / 100;
