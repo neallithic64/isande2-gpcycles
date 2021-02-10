@@ -101,7 +101,7 @@ app.engine('hbs', exphbs.create({
 						}
 					}
 			}
-			return day;
+			return day.toISOString().substr(0, 10);
 		},
 		getoutgoing: function(product, salesorders) {
 			var sum = 0, i,j, have=false;
@@ -166,13 +166,13 @@ app.engine('hbs', exphbs.create({
 		},
 		begInv: function(product, month) {
 			if (product.adjustmentHistory.length <= 0) return product.quantity;
-			else {
-				for (var i=0; i<product.adjustmentHistory.length; i++)
-					if (product.adjustmentHistory[i].date.month === month)
+			else
+				for (var i=0; i<product.adjustmentHistory.length; i++) {
+					var monthIn = new Date(product.adjustmentHistory[i].date);
+					if (month===monthIn.getMonth()+1 && product.adjustmentHistory[i].before)
 						return product.adjustmentHistory[i].before;
-
-				return product.adjustmentHistory[0].before;
 			}
+			return product.adjustmentHistory[0].before;
 			// return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
 		},
 		sumPurch: function(product, month) {
