@@ -82,6 +82,7 @@ const gpController = {
 					title: 'Dashboard',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
+					salesNav: req.session.user.usertype === "Sales",
 					products: products
 				});
 			} else res.redirect('/newSO');
@@ -290,6 +291,7 @@ const gpController = {
 					title: 'Inventory',
 					name: req.session.user.name,
 					isAdmin: req.session.user.usertype === "Admin",
+					salesNav: req.session.user.usertype === "Sales",
 					product: forceJSON(product),
 					adjustments: forceJSON(adjustments)
 				});
@@ -357,6 +359,7 @@ const gpController = {
 				title: 'Inventory',
 				name: req.session.user.name,
 				isAdmin: req.session.user.usertype === "Admin",
+				salesNav: req.session.user.usertype === "Sales",
 				products: products
 			});
 		}
@@ -570,6 +573,7 @@ const gpController = {
 					isAdmin: req.session.user.usertype === "Admin",
 					isSecretary: req.session.user.usertype === "Secretary",
 					isSales: req.session.user.usertype === "Sales",
+					salesNav: req.session.user.usertype === "Sales",
 					customers: customers,
 					products: products,
 					SOnum: SOnum.toString().padStart(6, '0')

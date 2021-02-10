@@ -7,6 +7,14 @@
 					<a href="/"> <img id="logomain" src="/assets/img/Logo.png" /> </a>
 				</div>
 				<div class="sb-sidenav-menu">
+				{{#if salesNav}}
+					<div class="nav">
+						<a class="nav-link" href="/allproducts">
+							<div class="sb-nav-link-icon"><i class="fas fa-cube"></i></div>
+							Inventory
+						</a>
+					</div>
+				{{else}}
 					<div class="nav">
 						<a class="nav-link" href="/">
 							<div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
@@ -48,6 +56,7 @@
 							</nav>
 						</div>
 					</div>
+				{{/if}}
 				</div>
 			</nav>
 		</div>
