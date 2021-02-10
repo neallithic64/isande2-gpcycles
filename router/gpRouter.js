@@ -23,7 +23,9 @@ router.get('/allproducts', gpController.getInventory);
 router.get('/allgroups', gpController.getGroups);
 router.get('/allgroupproducts/:index', gpController.getGroupInventory);
 router.get('/inventoryreport', gpController.getInventoryReport);
+router.get('/inventoryreport1', gpController.getInventoryReport1);
 router.get('/salesreport', gpController.getSalesReport);
+router.get('/salesreport1', gpController.getSalesReport1);
 
 	// Add Routes
 router.get('/addUser', gpController.getAddUser);

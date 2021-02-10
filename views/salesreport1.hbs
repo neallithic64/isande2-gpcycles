@@ -14,8 +14,8 @@
 							<!-- select month -->
 							<label> For the Month of:
 								<select id="fsMonth" onChange="window.document.location.href = this.options[this.selectedIndex].value;">
-									<option value="/salesreport1">Jan</option>
-									<option value="/salesreport" selected>Feb</option>
+									<option value="/salesreport1" selected>Jan</option>
+									<option value="/salesreport">Feb</option>
 									<option value="3" disabled>Mar</option>
 									<option value="4" disabled>Apr</option>
 									<option value="5" disabled>May</option>
@@ -86,13 +86,13 @@
 									{{/if}}
 										<td>{{this.itemCode}}</td>
 										<td>{{this.prodName}}</td>
-										<td>{{itemSold this ../sales 2}}</td>
-										<td>{{totalSalesPrice this ../sales 2}}</td>
-										<td>{{totalSalesCost this ../sales 2}}</td>
-										<td>{{totalSalesDisc this ../sales 2}}</td>
-										<td>{{totalNetProfit this ../sales 2}}</td>
-									{{#if (totalNetProfit this ../sales 2)}}
-										<td style="color: green;"> {{percentProfit this ../sales 2}}%</td>
+										<td>{{itemSold this ../sales 1}}</td>
+										<td>{{totalSalesPrice this ../sales 1}}</td>
+										<td>{{totalSalesCost this ../sales 1}}</td>
+										<td>{{totalSalesDisc this ../sales 1}}</td>
+										<td>{{totalNetProfit this ../sales 1}}</td>
+									{{#if (totalNetProfit this ../sales 1)}}
+										<td style="color: green;"> {{percentProfit this ../sales 1}}%</td>
 									{{else}} <td></td>
 									{{/if}}
 									</tr>
