@@ -56,12 +56,11 @@
 $(document).ready(function() {
 	// Call the dataTables jQuery plugin
 	$('#datatable').DataTable();
-
 	
 	if (window.location.pathname === '/newPO' || window.location.pathname === '/newSO')
 		$(':input[type="date"]').val(new Date().toISOString().substr(0, 10));
 	
-	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val()) - Number.parseFloat($("#payTotalDisc").val()));
+	$("#PayNetTotal").val(Number.parseFloat($("#paySub").val().replace(",", "")) - Number.parseFloat($("#payTotalDisc").val()));
 	
 	$('button#submitLogin').click(function() {
 		let form = $("form#loginForm").serializeArray();
@@ -555,7 +554,7 @@ $(document).ready(function() {
 			conditions: $("#inputSOCons").val(),
 			remarks: $("#inputSORemarks").val(),
 			adjustment: $("#inputSOAdj").val(),
-			status: "Fulfilled",
+			status: $("#inputSOTerms").val() === "Physical" ? "Fulfilled" : $("#inputSOMode").val() === "Delivery" ? "To Deliver" : "For Pickup",
 			customer: $("#inputSOName").val(),
 			dateOrdered: $("#inputSODate").val(),
 			paymentTerms: $("#inputSOTerms").val(),

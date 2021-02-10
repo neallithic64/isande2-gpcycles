@@ -11,7 +11,7 @@
 						{{else}}
 						<div style="margin-top:30px; display: flex; flex-direction: row;">
 							{{#if (statusShowButton salesorder.status 5)}}
-								<a class="nav-link" style="color: #d32327" href="/paysopo"> <button id="paySOButton" class="btn">Pay</button> </a>
+								<a class="nav-link" style="color: #d32327" href="/paysopo/{{{salesorder.orderNum}}}"> <button id="paySOButton" class="btn">Pay</button> </a>
 							{{/if}}
 							{{#if (statusShowButton salesorder.status 7)}}
 								<a class="nav-link" style="color: #d32327"> <button id="pickupSOButton" class="btn">Pickup</button> </a>
