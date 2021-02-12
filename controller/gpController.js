@@ -1121,6 +1121,7 @@ const gpController = {
 				// partialItems is an array that contains objects
 				// {itemCode, qty}
 				for (i = 0; i < partialList.length; i++) {
+					console.log(partialList[i]);
 					// need to get the original quantity
 					let prod = await db.findOne(Product, {itemCode: partialList[i].prodCode});
 					// push to the adjustment history
@@ -1143,6 +1144,7 @@ const gpController = {
 				// update qty's from SOPO
 				let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
 				for (i = 0; i < SOPO.items.length; i++) {
+					console.log(SOPO.items[i]);
 					// need to get the original quantity
 					let prod = await db.findOne(Product, {itemCode: SOPO.items[i].product.itemCode});
 					// push to the adjustment history
