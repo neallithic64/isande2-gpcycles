@@ -1,61 +1,72 @@
 <div class="sb-nav-fixed">
-<div id="layoutSidenav">
-	<div id="layoutSidenav_content">
-		<main id="print">
-			<div class="container-fluid" style="padding: .75rem">
-				<h1 class="mt-4" style="padding:0px 20px; margin-bottom: 20px;">Sales Profit Report</h1>
-
-				<div class="card mb-4">
-					<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center;" >
-						
-						<div style="width: 100%; vertical-align: middle; margin-right: 5px; display: flex; align-items: center; flex-wrap: wrap;">
-							<i class="fas fa-table mr-1"></i>
-
-							<!-- select month -->
-							<label> For the Month of:
-								<select id="fsMonth" onChange="window.document.location.href = this.options[this.selectedIndex].value;">
-									<option value="/salesreport1" selected>Jan</option>
-									<option value="/salesreport">Feb</option>
-									<option value="3" disabled>Mar</option>
-									<option value="4" disabled>Apr</option>
-									<option value="5" disabled>May</option>
-									<option value="6" disabled>Jun</option>
-									<option value="7" disabled>Jul</option>
-									<option value="8" disabled>Aug</option>
-									<option value="9" disabled>Sep</option>
-									<option value="10" disabled>Oct</option>
-									<option value="11" disabled>Nov</option>
-									<option value="12" disabled>Dec</option>
-								</select>
-							</label>
-
-							<!-- select year -->
-							<label>Year: 
-								<select id="fsYear">
-									<option value="2020">2021</option>
-									<option value="2020" disabled>2020</option>
-								</select>
-							</label> 
-						</div> 
-
-						<div style="width:40%; justify-content:end; align-content:end; text-align:right;display: flex; justify-content:flex-end">
-							<!--div style="margin: 0px 5px;">
-								<button type="button" data-toggle="dropdown">Product Group<span class="caret"></span></button>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid" style="padding: 0.75rem;">
+				<h1 class="mt-4" style="padding:0px 20px">Sales Profit Report</h1>
+				<div class="card mb-4" id="print">
+					<div class="card-header" style="display: flex; flex-direction: row; justify-content:space-between">
+						<div style="display:flex;">
+							<div style="margin-top: -10px; margin-right:20px">
+								<img id="logomain" src="/assets/img/Logo.png" >
 							</div>
-							<input class="form-control" id="myInput" type="text" placeholder="Search..."-->
-							<button id="filterbutton" type="button" style=" margin: 0px 10px; padding: 0px 10px 0px 5px; align-content: center; border-radius: 15px; border-width: 0px;">
-								<b style="font-size: .85rem;align-items: center;"> &nbsp; <i class="fas fa-filter" style="height:12px"></i> Filter </b>
-							</button>
-							{{!-- <button type="button" onclick="exportTableToCSV('SalesReport.csv')" style="margin: 0px 5px;"> CSV </button> --}}
-							<button type="button" onclick="printDiv('print')" style="margin: 0px 5px;"> PDF </button>
+							<div style="display: flex; flex-direction: column; margin-top: 25px; ">
+								<span style="font-weight: 700; font-size:22px;"> GP Cycling Accessories Parts & Services </span>
+								<span> Lot 21 blk10 Levitown Marawoy Lipa City </span>
+								<span> Tel # (043) 774-2491 </span>
+							</div>
+						</div>
+						<div style="display: flex; flex-direction: column; margin-top: 25px; margin-right:5px; content-align:right; text-align:right">
+							<span style="font-weight: 700; font-size:24px;"> Sales Report </span>
+							<span style="font-weight: 700; font-size:20px;"> For the Month of JANUARY 2021 </span>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center; width:103%; margin:-20px;" >
+							<div style="width: 60%; vertical-align: middle; ">
+								<i class="fas fa-table mr-1"></i>
+
+								<!-- select month -->
+								<label> For the Month of:
+									<select id="fsMonth" onChange="window.document.location.href = this.options[this.selectedIndex].value;">
+										<option value="/salesreport1" selected>Jan</option>
+									    <option value="/salesreport">Feb</option>
+										<option value="3" disabled>Mar</option>
+										<option value="4" disabled>Apr</option>
+										<option value="5" disabled>May</option>
+										<option value="6" disabled>Jun</option>
+										<option value="7" disabled>Jul</option>
+										<option value="8" disabled>Aug</option>
+										<option value="9" disabled>Sep</option>
+										<option value="10" disabled>Oct</option>
+										<option value="11" disabled>Nov</option>
+										<option value="12" disabled>Dec</option>
+									</select>
+								</label>
+
+								<!-- select year -->
+								<label>Year: 
+									<select id="fsYear">
+										<option value="2020" selected>2021</option>
+										<option value="2020" disabled>2020</option>
+									</select>
+								</label> 
+							</div>
+
+							<div style="width:40%; justify-content:end; align-content:end; text-align:right;display: flex; justify-content:flex-end">
+								<button id="filterbutton" type="button" style=" margin: 0px 10px; padding: 0px 10px 0px 5px; align-content: center; border-radius: 15px; border-width: 0px;">
+							    	<b style="font-size: .85rem;align-items: center;"> &nbsp; <i class="fas fa-filter" style="height:12px"></i> Filter </b>
+							    </button>
+                                <button type="button" onclick="printDiv('print')" style="margin: 0px 5px;"> PDF </button>
+							</div>
 						</div>
 					</div>
 
 					<div class="card-body">
-						<div class="table-responsive">
+						<div class="table-responsive" id="print">
 							<table class="table table-bordered" id="report" width="100%" cellspacing="0">
-								<thead style="background-color: rgba(0, 0, 0, 0.03); text-align: center; justify-content: center;">
-									<tr>
+								<thead style="background-color: rgba(0, 0, 0, 0.03);">
+									<tr style="font-size:12">
 										<th>Code</th>
 										<th>Product</th>
 										<th>Qty Sold</th>
@@ -66,18 +77,6 @@
 										<th>Percent Profit</th>
 									</tr>
 								</thead>
-								{{!-- <tfoot>
-									<tr>
-										<td>Code</td>
-										<td>Product</td>
-										<td>Qty Sold</td>
-										<td>Total Sales</td>
-										<td>Total Cost</td>
-										<td>Discounts</td>
-										<td>Net Profit</td>
-										<td>Percent Profit</td>
-									</tr>
-								</tfoot> --}}
 								<tbody>
 									{{#each products}}
 									{{#if (percentProfit this ../sales 1)}}
@@ -104,6 +103,6 @@
 				</div>
 			</div>
 		</main>
+		</div>
 	</div>
-</div>
 </div>
