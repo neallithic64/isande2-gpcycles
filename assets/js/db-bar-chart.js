@@ -128,8 +128,8 @@ $(document).ready(function() {
 							data: revenueDataSet
 						}, {
 							label: "Purchases",
-							backgroundColor: "red",
-							borderColor: "red",
+							backgroundColor: "orange",
+							borderColor: "orange",
 							data: purchaseDataSet
 						} ]
 					},
