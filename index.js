@@ -104,15 +104,15 @@ app.engine('hbs', exphbs.create({
 			return day.toISOString().substr(0, 10);
 		},
 		getoutgoing: function(product, salesorders) {
-			var sum = 0, i,j, have=false;
-			for(i = 0; i < salesorders.length; i++) {
-				for(j = 0; j < salesorders[i].items.length; j++)
+			let i, j, have = false;
+			for (i = 0; i < salesorders.length; i++) {
+				for (j = 0; j < salesorders[i].items.length; j++)
 					if (salesorders[i].items[j].product === product._id) {
-						if(!have) {
+						if (!have) {
 							var day = new Date(salesorders[i].expectedDelivery);
 							have = true;
 						}
-						else{
+						else {
 							var newday = new Date(salesorders[i].expectedDelivery);
 							if(newday-day) day = newday;
 						}
@@ -173,7 +173,6 @@ app.engine('hbs', exphbs.create({
 						return product.adjustmentHistory[i].before;
 			}
 			return product.adjustmentHistory[0].before;
-			// return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].before : product.quantity;
 		},
 		sumPurch: function(product, month) {
 			var sum = 0, i;
@@ -215,17 +214,15 @@ app.engine('hbs', exphbs.create({
 				while (i<product.adjustmentHistory.length && !found)
 				{
 					var monthIn = new Date(product.adjustmentHistory[i].date);
-					//console.log(i,monthIn,monthIn.getMonth()+1,product.adjustmentHistory[i]);
 					if (month===monthIn.getMonth()+1)
 						if (product.adjustmentHistory[i]) {
 							begInv = product.adjustmentHistory[i].before;
 							found = true;
-							//console.log("FOUND");
 						}
 					i++;
 				}
 				if (!found) begInv=product.adjustmentHistory[0].before;
-				
+
 				for (var i=0; i<product.adjustmentHistory.length; i++) {
 					var monthIn = new Date(product.adjustmentHistory[i].date);
 					if (month===monthIn.getMonth()+1) {
@@ -238,25 +235,10 @@ app.engine('hbs', exphbs.create({
 								sumAdj += product.adjustmentHistory[i].quantity;
 						}
 					}
-					//return product.adjustmentHistory[0].before;
 				}
 				console.log(begInv, sumPurch, sumSales, sumAdj, begInv + sumPurch + sumSales + sumAdj);
 			}
 			return begInv + sumPurch + sumSales + sumAdj;
-			/*
-			if ((product.adjustmentHistory[product.adjustmentHistory.length-1]).date.month === month)
-				return product.adjustmentHistory[product.adjustmentHistory.length].after;
-			else {
-				for (var i=0; i<product.adjustmentHistory.length; i++)
-					if (product.adjustmentHistory[i].date.month < month)
-						if (product.adjustmentHistory[i-1]) {
-							if(product.adjustmentHistory[i-1].date.month === month)
-								return product.adjustmentHistory[i-1].after; }
-						else return product.adjustmentHistory[i].before;
-				return product.adjustmentHistory[0].after;
-			}*/
-			// return product.adjustmentHistory.length > 0 ? product.adjustmentHistory[0].after : product.quantity;
-			// return product.quantity;
 		},
 		cogs: function(product, month) {
 			var i=0, begInv, endInv, sumPurch=0 , sumSales=0 , sumAdj=0, found=false;
@@ -268,17 +250,15 @@ app.engine('hbs', exphbs.create({
 				while (i<product.adjustmentHistory.length && !found)
 				{
 					var monthIn = new Date(product.adjustmentHistory[i].date);
-					//console.log(i,monthIn,monthIn.getMonth()+1,product.adjustmentHistory[i]);
 					if (month===monthIn.getMonth()+1)
 						if (product.adjustmentHistory[i]) {
 							begInv = product.adjustmentHistory[i].before;
 							found = true;
-							//console.log("FOUND");
 						}
 					i++;
 				}
 				if (!found) begInv=product.adjustmentHistory[0].before;
-				
+
 				for (var i=0; i<product.adjustmentHistory.length; i++) {
 					var monthIn = new Date(product.adjustmentHistory[i].date);
 					if (month===monthIn.getMonth()+1) {
@@ -292,7 +272,6 @@ app.engine('hbs', exphbs.create({
 								sumAdj += product.adjustmentHistory[i].quantity;
 						}
 					}
-					//return product.adjustmentHistory[0].before;
 				}
 			}
 			endInv = begInv + sumPurch + sumSales + sumAdj;
@@ -309,22 +288,19 @@ app.engine('hbs', exphbs.create({
 				while (i<product.adjustmentHistory.length && !found)
 				{
 					var monthIn = new Date(product.adjustmentHistory[i].date);
-					//console.log(i,monthIn,monthIn.getMonth()+1,product.adjustmentHistory[i]);
 					if (month===monthIn.getMonth()+1)
 						if (product.adjustmentHistory[i]) {
 							begInv = product.adjustmentHistory[i].before;
 							found = true;
-							//console.log("FOUND");
 						}
 					i++;
 				}
 				if (!found) begInv=product.adjustmentHistory[0].before;
-				
+
 				for (var i=0; i<product.adjustmentHistory.length; i++) {
 					var monthIn = new Date(product.adjustmentHistory[i].date);
 					if (month===monthIn.getMonth()+1) {
-						if (product.adjustmentHistory[i].reference)
-						{
+						if (product.adjustmentHistory[i].reference) {
 							if ((product.adjustmentHistory[i].reference).substr(0,3) === 'PO-')
 								sumPurch += product.adjustmentHistory[i].quantity;
 							else if ((product.adjustmentHistory[i].reference).substr(0,3) === 'SO-')
@@ -333,7 +309,6 @@ app.engine('hbs', exphbs.create({
 								sumAdj += product.adjustmentHistory[i].quantity;
 						}
 					}
-					//return product.adjustmentHistory[0].before;
 				}
 			}
 			var endInv = begInv + sumPurch + sumSales + sumAdj;
@@ -376,10 +351,10 @@ app.engine('hbs', exphbs.create({
 		},
 		totalSalesDisc: function(product, salesorders, month) {
 			var sum = 0, i,j, dis;
-			for(i = 0; i < salesorders.length; i++) {
+			for (i = 0; i < salesorders.length; i++) {
 				var monthIn = new Date(salesorders[i].dateOrdered);
 				if (month===monthIn.getMonth()+1)
-				for(j = 0; j < salesorders[i].items.length; j++)
+				for (j = 0; j < salesorders[i].items.length; j++)
 					if (salesorders[i].items[j].product === product._id) {
 						dis = salesorders[i].items[j].discount;
 						if (dis) sum+= dis;
@@ -388,19 +363,18 @@ app.engine('hbs', exphbs.create({
 			return sum.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');;
 		},
 		totalNetProfit: function(product, salesorders, month) {
-			var sum = 0, i,j, dis;
-			var disc = 0;
+			let sum = 0, i,j, dis, disc = 0;
 			for(i = 0; i < salesorders.length; i++) {
 				var monthIn = new Date(salesorders[i].dateOrdered);
 				if (month===monthIn.getMonth()+1)
-				for(j = 0; j < salesorders[i].items.length; j++)
+				for (j = 0; j < salesorders[i].items.length; j++)
 					if (salesorders[i].items[j].product === product._id) {
 						sum += salesorders[i].items[j].qty;
 						dis = salesorders[i].items[j].discount;
 						if (dis) disc+= dis;
 					}
 			}
-			totelNetProfit = (sum * (product.sellingPrice - product.purchasePrice)) - disc;
+			let totelNetProfit = (sum * (product.sellingPrice - product.purchasePrice)) - disc;
 			return totelNetProfit.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		},
 		percentProfit: function(product, salesorders, month) {
@@ -408,7 +382,7 @@ app.engine('hbs', exphbs.create({
 			var disc = 0;
 			for(i = 0; i < salesorders.length; i++) {
 				var monthIn = new Date(salesorders[i].dateOrdered);
-				if (month===monthIn.getMonth()+1)
+				if (month === monthIn.getMonth()+1)
 				for(j = 0; j < salesorders[i].items.length; j++) {
 					if (salesorders[i].items[j].product === product._id) {
 						sum += salesorders[i].items[j].qty;
