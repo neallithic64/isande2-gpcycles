@@ -1115,6 +1115,8 @@ const gpController = {
 			let {orderNum, partial, partialList} = req.body;
 			let oType = orderNum.substr(0, 2) === "SO" ? "SO" : "PO", i, addsub = oType === "SO" ? -1 : 1;
 			let order = await db.findOne(oType === "SO" ? SalesOrder : PurchaseOrder, {orderNum: orderNum});
+			// update qty's from SOPO
+			let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
 			// update qty's
 			if (partial === "true") {
 				// update qty's from partialItems
@@ -1138,11 +1140,9 @@ const gpController = {
 					else update.incomingQty = -Number.parseInt(partialList[i].qty);
 					await db.updateOne(Product, {itemCode: partialList[i].prodCode},
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
-					if (prod.quantity + (-Number.parseInt(SOPO[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
+					if (prod.quantity + (-Number.parseInt(SOPO.items[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
 				}
 			} else {
-				// update qty's from SOPO
-				let SOPO = await (oType === "SO" ? SalesOrder : PurchaseOrder).findOne({orderNum: orderNum}).populate('items.product');
 				for (i = 0; i < SOPO.items.length; i++) {
 					console.log(SOPO.items[i]);
 					// need to get the original quantity
@@ -1161,7 +1161,7 @@ const gpController = {
 					else update.incomingQty = -Number.parseInt(SOPO.items[i].qty);
 					await db.updateOne(Product, {itemCode: SOPO.items[i].product.itemCode},
 							{'$inc': update, '$push': {adjustmentHistory: adjustment}});
-					if (prod.quantity + (-Number.parseInt(SOPO[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
+					if (prod.quantity + (-Number.parseInt(SOPO.items[i].qty)) < prod.reorderPoint) await autoDraftPO(prod.itemCode);
 				}
 			}
 			// update status
