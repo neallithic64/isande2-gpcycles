@@ -759,7 +759,7 @@ const gpController = {
 				title: orderNum.substr(0, 2) === "SO" ? 'Deliver SO' : 'Receive PO',
 				name: req.session.user.name,
 				isSecretary: req.session.user.usertype === "Secretary",
-				isPO: orderNum.substr(0, 2) === "PO",
+				isSO: orderNum.substr(0, 2) === "SO",
 				isPartial: partial,
 				order: forceJSON(order)
 			});

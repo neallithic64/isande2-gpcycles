@@ -96,8 +96,9 @@
 						</div>
 
 						<div class="form-group mt-4 mb-0" style="display: flex; flex-direction: row; justify-content: flex-end; padding-bottom: 20px;">
-							{{#if isSO}} <button id="submitDeliverSOButton" type="button" style="margin-right: 10px;" class="btn btn-primary">Deliver</button>
-							{{else}} <button id="submitReceivePOButton" type="button" style="margin-right: 10px;" class="btn btn-primary">Receive</button> {{/if}}
+							<button id="submitDeliverSOButton" type="button" style="margin-right: 10px;" class="btn btn-primary">
+								{{#if isSO}} Deliver {{else}} Receive {{/if}}
+							</button>
 							<button type="button" class="btn btn-outline-secondary" onclick="window.history.back()">Cancel</button> <!-- go back to view -->
 						</div>
 					</form>
