@@ -5,21 +5,24 @@
 			<div class="container-fluid" style="padding: 0.75rem;">
 				<h1 class="mt-4" style="padding:0px 20px">Inventory Report</h1>
 				<div class="card mb-4" id="print">
-					<div class="card-header" style="display: flex; flex-direction: row; ">
-						<div style="margin-top: -10px; margin-right:20px">
-							<img id="logomain" src="/assets/img/Logo.png" >
+					<div class="card-header" style="display: flex; flex-direction: row; justify-content:space-between">
+						<div style="display:flex;">
+							<div style="margin-top: -10px; margin-right:20px">
+								<img id="logomain" src="/assets/img/Logo.png" >
+							</div>
+							<div style="display: flex; flex-direction: column; margin-top: 25px; ">
+								<span style="font-weight: 700; font-size:22px;"> GP Cycling Accessories Parts & Services </span>
+								<span> Lot 21 blk10 Levitown Marawoy Lipa City </span>
+								<span> Tel # (043) 774-2491 </span>
+							</div>
 						</div>
-						<div style="display: flex; flex-direction: column; margin-top: 25px; ">
-							<span style="font-weight: 700; font-size:22px;"> GP Cycling Accessories Parts & Services </span>
-							<span> Lot 21 blk10 Levitown Marawoy Lipa City </span>
-							<span> Tel # (043) 774-2491 </span>
+						<div style="display: flex; flex-direction: column; margin-top: 25px; margin-right:5px; content-align:right; text-align:right">
+							<span style="font-weight: 700; font-size:24px;"> Inventory Report </span>
+							<span style="font-weight: 700; font-size:20px;"> For the Month of FEBRUARY 2021 </span>
 						</div>
-						<div></div>
 					</div>
 					<div class="card-body">
-							
-						<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center; width:105%; margin:-20px;" >
-
+						<div class="card-header" style="display: inline-flex; vertical-align: middle; align-items: center; width:103%; margin:-20px;" >
 							<div style="width: 60%; vertical-align: middle; ">
 								<i class="fas fa-table mr-1"></i>
 
@@ -80,19 +83,6 @@
 										<th style="width: 10%;">Inv. Turnover</th>
 									</tr>
 								</thead>
-								{{!-- <tfoot>
-									<tr>
-										<th>Code</th>
-										<th>Product</th>
-										<th>Beginning Inventory</th>
-										<th>Purchases</th>
-										<th>Sales</th>
-										<th>Adjustment</th>
-										<th>Ending Inventory</th>
-										<th>COGS</th>
-										<th>Inventory Turnover</th>
-									</tr>
-								</tfoot> --}}
 								<tbody>
 									{{#each products}}
 									<tr id="row" class="{{{getGroupCode this.itemCode}}}">
