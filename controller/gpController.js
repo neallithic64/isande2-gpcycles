@@ -99,6 +99,7 @@ const gpController = {
 	getAllCustomers: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
+			let modCustomers = [], lastTrxDate, i, k, total, sortedSalesOrders;
 			let customers = await db.aggregate(Customer, [
 				{"$lookup": {
 					from: "SalesOrder",
@@ -106,23 +107,18 @@ const gpController = {
 					foreignField: "customer",
 					as: "SalesOrders"
 				}}
-			]), modCustomers = [], lastTrxDate, i, k, total, sortedSalesOrders;
-
-			console.log(customers);
-
+			]);
 			customers.forEach(e => {
 				total = 0.0;
 				if (e.SalesOrders.length > 0) {
 					sortedSalesOrders = e.SalesOrders.sort((a, b) => (new Date(b.dateOrdered)) - (new Date(a.dateOrdered)));
 					lastTrxDate = (new Date(sortedSalesOrders[0].dateOrdered)).toISOString().substr(0, 10);
-
 					for (i = 0; i < sortedSalesOrders.length; i++) {
 						for (k = 0; k < sortedSalesOrders[i].items.length; k++) {
 							total += Number.parseFloat(sortedSalesOrders[i].items[k].netPrice);
 						}
 					}
-				}
-				else {
+				} else {
 					lastTrxDate = '';
 					total = 0;
 				}
@@ -148,6 +144,7 @@ const gpController = {
 	getAllSuppliers: async function(req, res) {
 		if (!req.session.user) res.redirect('/login');
 		else {
+			let modSuppliers = [], lastTrxDate, i, k, total, sortedPurchOrders;
 			let suppliers = await db.aggregate(Supplier, [
 				{"$lookup": {
 					from: "PurchaseOrder",
@@ -155,23 +152,18 @@ const gpController = {
 					foreignField: "supplier",
 					as: "PurchOrders"
 				}}
-			]), modSuppliers = [], lastTrxDate, i, k, total, sortedPurchOrders;
-
-			console.log(suppliers);
-
+			]);
 			suppliers.forEach(e => {
 				total = 0;
 				if (e.PurchOrders.length > 0) {
 					sortedPurchOrders = e.PurchOrders.sort((a, b) => (new Date(b.dateOrdered)) - (new Date(a.dateOrdered)));
 					lastTrxDate = (new Date(sortedPurchOrders[0].dateOrdered)).toISOString().substr(0, 10);
-
 					for (i = 0; i < sortedPurchOrders.length; i++) {
 						for (k = 0; k < sortedPurchOrders[i].items.length; k++) {
 							total += ((sortedPurchOrders[i].items[k].qty * sortedPurchOrders[i].items[k].unitPrice) * (1 - (sortedPurchOrders[i].items[k].discount / 100)));
 						}
 					}
-				}
-				else {
+				} else {
 					lastTrxDate = '';
 					total = 0;
 				}
@@ -261,7 +253,6 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let purchaseorder = await PurchaseOrder.find({orderNum: req.params.ordNum}).populate("items.product supplier");
-			console.log(purchaseorder[0]);
 			res.render('viewpo', {
 				topNav: true,
 				sideNav: true,
@@ -314,14 +305,8 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
-			// additional joining from SO and PO collections
-			// unsure about this:
-			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
-			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
 			let salesorders = await db.findMany(SalesOrder, {});
 			let purchaseorders = await db.findMany(PurchaseOrder, {});
-			console.log(sales);
-			console.log(purch);
 			res.render('editproduct', {
 				topNav: true,
 				sideNav: true,
@@ -339,15 +324,8 @@ const gpController = {
 		if (!req.session.user) res.redirect('/login');
 		else {
 			let product = await Product.findOne({itemCode: req.params.code}).populate('supplier itemGroup');
-			// db.findOne(Product, {itemCode: req.params.code});
-			// additional joining from SO and PO collections
-			// unsure about this:
-			let sales = await db.findMany(SalesOrder, {items: {'product._id': product._id}});
-			let purch = await db.findMany(PurchaseOrder, {items: {'product._id': product._id}});
 			let salesorders = await db.findMany(SalesOrder, {});
 			let purchaseorders = await db.findMany(PurchaseOrder, {});
-			console.log(sales);
-			console.log(purch);
 			res.render('adjustproduct', {
 				topNav: true,
 				sideNav: true,
@@ -752,7 +730,6 @@ const gpController = {
 			let order = await (orderNum.substr(0, 2) === "SO" ? SalesOrder : PurchaseOrder)
 					.findOne({orderNum: orderNum})
 					.populate('items.product supplier customer');
-			// console.log(order);
 			res.render('drsopo', {
 				topNav: true,
 				sideNav: true,
@@ -964,9 +941,7 @@ const gpController = {
 				paymentDue: new Date(paymentDue),
 				expectedDelivery: new Date(expectedDelivery)
 			};
-			console.log(newPO);
 			await db.insertOne(PurchaseOrder, newPO);
-			
 			// update incoming qty of products
 			for (i = 0; i < items.length; i++) {
 				await db.updateOne(Product, {_id: items[i].product}, {'$inc': {incomingQty: Number.parseInt(items[i].qty)}});
@@ -1053,7 +1028,6 @@ const gpController = {
 		try {
 			let {orderNum, penalty, remarks} = req.body;
 			let i;
-			console.log(orderNum);
 			if (orderNum.substr(0, 2) === "PO") {
 				let order = await db.findOne(PurchaseOrder, {orderNum: orderNum});
 				await db.updateOne(PurchaseOrder,
@@ -1123,7 +1097,6 @@ const gpController = {
 				// partialItems is an array that contains objects
 				// {itemCode, qty}
 				for (i = 0; i < partialList.length; i++) {
-					console.log(partialList[i]);
 					// need to get the original quantity
 					let prod = await db.findOne(Product, {itemCode: partialList[i].prodCode});
 					// push to the adjustment history
@@ -1144,7 +1117,6 @@ const gpController = {
 				}
 			} else {
 				for (i = 0; i < SOPO.items.length; i++) {
-					console.log(SOPO.items[i]);
 					// need to get the original quantity
 					let prod = await db.findOne(Product, {itemCode: SOPO.items[i].product.itemCode});
 					// push to the adjustment history
